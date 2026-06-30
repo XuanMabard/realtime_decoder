@@ -42,7 +42,8 @@ class TrodesPositionMapper(base.PositionMapper):
         
         self._arm_ids = arm_ids
         self._arm_coords = arm_coords
-
+        self._segment = 0
+        self._segment_pos = 0
         self._seg_to_arm_map = {}
         for segment, arm in enumerate(self._arm_ids):
             self._seg_to_arm_map[segment] = arm
@@ -59,10 +60,21 @@ class TrodesPositionMapper(base.PositionMapper):
         """Maps data from a Trodes camera module datapoint into a
         position bin"""
 
-        segment = datapoint.segment
-        segment_pos = datapoint.position
-        
+        #NOTE(DS): catch the error, if the error happens, use the previous segment value
+        if (datapoint.segment != -1):
+            segment = datapoint.segment
+            segment_pos = datapoint.position    
+
+            self._segment = segment
+            self._segment_pos = segment_pos
+        else:
+            segment = self._segment
+            segment_pos = self._segment_pos    
+
+            print(f"ERROR has happened, segment: {-1}")    
+            
         arm = self._seg_to_arm_map[segment]
+
         bins = self._bin_info[arm]['bins']
         norm_edges = self._bin_info[arm]['norm_edges']
 

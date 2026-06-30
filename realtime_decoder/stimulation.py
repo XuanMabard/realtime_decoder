@@ -818,7 +818,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         ps_arm1 = prob[arm1_detection_start_bin:(arm1_end+1)].sum() #NOTE(DS): originally, 20-25
         ps_arm2 = prob[arm2_detection_start_bin:(arm2_end+1)].sum() #NOTE(DS): originally, 36-41
         ps_arm1_base = prob[arm1_start:arm1_detection_start_bin].sum()
-        ps_arm2_base = prob[arm1_start:arm2_detection_start_bin].sum()
+        ps_arm2_base = prob[arm2_start:arm2_detection_start_bin].sum()
             
         return ps_arm1, ps_arm2, ps_arm1_base, ps_arm2_base
 
