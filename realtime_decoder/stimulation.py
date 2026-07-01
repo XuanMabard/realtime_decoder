@@ -193,14 +193,14 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
 
         self._automatic_threshold_update = self._config['stimulation']['automatic_threshold_update']
         self._num_scm_each_arm_per_minute = self._config['stimulation']['num_each_arm_per_minute']
-        self._arm_1_posterior = [0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.26,0.27,
+        self._arm_1_posterior = [0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25001,0.25002,
                                     0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,
                                     0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,] #NOTE(DS): in case the buffer is too small
-        self._arm_2_posterior = [0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.26,0.27,
+        self._arm_2_posterior = [0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25001,0.25002,
                                     0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,
                                     0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,] #NOTE(DS): in case the buffer is too small
         self._initial_number_of_posterior_buffer_values = np.array(self._arm_1_posterior).shape[0]
-        print(f"initial number of posterior puffer values: {self._initial_number_of_posterior_buffer_values}")
+        print(f"initial number of posterior buffer values: {self._initial_number_of_posterior_buffer_values}")
         self._task_state_2_start_time = None
         self._timepoints_per_sec = self._config['sampling_rate']['spikes']
         self._elapsed_minutes = 0
@@ -1055,6 +1055,10 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
 
          #NOTE(DS): This is old version -- for SC92 that I determine the number of events/minutess
         desired_number_of_scm = np.ceil(self._num_scm_each_arm_per_minute * self._elapsed_minutes)
+        
+        #NOTE(DS): to make it even
+        #desired_number_of_scm = np.min([self._num_rewards[1],self._num_rewards[2]]) + diff_num_detected_event_threshold
+
 
         desired_number_of_scm_arm1 = desired_number_of_scm - self._arm_1_lower_threshold_but_many_spikes_event
         desired_number_of_scm_arm2 = desired_number_of_scm - self._arm_2_lower_threshold_but_many_spikes_event
