@@ -193,6 +193,8 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
 
         self._automatic_threshold_update = self._config['stimulation']['automatic_threshold_update']
         self._num_scm_each_arm_per_minute = self._config['stimulation']['num_each_arm_per_minute']
+        self._num_scm_each_arm_per_minute_max = self._config['stimulation']['num_each_arm_per_minute_max']
+        self._num_scm_each_arm_per_minute_min = self._config['stimulation']['num_each_arm_per_minute_min']
         self._arm_1_posterior = [0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25001,0.25002,
                                     0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,
                                     0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,] #NOTE(DS): in case the buffer is too small
@@ -1054,10 +1056,49 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
     def _update_scm_threshold(self):
 
          #NOTE(DS): This is old version -- for SC92 that I determine the number of events/minutess
-        desired_number_of_scm = np.ceil(self._num_scm_each_arm_per_minute * self._elapsed_minutes)
+        desired_number_of_scm_min = np.ceil(self._num_scm_each_arm_per_minute_min * self._elapsed_minutes)
+        desired_number_of_scm_max = np.ceil(self._num_scm_each_arm_per_minute_max * self._elapsed_minutes)
         
         #NOTE(DS): to make it even
-        #desired_number_of_scm = np.min([self._num_rewards[1],self._num_rewards[2]]) + diff_num_detected_event_threshold
+        desired_number_of_scm_match = np.min([self._num_rewards[1],self._num_rewards[2]])
+
+        print(f"elapsed minutes: {self._elapsed_minutes} minutes")
+        if (desired_number_of_scm_match < desired_number_of_scm_min):
+            desired_number_of_scm = desired_number_of_scm_min
+            print(f"using num_scm_per_minutes_each_arm_min: {self._num_scm_each_arm_per_minute_min}")
+            if self._elapsed_minutes > 10:
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("Number of remote representation is too low -- consider terminating!!!")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+                print("#############################################")
+        elif (desired_number_of_scm_match > desired_number_of_scm_max):
+            desired_number_of_scm = desired_number_of_scm_max
+            print(f"using num_scm_per_minutes_each_arm_max: {self._num_scm_each_arm_per_minute_max}")
+        else:
+            desired_number_of_scm = desired_number_of_scm_match
+            num_scm_each_arm_per_minute_match = np.round(desired_number_of_scm_match/ self._elapsed_minutes,3)
+            print(f"using num_scm_per_minutes_each_arm_match: {num_scm_each_arm_per_minute_match}")
 
 
         desired_number_of_scm_arm1 = desired_number_of_scm - self._arm_1_lower_threshold_but_many_spikes_event
