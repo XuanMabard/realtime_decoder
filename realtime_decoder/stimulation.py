@@ -159,7 +159,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
 
         self._center_well_dist = 0
         self._is_center_well_proximate = False
-
+        self._is_center_well_proximate_old = False
         # data variables we record to disk
         self._delay = (
             self._config['decoder']['time_bin']['delay_samples'] /
@@ -523,7 +523,21 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         # whether the animal is CURRENTLY near the center well. to be accurate,
         # it is important to minimize the decoder delay i.e.
         # config['decoder']['time_bin']['delay_samples']
+        self._is_center_well_proximate_old = deepcopy(self._is_center_well_proximate)
         self._is_center_well_proximate = self._center_well_dist <= self.p['max_center_well_dist']
+
+        if self._task_state == 2:
+            if self._is_center_well_proximate_old > self._is_center_well_proximate: #became not proximate
+                self._trodes_client.send_statescript_shortcut_message(39)
+                print(f"got out of the RR detection zone (not proximate)")
+                print(f"self._center_well_dist: {self._center_well_dist}")
+            elif self._is_center_well_proximate_old < self._is_center_well_proximate: #became proximate
+                self._trodes_client.send_statescript_shortcut_message(38)
+                print(f"got into the RR detection zone (proximate)")
+                print(f"self._center_well_dist: {self._center_well_dist}")
+
+
+
 
         ts = msg[0]['timestamp']
 
@@ -848,7 +862,8 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
             other_arm_thresh = self.p_replay['other_arm_threshold']
 
 
-
+            print(f"region_ps_buff[0]: {self._region_ps_buff[0]}")
+            print(f"region_ps_buff[1]: {self._region_ps_buff[1]}")
             #NOTE(DS): changed the code so that the target arm is at the tip of the arms
             avg_arm_ps_1 = np.mean(self._region_ps_buff[0],axis = 0) #NOTE(DS): target arm + whole center
             avg_arm_ps_2 = np.mean(self._region_ps_buff[1],axis = 0) #NOTE(DS): target arm + whole center
@@ -911,6 +926,9 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
 
             #NOTE(DS): changed the code so that the target arm is at the tip of the arms
             avg_target_arm_ps = np.mean(self._region_ps_buff[ind],axis = 0) #NOTE(DS): target arm + whole center
+            
+            avg_target_arm_ps_base = np.mean(self._region_ps_base_buff[ind],axis = 0) #NOTE(DS): base arm + whole center
+            
             avg_arm_ps = np.mean(self._arm_ps_buff[ind], axis=0) # NOTE(DS): the whole arm
 
             # arm 1 candidate event
@@ -926,6 +944,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                 np.all(avg_arm_ps[[0, 1]] < other_arm_thresh)
             ):
                 self._handle_replay(2, msg)
+
 
     def _handle_replay(self, arm, msg):
         """Handle a replay event for a non-instructive task"""
@@ -1164,6 +1183,8 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
 
     def _find_replay_instructive(self, msg):
         """Look for a potential replay event for an instructive task"""
+        
+
 
         ts = msg[0]['bin_timestamp_r']
         ind = self._dec_ind
