@@ -153,6 +153,96 @@ def write_text_file(textfile, val):
 
         f.write(str(val) + '\n')
 
+def parse_trial_timeline(textfile, last_offset):
+
+    """Parse newly appended lines of the trial-timeline text file written by
+    the python observer.
+
+    The file grows over the session; each line has the form
+        "{trial_no} INITIAL CENTER POKE at {wall_time}"
+        "{trial_no} SOUND CUE at {wall_time}"
+
+    Reading starts at ``last_offset`` (a byte offset) and consumes only lines
+    that are newline-terminated, leaving any partial trailing line for the next
+    call. This guards against reading a line the observer is mid-write on.
+
+    Returns ``(events, new_offset)`` where events is a list of
+    ``(trial_no, event_type, wall_time)`` tuples with event_type in
+    ``{'POKE', 'CUE'}``. A missing file yields ``([], last_offset)``."""
+
+    events = []
+
+    try:
+        with open(textfile, 'rb') as f:
+            fd = f.fileno()
+            fcntl.fcntl(fd, fcntl.F_SETFL, os.O_NONBLOCK)
+
+            f.seek(last_offset)
+            data = f.read()
+    except FileNotFoundError:
+        return events, last_offset
+
+    # only consume up to the last newline; keep any partial trailing line
+    nl = data.rfind(b'\n')
+    if nl == -1:
+        return events, last_offset
+
+    consumed = data[:nl + 1]
+    new_offset = last_offset + len(consumed)
+
+    for raw in consumed.decode(errors='ignore').splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+
+        tokens = line.split()
+        try:
+            trial_no = int(tokens[0])
+        except (IndexError, ValueError):
+            continue
+
+        if 'INITIAL CENTER POKE' in line:
+            event_type = 'POKE'
+        elif 'SOUND CUE' in line:
+            event_type = 'CUE'
+        else:
+            continue
+
+        # wall_time follows the final "at " token; optional / best-effort
+        wall_time = None
+        if ' at ' in line:
+            try:
+                wall_time = float(line.rsplit(' at ', 1)[1].split()[0])
+            except (IndexError, ValueError):
+                wall_time = None
+
+        events.append((trial_no, event_type, wall_time))
+
+    return events, new_offset
+
+def read_float_vector(textfile):
+
+    """Reads a text file of one float per line into a list of floats. A
+    missing or empty file yields an empty list. Used to seed the empirical
+    budget distribution from a previous session."""
+
+    values = []
+
+    try:
+        with open(textfile, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    values.append(float(line))
+                except ValueError:
+                    continue
+    except FileNotFoundError:
+        return values
+
+    return values
+
 def get_switch_time(taskfile):
 
     """Given a state script log file, finds out the time when

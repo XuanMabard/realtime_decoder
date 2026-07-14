@@ -1,3 +1,4 @@
+import os
 import time
 import numpy as np
 
@@ -186,6 +187,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         self._seed_mua_stats()
         self._init_stim_params()
         self._init_params()
+        self._init_trial_timer()
 
         #NOTE(DS): I am using this as a starting spatial bin for target location
         self._well_angle_range = self._config['stimulation']['head_direction']['well_angle_range']
@@ -468,6 +470,9 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                 msg[0]['timestamp']
             )
 
+        # arm-3 trial timer (3-arm task); checked once per position tick
+        self._update_trial_timer(msg)
+
         if self._pos_msg_ct % self.p['num_pos_disp'] == 0:
             print(
                 'position', self._current_pos,
@@ -478,6 +483,195 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                 'angle_well_1', np.around(self._angle_well_1, decimals=1),
                 'angle_well_2', np.around(self._angle_well_2, decimals=1)
             )
+
+    def _init_trial_timer(self):
+        """Initialize the arm-3 trial timer (3-arm task).
+
+        Each trial we sample a proximate-time "budget" from an empirical
+        distribution of prior proximate durations, accumulate the time the rat
+        is center-well-proximate, and send the go-cue shortcut (default scm 30)
+        once that budget is reached -- but only when target_location == 3. See
+        docs/3arm_plan.md. Defensive: if config keys/paths are absent the timer
+        stays disabled, so existing (non-3-arm) configs are unaffected."""
+
+        tt = self._config['stimulation'].get('trial_timer', {})
+        self._trial_timer_enabled = tt.get('enabled', False)
+
+        ds = self._config[self._config['datasource']]
+        self._trial_timeline_file = ds.get('task_trial_timeline', None)
+        self._target_location_file = ds.get('target_location_file', None)
+        seed_file = ds.get('trial_budget_seed_file', None)
+
+        if self._trial_timer_enabled and (
+            self._trial_timeline_file is None or
+            self._target_location_file is None
+        ):
+            print(
+                "WARNING: trial_timer enabled but task_trial_timeline / "
+                "target_location_file not set in config; disabling trial timer"
+            )
+            self._trial_timer_enabled = False
+
+        sr = self._config['sampling_rate']['spikes']
+        self._trial_cue_scm = tt.get('cue_scm', 30)
+        self._trial_resend_ls = int(sr * tt.get('resend_interval', 3.0))
+        self._trial_poll_points = tt.get('poll_points', 15)
+        self._trial_max_accum_gap = tt.get('max_accum_gap', 0.5)
+        self._trial_default_budget = tt.get('default_budget', 6.0)
+
+        # empirical distribution of proximate-time budgets (seconds), seeded
+        # from a prior-session file and grown as trials complete
+        self._empirical_budget_vector = []
+        if seed_file is not None:
+            self._empirical_budget_vector = utils.read_float_vector(seed_file)
+        if len(self._empirical_budget_vector) == 0:
+            self._empirical_budget_vector = [self._trial_default_budget]
+
+        # start reading the timeline at its current end so prior-session lines
+        # aren't replayed as phantom trials
+        self._trial_timeline_offset = 0
+        if (
+            self._trial_timeline_file is not None and
+            os.path.exists(self._trial_timeline_file)
+        ):
+            self._trial_timeline_offset = os.path.getsize(
+                self._trial_timeline_file
+            )
+
+        self._target_location = None
+
+        # per-trial state
+        self._trial_current_no = None
+        self._trial_active = False
+        self._trial_accumulated_prox = 0.0
+        self._trial_budget = 0.0
+        self._trial_last_ts = None
+        self._trial_cue_sent = False
+        self._trial_sound_cue_seen = False
+        self._trial_last_cue_send_ts = None
+
+        if self._trial_timer_enabled:
+            print(
+                f"Trial timer enabled: timeline={self._trial_timeline_file}, "
+                f"target={self._target_location_file}, "
+                f"seed vector n={len(self._empirical_budget_vector)}, "
+                f"cue_scm={self._trial_cue_scm}"
+            )
+
+    def _update_trial_timer(self, msg):
+        """Checked once per position tick. Accumulates the time the rat is
+        center-well-proximate (freezing when it leaves, resuming when it
+        returns); when that reaches the sampled budget and target_location == 3
+        it sends the go-cue shortcut, resending every resend_interval until the
+        observer confirms a SOUND CUE. Only active in task state 2."""
+
+        if not self._trial_timer_enabled or self._task_state != 2:
+            return
+
+        ts = msg[0]['timestamp']
+
+        # (1) poll the timeline + target-location files periodically
+        if self._pos_msg_ct % self._trial_poll_points == 0:
+            try:
+                self._target_location = utils.get_last_num(
+                    self._target_location_file
+                )
+            except Exception:
+                pass  # file missing / mid-write: keep the last known value
+
+            events, self._trial_timeline_offset = utils.parse_trial_timeline(
+                self._trial_timeline_file, self._trial_timeline_offset
+            )
+            for trial_no, kind, _wall_time in events:
+                if kind == 'POKE' and trial_no != self._trial_current_no:
+                    self._start_new_trial(trial_no)
+                elif kind == 'CUE' and trial_no == self._trial_current_no:
+                    self._trial_sound_cue_seen = True
+                    self._close_trial()
+
+        # (2) accumulate proximate time (freeze/resume stopwatch)
+        if self._trial_active:
+            if (
+                self._is_center_well_proximate and
+                self._trial_last_ts is not None
+            ):
+                delta = (ts - self._trial_last_ts) / self._timepoints_per_sec
+                if 0 < delta < self._trial_max_accum_gap:
+                    self._trial_accumulated_prox += delta
+            self._trial_last_ts = (
+                ts if self._is_center_well_proximate else None
+            )
+
+        # (3) fire the go-cue once proximate long enough (target must be arm 3)
+        if (
+            self._trial_active and not self._trial_cue_sent and
+            self._trial_accumulated_prox >= self._trial_budget and
+            self._target_location == 3
+        ):
+            self._trodes_client.send_statescript_shortcut_message(
+                self._trial_cue_scm
+            )
+            self._trial_cue_sent = True
+            self._trial_last_cue_send_ts = ts
+            print(
+                f"[trial {self._trial_current_no}] cue scm "
+                f"{self._trial_cue_scm} sent after "
+                f"{np.round(self._trial_accumulated_prox, 2)}s proximate "
+                f"(budget {np.round(self._trial_budget, 2)}s)"
+            )
+
+        # (4) resend until the observer confirms the SOUND CUE
+        if (
+            self._trial_cue_sent and not self._trial_sound_cue_seen and
+            (ts - self._trial_last_cue_send_ts) >= self._trial_resend_ls and
+            self._target_location == 3
+        ):
+            self._trodes_client.send_statescript_shortcut_message(
+                self._trial_cue_scm
+            )
+            self._trial_last_cue_send_ts = ts
+            print(
+                f"[trial {self._trial_current_no}] cue scm "
+                f"{self._trial_cue_scm} resent (no SOUND CUE ack)"
+            )
+
+    def _start_new_trial(self, trial_no):
+        """Begin a new arm-3 trial: close any stale open trial, sample a fresh
+        proximate-time budget, and reset the stopwatch/flags."""
+
+        # a new poke means any previous trial ended without a SOUND CUE ack
+        if self._trial_active:
+            self._close_trial()
+
+        self._trial_current_no = trial_no
+        self._trial_active = True
+        self._trial_accumulated_prox = 0.0
+        self._trial_budget = float(
+            np.random.choice(self._empirical_budget_vector)
+        )
+        self._trial_last_ts = None
+        self._trial_cue_sent = False
+        self._trial_sound_cue_seen = False
+        self._trial_last_cue_send_ts = None
+        print(
+            f"[trial {trial_no}] started; sampled budget "
+            f"{np.round(self._trial_budget, 2)}s "
+            f"(vector n={len(self._empirical_budget_vector)})"
+        )
+
+    def _close_trial(self):
+        """Close the current arm-3 trial: append the accumulated proximate time
+        to the empirical distribution (it grows across the session)."""
+
+        if not self._trial_active:
+            return
+        self._empirical_budget_vector.append(self._trial_accumulated_prox)
+        print(
+            f"[trial {self._trial_current_no}] closed; accumulated "
+            f"{np.round(self._trial_accumulated_prox, 2)}s proximate appended "
+            f"(vector n={len(self._empirical_budget_vector)})"
+        )
+        self._trial_active = False
 
     # NOTE(DS): I don't do head direction trial
     def _update_head_direction(self, msg):
@@ -526,18 +720,9 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         self._is_center_well_proximate_old = deepcopy(self._is_center_well_proximate)
         self._is_center_well_proximate = self._center_well_dist <= self.p['max_center_well_dist']
 
-        if self._task_state == 2:
-            if self._is_center_well_proximate_old > self._is_center_well_proximate: #became not proximate
-                self._trodes_client.send_statescript_shortcut_message(39)
-                print(f"got out of the RR detection zone (not proximate)")
-                print(f"self._center_well_dist: {self._center_well_dist}")
-            elif self._is_center_well_proximate_old < self._is_center_well_proximate: #became proximate
-                self._trodes_client.send_statescript_shortcut_message(38)
-                print(f"got into the RR detection zone (proximate)")
-                print(f"self._center_well_dist: {self._center_well_dist}")
-
-
-
+        # NOTE(DS): the arm-3 trial timer (_update_trial_timer) now owns
+        # proximity in the decoder, so we no longer send scm 38/39 to tell the
+        # statescript about proximity transitions.
 
         ts = msg[0]['timestamp']
 

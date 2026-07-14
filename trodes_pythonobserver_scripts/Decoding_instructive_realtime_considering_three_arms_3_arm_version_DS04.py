@@ -12,6 +12,11 @@ import datetime
 import time
 import copy
 
+# 3-arm timer: files read by the realtime decoder (see docs/3arm_plan.md).
+# Must match task_trial_timeline / target_location_file in the decoder config.
+TASK_TRIAL_TIMELINE = "/home/lorenlab/realtime_decoder/config/task_trial_timeline.txt"
+TARGET_LOCATION_FILE = "/home/lorenlab/realtime_decoder/config/target_location.txt"
+
 # V8pre_forage
 # visits to incorrect wells cause 5s lockout
 # exception is repeat visit to prior well (is ok, no lockout)
@@ -862,9 +867,13 @@ def send_target_location():
 	global number_max_trial
 	
 	print('sending target location to statescript')
-	print("SCQTMESSAGE: target_location = "+str(target_location_vec[trial_instructive%number_max_trial])+";\n")
+	target_location_value = target_location_vec[trial_instructive%number_max_trial]
+	print("SCQTMESSAGE: target_location = "+str(target_location_value)+";\n")
 	print("SCQTMESSAGE: disp(target_location);\n")
-	trial_instructive = trial_instructive +1 
+	# 3-arm timer: expose target_location to the realtime decoder (gates scm 30)
+	with open(TARGET_LOCATION_FILE, "a") as target_file:
+		target_file.write(str(target_location_value) + "\n")
+	trial_instructive = trial_instructive +1
 
 # called from statescript, when "TASKSTATE3" displayed
 def returnToCued():
@@ -1198,10 +1207,18 @@ def callback(line):
 	if line.find('NEW TRIAL') >=0:
 		startContentTrial()
 		ts2_center_initial_poke_timestamp.append(round(time.time(), 2))
-		
+		# 3-arm timer: tell the realtime decoder a trial's center poke occurred
+		trial_no = len(ts2_center_initial_poke_timestamp)
+		with open(TASK_TRIAL_TIMELINE, "a") as timeline_file:
+			timeline_file.write(str(trial_no) + " INITIAL CENTER POKE at " + str(ts2_center_initial_poke_timestamp[-1]) + "\n")
+
 	if line.find('start content trial of TARGET ARM') >=0:
 		sound_cue_time = round(time.time(), 2)
 		ts2_sound_cue_timestamp.append(sound_cue_time)
+		# 3-arm timer: acknowledge the sound cue fired for this trial
+		trial_no = len(ts2_center_initial_poke_timestamp)
+		with open(TASK_TRIAL_TIMELINE, "a") as timeline_file:
+			timeline_file.write(str(trial_no) + " SOUND CUE at " + str(sound_cue_time) + "\n")
 
 		if len(ts2_center_initial_poke_timestamp) > 0:
 			interval = sound_cue_time - ts2_center_initial_poke_timestamp[-1]

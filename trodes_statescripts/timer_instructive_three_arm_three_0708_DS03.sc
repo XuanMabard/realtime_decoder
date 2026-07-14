@@ -257,10 +257,10 @@ function 6 % ARM 2 shortcut message
 	end
 end;
 
-function 30 % ARM 3 shortcut message -- this is parallel to function 14 and 6, but it's not given by the realtime-- instead given by pythonobserver
+function 30 % ARM 3 shortcut message -- parallel to function 14 and 6; now sent by the realtime decoder's arm-3 trial timer
 	disp('short cut message at arm3')
 	if (trialtype == 1 && content_generation_avail == 1 && outer_reward_window_done == 1 && accept_scm == 1) do
-		if (target_location == 3 || target_location == 4) do %based on the target location
+		if (target_location == 3) do %based on the target location
 			target_location = 3
 			trigger(8)		
 		end
