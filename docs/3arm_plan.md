@@ -176,3 +176,12 @@ is provided for that test.
   prints to the decoder (`[proximity]`, `[trial timer]`, `[empirical dist]`),
   gated on `trial_timer.enabled`. StateScript DS03 `function 30` gate set to
   `== 3`. Pairing: DS09 observer + DS03 statescript.
+- **2026-07-14** — Started a new batch of 3-arm changes, gated behind a master
+  `stimulation.three_arm` flag (absent/false → 2-arm preserved unchanged).
+  Batch 1: `three_arm` flag added; empirical-dist print now shows
+  mean/var/min/max + the full vector; **timer-triggered** trial durations are
+  no longer appended to the empirical vector (only natural-cue trials, to avoid
+  self-bias); arm-3 timer cue print made salient (banner); proximity prints
+  gated on `three_arm`. Still pending: arm-3 detection (scm 35) + arm1/2
+  suppression, 2 s RR↔timer debounce, observer `target_arm_vec` fix, and saving
+  scm 30 + empirical distribution to the rec.

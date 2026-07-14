@@ -142,6 +142,7 @@ mua:
   # custom_std:
   #   1: 300
 stimulation:
+  three_arm: true          # master flag: enables all 3-arm decoder behavior (2-arm configs omit this)
   instructive: false
   shortcut_msg_on: true
   automatic_threshold_update : true

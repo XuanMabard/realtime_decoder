@@ -494,6 +494,10 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         docs/3arm_plan.md. Defensive: if config keys/paths are absent the timer
         stays disabled, so existing (non-3-arm) configs are unaffected."""
 
+        # master 3-arm flag: gates ALL 3-arm behavior. Absent/false in 2-arm
+        # configs, so the 2-arm version is preserved unchanged.
+        self._three_arm = self._config['stimulation'].get('three_arm', False)
+
         tt = self._config['stimulation'].get('trial_timer', {})
         self._trial_timer_enabled = tt.get('enabled', False)
 
@@ -565,7 +569,10 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         it sends the go-cue shortcut, resending every resend_interval until the
         observer confirms a SOUND CUE. Only active in task state 2."""
 
-        if not self._trial_timer_enabled or self._task_state != 2:
+        if (
+            not self._three_arm or not self._trial_timer_enabled or
+            self._task_state != 2
+        ):
             return
 
         ts = msg[0]['timestamp']
@@ -621,12 +628,14 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
             )
             self._trial_cue_sent = True
             self._trial_last_cue_send_ts = ts
+            print("-" * 70)
             print(
-                f"[trial {self._trial_current_no}] cue scm "
-                f"{self._trial_cue_scm} sent after "
+                f"----- ARM-3 TIMER CUE (target 3): trial "
+                f"{self._trial_current_no}, scm {self._trial_cue_scm} SENT after "
                 f"{np.round(self._trial_accumulated_prox, 2)}s proximate "
-                f"(budget {np.round(self._trial_budget, 2)}s)"
+                f"(budget {np.round(self._trial_budget, 2)}s) -----"
             )
+            print("-" * 70)
 
         # (4) resend until the observer confirms the SOUND CUE
         if (
@@ -673,13 +682,28 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
 
         if not self._trial_active:
             return
-        self._empirical_budget_vector.append(self._trial_accumulated_prox)
-        _vec = list(np.round(np.asarray(self._empirical_budget_vector), 2))
-        print(
-            f"[empirical dist] trial {self._trial_current_no} closed: appended "
-            f"{np.round(self._trial_accumulated_prox, 2)}s "
-            f"-> n={len(self._empirical_budget_vector)}, vector={_vec}"
-        )
+        dur = np.round(self._trial_accumulated_prox, 2)
+        # Only "natural" cue trials feed the empirical distribution. A trial whose
+        # cue was forced by the timer (scm 30) would just echo the sampled budget
+        # (self-biasing), so it is excluded -- as are trials that never got a cue.
+        if self._trial_sound_cue_seen and not self._trial_cue_sent:
+            self._empirical_budget_vector.append(self._trial_accumulated_prox)
+            _arr = np.round(np.asarray(self._empirical_budget_vector), 2)
+            print(
+                f"[empirical dist] trial {self._trial_current_no} closed: appended "
+                f"{dur}s -> n={len(_arr)}, mean={np.round(_arr.mean(), 2)}, "
+                f"var={np.round(_arr.var(), 2)}, min={_arr.min()}, max={_arr.max()}"
+            )
+            print(f"[empirical dist] vector={list(_arr)}")
+        else:
+            reason = (
+                "timer-triggered cue" if self._trial_cue_sent else "no sound cue"
+            )
+            print(
+                f"[empirical dist] trial {self._trial_current_no} closed: NOT "
+                f"appended ({reason}); accumulated {dur}s, "
+                f"n={len(self._empirical_budget_vector)} unchanged"
+            )
         self._trial_active = False
 
     # NOTE(DS): I don't do head direction trial
@@ -731,9 +755,9 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
 
         # NOTE(DS): scm 38/39 to the statescript were removed (the decoder now
         # owns proximity for the arm-3 timer). We still log proximity
-        # transitions for visibility during playback / validation, but only when
-        # the trial timer is enabled so 2-arm runs stay quiet.
-        if self._trial_timer_enabled and (
+        # transitions for visibility during playback / validation, but only in
+        # 3-arm mode so 2-arm runs stay quiet.
+        if self._three_arm and (
             self._is_center_well_proximate != self._is_center_well_proximate_old
         ):
             if self._is_center_well_proximate:
