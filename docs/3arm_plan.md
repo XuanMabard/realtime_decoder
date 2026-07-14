@@ -74,8 +74,16 @@ _(Decisions get logged here as we make them, with rationale.)_
 - StateScript: `timer_instructive_three_arm_three_0708_DS03.sc` — `function 30`
   is a clean external arm-3 shortcut (no internal timer). One edit: gate changed
   from `target_location == 3 || 4` to `== 3` only.
-- Observer: `..._3_arm_version_DS04.py` — appends the timeline lines and the
-  `target_location` integer to files (write side).
+- Observer: `..._3_arm_version_DS09.py` — built fresh from the known-good
+  `..._three_arms_DS08_.py` because DS04 caused **false trial starts** (DS04 had
+  rewired trial control: `NEXT_TRIAL`→`NEW TRIAL` for `startContentTrial`,
+  `trigger(16)`→`(8)`, and a `content_trial_time` gating change). DS09 keeps
+  DS08_'s trial control + `content_trial_time` logic/values intact and only adds:
+  arm-3 support (counters/orders/goals + `target_location_choices=[1,2,3]`,
+  3-arm `generate_list`, default `target_location_vec = vec3` so arm 3 is
+  targeted), and **observe-only** `NEW TRIAL` / `start content trial of TARGET
+  ARM` handlers that write the timeline file + the `target_location` integer
+  (they do NOT call `startContentTrial`). Pairs with the DS03 statescript.
 - Decoder: `realtime_decoder/stimulation.py` (`_init_trial_timer`,
   `_update_trial_timer`, `_start_new_trial`, `_close_trial`) + parsers in
   `realtime_decoder/utils.py` (`parse_trial_timeline`, `read_float_vector`).
@@ -161,3 +169,10 @@ is provided for that test.
   base = DS04; removed decoder scm 38/39; internal clock = neural timestamps.
   Implemented across `utils.py`, `stimulation.py`, the config, and the DS04
   observer. See "Final implemented design".
+- **2026-07-14** — Observer switched from DS04 to **DS09**: DS04 produced false
+  trial starts (its trial-control rewiring). DS09 = the working DS08_ base +
+  arm-3 support + arm-3 target generation (`vec3`) + observe-only timeline/target
+  file writes; DS08_'s `content_trial_time` logic/values kept. Added diagnostic
+  prints to the decoder (`[proximity]`, `[trial timer]`, `[empirical dist]`),
+  gated on `trial_timer.enabled`. StateScript DS03 `function 30` gate set to
+  `== 3`. Pairing: DS09 observer + DS03 statescript.
