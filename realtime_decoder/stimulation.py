@@ -573,15 +573,23 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         # (1) poll the timeline + target-location files periodically
         if self._pos_msg_ct % self._trial_poll_points == 0:
             try:
-                self._target_location = utils.get_last_num(
-                    self._target_location_file
-                )
+                new_target = utils.get_last_num(self._target_location_file)
+                if new_target != self._target_location:
+                    print(
+                        f"[trial timer] target_location -> {new_target}"
+                    )
+                    self._target_location = new_target
             except Exception:
                 pass  # file missing / mid-write: keep the last known value
 
             events, self._trial_timeline_offset = utils.parse_trial_timeline(
                 self._trial_timeline_file, self._trial_timeline_offset
             )
+            if events:
+                print(
+                    f"[trial timer] read {len(events)} timeline event(s): "
+                    f"{events}"
+                )
             for trial_no, kind, _wall_time in events:
                 if kind == 'POKE' and trial_no != self._trial_current_no:
                     self._start_new_trial(trial_no)
@@ -666,10 +674,12 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         if not self._trial_active:
             return
         self._empirical_budget_vector.append(self._trial_accumulated_prox)
+        _vec = np.round(np.asarray(self._empirical_budget_vector), 2)
         print(
-            f"[trial {self._trial_current_no}] closed; accumulated "
-            f"{np.round(self._trial_accumulated_prox, 2)}s proximate appended "
-            f"(vector n={len(self._empirical_budget_vector)})"
+            f"[empirical dist] trial {self._trial_current_no} closed: appended "
+            f"{np.round(self._trial_accumulated_prox, 2)}s "
+            f"-> n={len(self._empirical_budget_vector)}, "
+            f"min/mean/max={_vec.min()}/{np.round(_vec.mean(), 2)}/{_vec.max()}"
         )
         self._trial_active = False
 
@@ -720,9 +730,25 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         self._is_center_well_proximate_old = deepcopy(self._is_center_well_proximate)
         self._is_center_well_proximate = self._center_well_dist <= self.p['max_center_well_dist']
 
-        # NOTE(DS): the arm-3 trial timer (_update_trial_timer) now owns
-        # proximity in the decoder, so we no longer send scm 38/39 to tell the
-        # statescript about proximity transitions.
+        # NOTE(DS): scm 38/39 to the statescript were removed (the decoder now
+        # owns proximity for the arm-3 timer). We still log proximity
+        # transitions for visibility during playback / validation, but only when
+        # the trial timer is enabled so 2-arm runs stay quiet.
+        if self._trial_timer_enabled and (
+            self._is_center_well_proximate != self._is_center_well_proximate_old
+        ):
+            if self._is_center_well_proximate:
+                print(
+                    f"[proximity] ENTERED center-well zone "
+                    f"(dist {np.round(self._center_well_dist, 1)} <= "
+                    f"{self.p['max_center_well_dist']}), task_state {self._task_state}"
+                )
+            else:
+                print(
+                    f"[proximity] LEFT center-well zone "
+                    f"(dist {np.round(self._center_well_dist, 1)} > "
+                    f"{self.p['max_center_well_dist']}), task_state {self._task_state}"
+                )
 
         ts = msg[0]['timestamp']
 
