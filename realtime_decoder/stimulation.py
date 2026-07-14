@@ -674,12 +674,11 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         if not self._trial_active:
             return
         self._empirical_budget_vector.append(self._trial_accumulated_prox)
-        _vec = np.round(np.asarray(self._empirical_budget_vector), 2)
+        _vec = list(np.round(np.asarray(self._empirical_budget_vector), 2))
         print(
             f"[empirical dist] trial {self._trial_current_no} closed: appended "
             f"{np.round(self._trial_accumulated_prox, 2)}s "
-            f"-> n={len(self._empirical_budget_vector)}, "
-            f"min/mean/max={_vec.min()}/{np.round(_vec.mean(), 2)}/{_vec.max()}"
+            f"-> n={len(self._empirical_budget_vector)}, vector={_vec}"
         )
         self._trial_active = False
 
