@@ -221,3 +221,10 @@ is provided for that test.
   to 0.5 s also lengthens the minimum gap between arm1/arm2 replay detections
   (reward cadence) in RS64. Only remaining item: save scm 30 + empirical
   distribution to the rec.
+- **2026-07-15** — Added a big `!!!!! ... HELD ... !!!!!` banner: when the arm-3
+  cue (scm 30) is due (budget reached, target 3) but held off by the RR
+  debounce, print a prominent banner — throttled to once per RR (a *new* RR that
+  extends the hold re-prints; the same RR doesn't spam). Clarified mechanism: a
+  debounce-blocked cue is retried every tick and fires as soon as the lockout
+  clears (~0.5 s after the last RR); the 3 s resend only applies *after* scm 30
+  was sent without a SOUND CUE ack.

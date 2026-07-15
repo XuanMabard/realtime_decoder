@@ -553,6 +553,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         self._trial_cue_sent = False
         self._trial_sound_cue_seen = False
         self._trial_last_cue_send_ts = None
+        self._trial_cue_held_rr_ts = None  # last RR ts we announced a hold for
 
         if self._trial_timer_enabled:
             print(
@@ -626,21 +627,39 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         if (
             self._trial_active and not self._trial_cue_sent and
             self._trial_accumulated_prox >= self._trial_budget and
-            self._target_location == 3 and rr_clear
+            self._target_location == 3
         ):
-            self._trodes_client.send_statescript_shortcut_message(
-                self._trial_cue_scm
-            )
-            self._trial_cue_sent = True
-            self._trial_last_cue_send_ts = ts
-            print("-" * 70)
-            print(
-                f"----- ARM-3 TIMER CUE (target 3): trial "
-                f"{self._trial_current_no}, scm {self._trial_cue_scm} SENT after "
-                f"{np.round(self._trial_accumulated_prox, 2)}s proximate "
-                f"(budget {np.round(self._trial_budget, 2)}s) -----"
-            )
-            print("-" * 70)
+            if rr_clear:
+                self._trodes_client.send_statescript_shortcut_message(
+                    self._trial_cue_scm
+                )
+                self._trial_cue_sent = True
+                self._trial_last_cue_send_ts = ts
+                print("-" * 70)
+                print(
+                    f"----- ARM-3 TIMER CUE (target 3): trial "
+                    f"{self._trial_current_no}, scm {self._trial_cue_scm} SENT after "
+                    f"{np.round(self._trial_accumulated_prox, 2)}s proximate "
+                    f"(budget {np.round(self._trial_budget, 2)}s) -----"
+                )
+                print("-" * 70)
+            elif self._trial_cue_held_rr_ts != self._replay_event_ts:
+                # cue is due but a recent RR is holding it off; announce once per RR
+                self._trial_cue_held_rr_ts = self._replay_event_ts
+                since = np.round(
+                    (ts - self._replay_event_ts) / self._timepoints_per_sec, 2
+                )
+                wait = np.round(
+                    self._replay_event_ls / self._timepoints_per_sec, 2
+                )
+                print("!" * 70)
+                print(
+                    f"!!!!! ARM-3 TIMER CUE (trial {self._trial_current_no}) HELD: "
+                    f"budget reached but RR detected {since}s ago; waiting for the "
+                    f"{wait}s lockout to clear before sending scm "
+                    f"{self._trial_cue_scm} !!!!!"
+                )
+                print("!" * 70)
 
         # (4) resend until the observer confirms the SOUND CUE
         if (
@@ -675,6 +694,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         self._trial_cue_sent = False
         self._trial_sound_cue_seen = False
         self._trial_last_cue_send_ts = None
+        self._trial_cue_held_rr_ts = None  # last RR ts we announced a hold for
         print(
             f"[trial {trial_no}] started; sampled budget "
             f"{np.round(self._trial_budget, 2)}s "
