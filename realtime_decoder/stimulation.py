@@ -675,6 +675,14 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
             f"{np.round(self._trial_budget, 2)}s "
             f"(vector n={len(self._empirical_budget_vector)})"
         )
+        if self._target_location == 3:
+            print("=" * 70)
+            print(
+                f"===== ARM-3 TRIAL (target 3): trial {trial_no} timer armed; "
+                f"budget {np.round(self._trial_budget, 2)}s proximate "
+                f"-> scm {self._trial_cue_scm} ====="
+            )
+            print("=" * 70)
 
     def _close_trial(self):
         """Close the current arm-3 trial: append the accumulated proximate time
