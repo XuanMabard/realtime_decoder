@@ -204,3 +204,10 @@ is provided for that test.
   new DS04), 2 s RR↔timer debounce, and saving scm 30 + empirical dist to rec.
   NOTE: arm-3 detection was added only to the single-decoder branch (RS64); the
   2-decoder branch would need the same if ever used for a 3-arm task.
+- **2026-07-15** — Statescript: created
+  `timer_instructive_three_arm_three_0708_DS03_scm35.sc` (= our DS03 + a
+  disp-only `function 35` → `disp('ARM3 REMOTE REPRESENTATION DETECTED')`).
+  Chose a new filename rather than overwriting the old DS04 lineage. **Pairing
+  now: DS09 observer + `..._0708_DS03_scm35.sc` statescript.** This completes the
+  arm-3 detection item. Remaining: 2 s RR↔timer debounce; save scm 30 +
+  empirical distribution to the rec.
