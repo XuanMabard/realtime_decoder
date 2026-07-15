@@ -1032,7 +1032,8 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         '''
         self._arm_ps_buff[ind, self._dd_ind] = arm_probs
 
-        ps_arm1, ps_arm2, ps_arm1_base, ps_arm2_base = self._compute_region_probs(
+        (ps_arm1, ps_arm2, ps_arm3,
+         ps_arm1_base, ps_arm2_base, ps_arm3_base) = self._compute_region_probs(
             marginal_prob
         )
 
@@ -1045,6 +1046,11 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         self._region_ps_base_buff[ind, self._dd_ind, 0] = np.nan
         self._region_ps_base_buff[ind, self._dd_ind, 1] = ps_arm1_base
         self._region_ps_base_buff[ind, self._dd_ind, 2] = ps_arm2_base
+
+        # arm 3 region prob (3-arm task only; col 3 exists when arm_coords has 4)
+        if self._three_arm:
+            self._region_ps_buff[ind, self._dd_ind, 3] = ps_arm3
+            self._region_ps_base_buff[ind, self._dd_ind, 3] = ps_arm3_base
 
     def _compute_arm_probs(self, prob):
         """Compute the probability sum for each maze arm"""
@@ -1077,8 +1083,18 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         ps_arm2 = prob[arm2_detection_start_bin:(arm2_end+1)].sum() #NOTE(DS): originally, 36-41
         ps_arm1_base = prob[arm1_start:arm1_detection_start_bin].sum()
         ps_arm2_base = prob[arm2_start:arm2_detection_start_bin].sum()
-            
-        return ps_arm1, ps_arm2, ps_arm1_base, ps_arm2_base
+
+        # arm 3 (3-arm task only): tip = last within_angle_range bins of arm 3
+        ps_arm3 = np.nan
+        ps_arm3_base = np.nan
+        if self._three_arm and len(self.p['arm_coords']) > 3:
+            arm3_end = self.p['arm_coords'][3][1]
+            arm3_start = self.p['arm_coords'][3][0]
+            arm3_detection_start_bin = arm3_end - int(self._within_angle_range) + 1
+            ps_arm3 = prob[arm3_detection_start_bin:(arm3_end+1)].sum()
+            ps_arm3_base = prob[arm3_start:arm3_detection_start_bin].sum()
+
+        return ps_arm1, ps_arm2, ps_arm3, ps_arm1_base, ps_arm2_base, ps_arm3_base
 
     def _find_replay(self, msg):
         """Look for a replay event for a noninstructive task"""
@@ -1164,6 +1180,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
             #NOTE(DS): I want to write down for all possible event that goes beyond 0.3 but only trigger SCM if higher than thresholds
             arm1_thresh = 0.25
             arm2_thresh = 0.25
+            arm3_thresh = 0.25
             other_arm_thresh = self.p_replay['other_arm_threshold']
 
             #NOTE(DS): changed the code so that the target arm is at the tip of the arms
@@ -1173,19 +1190,39 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
             
             avg_arm_ps = np.mean(self._arm_ps_buff[ind], axis=0) # NOTE(DS): the whole arm
 
-            # arm 1 candidate event
-            if (
-                avg_target_arm_ps[1] > arm1_thresh and
-                np.all(avg_arm_ps[[0, 2]] < other_arm_thresh)
-            ):
-                self._handle_replay(1, msg)
+            if self._three_arm:
+                # 3-arm: each arm's other-region suppression also includes arm3;
+                # arm3 is detected on its own tip (region col 3), suppressing 0/1/2.
+                if (
+                    avg_target_arm_ps[1] > arm1_thresh and
+                    np.all(avg_arm_ps[[0, 2, 3]] < other_arm_thresh)
+                ):
+                    self._handle_replay(1, msg)
+                elif (
+                    avg_target_arm_ps[2] > arm2_thresh and
+                    np.all(avg_arm_ps[[0, 1, 3]] < other_arm_thresh)
+                ):
+                    self._handle_replay(2, msg)
+                elif (
+                    avg_target_arm_ps[3] > arm3_thresh and
+                    np.all(avg_arm_ps[[0, 1, 2]] < other_arm_thresh)
+                ):
+                    self._handle_replay(3, msg)
+            else:
+                # 2-arm: unchanged
+                # arm 1 candidate event
+                if (
+                    avg_target_arm_ps[1] > arm1_thresh and
+                    np.all(avg_arm_ps[[0, 2]] < other_arm_thresh)
+                ):
+                    self._handle_replay(1, msg)
 
-            # arm 2 candidate event
-            elif (
-                avg_target_arm_ps[2] > arm2_thresh and
-                np.all(avg_arm_ps[[0, 1]] < other_arm_thresh)
-            ):
-                self._handle_replay(2, msg)
+                # arm 2 candidate event
+                elif (
+                    avg_target_arm_ps[2] > arm2_thresh and
+                    np.all(avg_arm_ps[[0, 1]] < other_arm_thresh)
+                ):
+                    self._handle_replay(2, msg)
 
 
     def _handle_replay(self, arm, msg):
@@ -1197,17 +1234,22 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         # trodes criteria. all these events should therefore be recorded
         arm1_thresh = self.p_replay['primary_arm_threshold']
         arm2_thresh = self.p_replay['secondary_arm_threshold']
+        arm3_thresh = self.p_replay['secondary_arm_threshold']
         arm_thresh = None
         ind = self._dec_ind
         avg_target_arm_ps = np.mean(self._region_ps_buff[ind],axis = 0) #NOTE(DS): target arm + whole center
         if arm == 1:
-            above_threshold = avg_target_arm_ps[1] >= arm1_thresh 
+            above_threshold = avg_target_arm_ps[1] >= arm1_thresh
             target_posterior_prob = np.round(avg_target_arm_ps[1],3)
             arm_thresh = arm1_thresh
         elif arm == 2:
             above_threshold = avg_target_arm_ps[2] >= arm2_thresh
             target_posterior_prob = np.round(avg_target_arm_ps[2],3)
             arm_thresh = arm2_thresh
+        elif arm == 3:
+            above_threshold = avg_target_arm_ps[3] >= arm3_thresh
+            target_posterior_prob = np.round(avg_target_arm_ps[3],3)
+            arm_thresh = arm3_thresh
 
         self._replay_event_ts = msg[0]['bin_timestamp_r']
 
@@ -1276,8 +1318,14 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                     self._num_rewards[arm] += 1
                     self.send_interface.send_num_rewards(self._num_rewards)
                     print(f"Replay arm {arm} scm sent")
-                else: 
-                    print('ERROR: Replay arms are not 1 or 2. see stimulation.py') 
+                elif arm == 3:
+                    # arm-3 remote representation detected (3-arm task). scm 35 is
+                    # a marker only (statescript function 35 just disp's it); no
+                    # reward/cue. The arm-3 go cue comes from the timer (scm 30).
+                    self._trodes_client.send_statescript_shortcut_message(35)
+                    print(f"Replay arm 3 remote representation detected; scm 35 sent (marker)")
+                else:
+                    print('ERROR: Replay arms are not 1, 2, or 3. see stimulation.py')
                 print(f"num_rewards: arm1: {self._num_rewards[1]}, arm2: {self._num_rewards[2]}, total: {np.sum(self._num_rewards[1:])}")
                 #print(f"avg arm representation: {avg_arm_ps}")
                 print(f"---------------------------------")

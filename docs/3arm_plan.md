@@ -192,3 +192,15 @@ is provided for that test.
   integer line); `target_arm_vec` now appends 3 on `TARGET ARM3`. Remaining
   pending: arm-3 detection (scm 35) + arm1/2 suppression, 2 s RR↔timer debounce,
   saving scm 30 + empirical distribution to the rec.
+- **2026-07-15** — Arm-3 detection (decoder side): `_compute_region_probs`
+  computes arm3's tip prob (last `within_angle_range` bins of `arm_coords[3]`,
+  i.e. bins 51–56 of arm3's 12) when `three_arm`; `region_ps_buff` col 3 filled.
+  The single-decoder `_find_replay` branch (RS64 uses 1 decoder) gains an arm-3
+  candidate: `tip>0.25 and center/arm1/arm2 whole-arm <other_thresh` →
+  `_handle_replay(3)` → **scm 35** (detection marker only, no reward/cue — the
+  arm-3 go cue still comes from the timer's scm 30). Arm1/arm2 suppression now
+  also requires arm3 quiet. All gated on `three_arm`; the 2-arm branch is
+  byte-identical. Still pending: **statescript `function 35`** (disp-only, in a
+  new DS04), 2 s RR↔timer debounce, and saving scm 30 + empirical dist to rec.
+  NOTE: arm-3 detection was added only to the single-decoder branch (RS64); the
+  2-decoder branch would need the same if ever used for a 3-arm task.
