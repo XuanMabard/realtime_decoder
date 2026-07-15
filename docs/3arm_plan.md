@@ -211,3 +211,13 @@ is provided for that test.
   now: DS09 observer + `..._0708_DS03_scm35.sc` statescript.** This completes the
   arm-3 detection item. Remaining: 2 s RR↔timer debounce; save scm 30 +
   empirical distribution to the rec.
+- **2026-07-15** — RR↔timer debounce, unified with the existing replay lockout:
+  raised `stimulation.replay.event_lockout` 0.2 → 0.5 s, and the arm-3 timer cue
+  (scm 30, send + resend) is now held off within one `event_lockout` of the last
+  RR detection, reusing the replay detector's own `_replay_event_ts` /
+  `_replay_event_ls` (no separate variable or config key). Since every RR
+  candidate (>0.25) resets `_replay_event_ts` in `_handle_replay`, the timer
+  waits ≥ one lockout after any RR before firing. NOTE: raising `event_lockout`
+  to 0.5 s also lengthens the minimum gap between arm1/arm2 replay detections
+  (reward cadence) in RS64. Only remaining item: save scm 30 + empirical
+  distribution to the rec.

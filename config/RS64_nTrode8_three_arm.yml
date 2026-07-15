@@ -156,7 +156,7 @@ stimulation:
     enabled: true
     method: "posterior"
     target_arm: 1 #this does not need to be used
-    event_lockout: 0.2 # Minimum number of time imposed between successive candidate replay events. Units are in seconds.
+    event_lockout: 0.5 # Min time between successive candidate replay events (s). Also reused as the arm-3 timer cue (scm 30) debounce.
     sliding_window: 5 # number of decoder time bins 6ms * 5?
     primary_arm_threshold: 0.25
     secondary_arm_threshold: 0.25

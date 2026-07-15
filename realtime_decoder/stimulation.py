@@ -617,11 +617,16 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                 ts if self._is_center_well_proximate else None
             )
 
+        # arm-3 cue (scm 30) is held off within one event_lockout of any RR
+        # detection -- reuse the replay detector's own last-detection ts /
+        # lockout (_replay_event_ts / _replay_event_ls), so there is one debounce.
+        rr_clear = (ts - self._replay_event_ts) >= self._replay_event_ls
+
         # (3) fire the go-cue once proximate long enough (target must be arm 3)
         if (
             self._trial_active and not self._trial_cue_sent and
             self._trial_accumulated_prox >= self._trial_budget and
-            self._target_location == 3
+            self._target_location == 3 and rr_clear
         ):
             self._trodes_client.send_statescript_shortcut_message(
                 self._trial_cue_scm
@@ -641,7 +646,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         if (
             self._trial_cue_sent and not self._trial_sound_cue_seen and
             (ts - self._trial_last_cue_send_ts) >= self._trial_resend_ls and
-            self._target_location == 3
+            self._target_location == 3 and rr_clear
         ):
             self._trodes_client.send_statescript_shortcut_message(
                 self._trial_cue_scm
