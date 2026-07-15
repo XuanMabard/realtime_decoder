@@ -185,3 +185,10 @@ is provided for that test.
   gated on `three_arm`. Still pending: arm-3 detection (scm 35) + arm1/2
   suppression, 2 s RR↔timer debounce, observer `target_arm_vec` fix, and saving
   scm 30 + empirical distribution to the rec.
+- **2026-07-15** — Added a salient banner print when a target==3 trial's timer
+  is armed. Observer (DS09): writes a `# EPOCH START at <wall>` header to
+  `task_trial_timeline.txt` and `target_location.txt` at observer load (safe:
+  the timeline parser skips `#` lines, the target reader uses only the last
+  integer line); `target_arm_vec` now appends 3 on `TARGET ARM3`. Remaining
+  pending: arm-3 detection (scm 35) + arm1/2 suppression, 2 s RR↔timer debounce,
+  saving scm 30 + empirical distribution to the rec.

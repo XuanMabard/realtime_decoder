@@ -14,6 +14,18 @@ import random
 TASK_TRIAL_TIMELINE = "/home/lorenlab/realtime_decoder/config/task_trial_timeline.txt"
 TARGET_LOCATION_FILE = "/home/lorenlab/realtime_decoder/config/target_location.txt"
 
+# 3-arm timer: mark epoch start (observer module load) with wall time in each
+# decoder-read file so appended lines can be correlated in time. The '#' prefix
+# makes the decoder timeline parser skip it; the target-file reader only uses
+# the last integer line, so a header line is safe there too.
+_EPOCH_START_WALL = round(time.time(), 2)
+for _epoch_f in (TASK_TRIAL_TIMELINE, TARGET_LOCATION_FILE):
+    try:
+        with open(_epoch_f, "a") as _ehf:
+            _ehf.write("# EPOCH START at " + str(_EPOCH_START_WALL) + "\n")
+    except Exception:
+        pass
+
 # V8pre_forage
 # visits to incorrect wells cause 5s lockout
 # exception is repeat visit to prior well (is ok, no lockout)
@@ -1147,6 +1159,8 @@ def callback(line):
 		target_arm_vec.append(1)
 	if line.find("TARGET ARM2") >= 0:
 		target_arm_vec.append(2)
+	if line.find("TARGET ARM3") >= 0:
+		target_arm_vec.append(3)
 	if line.find("DISPLAY") >= 0:
 		print_decision_status()
 	if line.find("FREE TRIAL") >= 0:
