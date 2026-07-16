@@ -12,16 +12,19 @@ int choice_window = 1 % to have decision_timeout or not
 int accept_scm = 1 % whether i will use content shortcut message or not (0 if pretraining)
 
 int content_trial_time = 3000000				% first timer trial -timers
-int content_trials_time_limit = 3000000		% box time 2400000 = 40 min; 1800000 = 30min, 1200000 = 20min
-int content_trials_limit = 120 % if center port does not give reward all the time.
+int content_trials_time_limit = 3000000		% TS2 timelimit in ms; box time 2400000 = 40 min; 1800000 = 30min, 1200000 = 20min
+int content_trials_limit = 80              % TS2 trial limit; if center port does not give reward all the time.
 
 
-int beep_delay = 0
+int beep_delay = 0                  % delay between detection of RR and sound cue in ms
+
+int lockoutPeriod_timeout= 0 	    % Punishment; length of lockout after not going to the outer arm after a beep
+int lockoutPeriod_centerReward = 0  %(DS) if the BEEP sound happens right after the rat started to consume reward, it won't react
+
+%Reward pump duration in ms
 int deliverPeriodBox= 300			% how long to deliver the reward at back/center, 100 uL
 int deliverPeriodBox_content = 300	% milk delivery time for content trials, 100 uL
 int deliverPeriodOuter= 400   		% how long to deliver the reward at outer wells, 150 uL -- if 400; reduced
-int lockoutPeriod_timeout= 10000 			% length of lockout after not going to the outer arm after a beep
-int lockoutPeriod_centerReward = 0  %(DS) if the BEEP sound happens right after the rat started to consume reward, it won't react
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
 int rewardWell = 0
@@ -218,7 +221,6 @@ end;
 function 16 
 	%disp('start timer trial') %NOTE(DS): commented out in 2026-06
 	trigger(8)
-
 end;
 
 
@@ -326,7 +328,7 @@ callback portin[7] up % center well
 				decision_timeout = 0 % if the rat barely missed the reward window, then there's no lockout
 
 
-			% timeout -- if the rat does not do decision the
+			% timeout -- if the rat does not do decision
 			else if (decision_timeout == 1 ) do 
 				do in lockoutPeriod_timeout
 					trigger(18)
