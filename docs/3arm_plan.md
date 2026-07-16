@@ -169,6 +169,13 @@ prints; `_find_replay` uses the 2-arm branch), `trial_timer.enabled: false`, the
 track minus arm3), and `event_lockout` back to 0.2. All RS64 hardware settings
 are unchanged. The 2-arm observer only needs to write `taskstate.txt`.
 
+## Change Log — later note
+
+- **2026-07-15** — The `[proximity] ENTERED/LEFT` transition print now shows in
+  **both** 2-arm and 3-arm modes (ungated from `three_arm`). The timer /
+  `[empirical dist]` / `[trial timer]` prints remain 3-arm-only (they live inside
+  the timer path, which only runs when `three_arm`).
+
 ## Change Log
 
 - **2026-07-13** — File created with initial 8-point plan from Donghoon.

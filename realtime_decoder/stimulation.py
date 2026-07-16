@@ -788,11 +788,9 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
 
         # NOTE(DS): scm 38/39 to the statescript were removed (the decoder now
         # owns proximity for the arm-3 timer). We still log proximity
-        # transitions for visibility during playback / validation, but only in
-        # 3-arm mode so 2-arm runs stay quiet.
-        if self._three_arm and (
-            self._is_center_well_proximate != self._is_center_well_proximate_old
-        ):
+        # transitions for visibility during playback / validation, in BOTH
+        # 2-arm and 3-arm modes.
+        if self._is_center_well_proximate != self._is_center_well_proximate_old:
             if self._is_center_well_proximate:
                 print(
                     f"[proximity] ENTERED center-well zone "
