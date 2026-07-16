@@ -157,6 +157,18 @@ is provided for that test.
 - [x] Clock → wall-clock `time.time()`.
 - [x] Need a new line parser for `"{TRIAL_NO} EVENT at {TIME}"` (get_last_num is
       integer-only).
+## 2-arm config (preserving the 2-arm version)
+
+`config/RS64_nTrode8_two_arm.yml` runs the 2-arm version on the RS64 rig. It is
+the 3-arm config with: `stimulation.three_arm: false` (the master flag — turns
+off ALL 3-arm decoder behavior: timer, arm-3 detection/scm 35, debounce, extra
+prints; `_find_replay` uses the 2-arm branch), `trial_timer.enabled: false`, the
+3-arm timer file paths removed (decoder reads only `taskstate.txt`),
+`encoder.position` set to the 2-arm track geometry (`arm_ids [0,1,2]`,
+`arm_coords [[0,8],[13,24],[29,40]]`, 41 bins — matches SC85 and the RS64 3-arm
+track minus arm3), and `event_lockout` back to 0.2. All RS64 hardware settings
+are unchanged. The 2-arm observer only needs to write `taskstate.txt`.
+
 ## Change Log
 
 - **2026-07-13** — File created with initial 8-point plan from Donghoon.
