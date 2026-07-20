@@ -84,6 +84,20 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         ]
         is_active_labels = [f'is_active_{rtrode}' for rtrode in rtrodes]
 
+        # 3-arm only: a dedicated record for arm-3 timer events (cue sent/resent
+        # + trial close, which carries the empirical proximate-time value).
+        # Registered ONLY when three_arm, so the 2-arm rec format/header is
+        # unchanged. event_type: 0=cue_sent, 1=cue_resent, 2=trial_closed.
+        _arm3_ids = []
+        _arm3_labels = []
+        _arm3_formats = []
+        if config['stimulation'].get('three_arm', False):
+            _arm3_ids = [binary_record.RecordIDs.STIM_ARM3_TIMER]
+            _arm3_labels = [[
+                'timestamp', 'trial_no', 'event_type', 'accumulated_prox',
+                'budget', 'target_location', 'sound_cue_seen', 'cue_sent']]
+            _arm3_formats = ['qiiddi??']
+
         super().__init__(
             rank=rank,
             rec_ids=[
@@ -92,7 +106,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                 binary_record.RecordIDs.STIM_RIPPLE_DETECTED,
                 binary_record.RecordIDs.STIM_RIPPLE_END,
                 binary_record.RecordIDs.STIM_RIPPLE_EVENT
-            ],
+            ] + _arm3_ids,
             rec_labels=[
                 ['bin_timestamp_l', 'bin_timestamp_r', 'shortcut_message_sent',
                  'delay', 'velocity', 'mapped_pos', 
@@ -118,7 +132,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                  'trigger_trode_end', 'ripple_type', 'is_consensus',
                  'num_above_thresh', 'shortcut_message_sent'] +
                  ripple_ts_labels + is_active_labels
-            ],
+            ] + _arm3_labels,
             rec_formats=[
                 'qq?ddddddddiiiddid?qdd??????II' +
                 '?'*len(burst_labels) +
@@ -133,7 +147,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                 'q10s?ii?',
                 'q10s?ii',
                 'qqii10s?i?' + 'q'*len(ripple_ts_labels) + '?'*len(is_active_labels)
-            ],
+            ] + _arm3_formats,
             send_interface=StimDeciderSendInterface(comm, rank, config),
             manager_label='state'
         )
@@ -522,6 +536,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
         self._trial_poll_points = tt.get('poll_points', 15)
         self._trial_max_accum_gap = tt.get('max_accum_gap', 0.5)
         self._trial_default_budget = tt.get('default_budget', 6.0)
+        self._num_arm3_detections = 0  # count of arm-3 remote-rep detections (scm 35)
 
         # empirical distribution of proximate-time budgets (seconds), seeded
         # from a prior-session file and grown as trials complete
@@ -600,10 +615,10 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                 )
             for trial_no, kind, _wall_time in events:
                 if kind == 'POKE' and trial_no != self._trial_current_no:
-                    self._start_new_trial(trial_no)
+                    self._start_new_trial(trial_no, ts)
                 elif kind == 'CUE' and trial_no == self._trial_current_no:
                     self._trial_sound_cue_seen = True
-                    self._close_trial()
+                    self._close_trial(ts)
 
         # (2) accumulate proximate time (freeze/resume stopwatch)
         if self._trial_active:
@@ -643,6 +658,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                     f"(budget {np.round(self._trial_budget, 2)}s) -----"
                 )
                 print("-" * 70)
+                self._write_arm3_timer_record(ts, 0)  # 0 = cue sent
             elif self._trial_cue_held_rr_ts != self._replay_event_ts:
                 # cue is due but a recent RR is holding it off; announce once per RR
                 self._trial_cue_held_rr_ts = self._replay_event_ts
@@ -675,14 +691,15 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                 f"[trial {self._trial_current_no}] cue scm "
                 f"{self._trial_cue_scm} resent (no SOUND CUE ack)"
             )
+            self._write_arm3_timer_record(ts, 1)  # 1 = cue resent
 
-    def _start_new_trial(self, trial_no):
+    def _start_new_trial(self, trial_no, ts):
         """Begin a new arm-3 trial: close any stale open trial, sample a fresh
         proximate-time budget, and reset the stopwatch/flags."""
 
         # a new poke means any previous trial ended without a SOUND CUE ack
         if self._trial_active:
-            self._close_trial()
+            self._close_trial(ts)
 
         self._trial_current_no = trial_no
         self._trial_active = True
@@ -709,7 +726,7 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
             )
             print("=" * 70)
 
-    def _close_trial(self):
+    def _close_trial(self, ts):
         """Close the current arm-3 trial: append the accumulated proximate time
         to the empirical distribution (it grows across the session)."""
 
@@ -737,7 +754,28 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                 f"appended ({reason}); accumulated {dur}s, "
                 f"n={len(self._empirical_budget_vector)} unchanged"
             )
+        self._write_arm3_timer_record(ts, 2)  # 2 = trial closed
         self._trial_active = False
+
+    def _write_arm3_timer_record(self, ts, event_type):
+        """Log an arm-3 timer event to the STIM_ARM3_TIMER rec (3-arm only).
+        event_type: 0=cue sent, 1=cue resent, 2=trial closed. On close,
+        accumulated_prox is the trial's proximate-time value (it's the empirical
+        sample exactly when sound_cue_seen and not cue_sent)."""
+        if not self._three_arm:
+            return
+        target = self._target_location if self._target_location is not None else -1
+        self.write_record(
+            binary_record.RecordIDs.STIM_ARM3_TIMER,
+            int(ts),
+            int(self._trial_current_no) if self._trial_current_no is not None else -1,
+            int(event_type),
+            float(self._trial_accumulated_prox),
+            float(self._trial_budget),
+            int(target),
+            bool(self._trial_sound_cue_seen),
+            bool(self._trial_cue_sent),
+        )
 
     # NOTE(DS): I don't do head direction trial
     def _update_head_direction(self, msg):
@@ -1344,12 +1382,18 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
                 elif arm == 3:
                     # arm-3 remote representation detected (3-arm task). scm 35 is
                     # a marker only (statescript function 35 just disp's it); no
-                    # reward/cue. The arm-3 go cue comes from the timer (scm 30).
+                    # reward/cue -- the arm-3 go cue comes from the timer (scm 30).
+                    # Counted separately (NOT in _num_rewards) so it doesn't shift
+                    # the arm1/arm2 threshold-tuning cadence below.
                     self._trodes_client.send_statescript_shortcut_message(35)
+                    self._num_arm3_detections += 1
                     print(f"Replay arm 3 remote representation detected; scm 35 sent (marker)")
                 else:
                     print('ERROR: Replay arms are not 1, 2, or 3. see stimulation.py')
-                print(f"num_rewards: arm1: {self._num_rewards[1]}, arm2: {self._num_rewards[2]}, total: {np.sum(self._num_rewards[1:])}")
+                if self._three_arm:
+                    print(f"num_rewards: arm1: {self._num_rewards[1]}, arm2: {self._num_rewards[2]}, total: {np.sum(self._num_rewards[1:])}; arm3 remote-rep detections (scm 35): {self._num_arm3_detections}")
+                else:
+                    print(f"num_rewards: arm1: {self._num_rewards[1]}, arm2: {self._num_rewards[2]}, total: {np.sum(self._num_rewards[1:])}")
                 #print(f"avg arm representation: {avg_arm_ps}")
                 print(f"---------------------------------")
                 print(f" ")

@@ -171,6 +171,24 @@ are unchanged. The 2-arm observer only needs to write `taskstate.txt`.
 
 ## Change Log — later note
 
+- **2026-07-16** — The `num_rewards` print now also shows arm-3 remote-rep
+  detections in 3-arm mode, tracked in a separate `_num_arm3_detections` counter
+  (NOT `_num_rewards`, to keep the arm1/arm2 threshold-tuning cadence — which
+  keys off `np.sum(_num_rewards[1:])` — unchanged). Confirmed arm-3 detections
+  are already saved to the existing `STIM_MESSAGE` record (`arm=3`, and
+  `region_ps_buff` col 3), so no new record type is needed for them. Empirical
+  distribution is 3-arm-only (timer-driven); it has no meaning in 2-arm (no
+  trial-start/sound-cue files there).
+- **2026-07-20** — Rec-save (task 12): added `RecordIDs.STIM_ARM3_TIMER` (id
+  17), registered **only when `three_arm`** so 2-arm rec files/header are
+  unchanged. Written on each timer cue **sent** (`event_type` 0) / **resent**
+  (1) and on **trial close** (2). Fields: `timestamp, trial_no, event_type,
+  accumulated_prox, budget, target_location, sound_cue_seen, cue_sent`. This
+  captures both the scm-30 timer triggering AND the empirical proximate-time
+  value (close rows with `sound_cue_seen and not cue_sent` are the empirical
+  samples). NOTE: the `rec_merged` parser must handle record id 17 — fine if it
+  reads the header schema; otherwise add id 17 to its list.
+
 - **2026-07-15** — The `[proximity] ENTERED/LEFT` transition print now shows in
   **both** 2-arm and 3-arm modes (ungated from `three_arm`). The timer /
   `[empirical dist]` / `[trial timer]` prints remain 3-arm-only (they live inside
