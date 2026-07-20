@@ -30,3 +30,9 @@ surface assumptions and what's uncertain, explain non-obvious logic back rather
 than expecting a full line-by-line read, and end substantive changes with a
 short "check these N things" summary (highest-leverage spots + a verification
 step).
+
+## Git
+
+When a push is rejected because the branch diverged from origin, prefer
+`git pull` (merge) then push — do not rebase unless asked. Conflicts are
+unlikely since this branch's pushes usually touch different files.
