@@ -1014,7 +1014,7 @@ def callback(line):
 		replay_arm = int(replay_arm[1])
 		print('replay arm from callback', replay_arm)
 	# to start next content trial based on function 18 in statescript
-	if line.find("CURRENT BEEP") >=0:
+	if line.find("Timer ends") >=0:
 		n_th_BEEP = n_th_BEEP + 1
 	if line.find("NEXT_TRIAL") >= 0:
 		startContentTrial()
@@ -1112,7 +1112,7 @@ def callback(line):
 	
 	
 	
-	if line.find("FUTURE BEEP") >=0:
+	if line.find("Timer starts") >=0:
 		n_generated_future_BEEP = n_generated_future_BEEP + 1
 		print("SCQTMESSAGE: trigger(5);\n")
 	if line.find("DECISION TIMEOUT") >=0:

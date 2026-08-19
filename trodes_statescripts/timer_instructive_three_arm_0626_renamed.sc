@@ -244,12 +244,12 @@ function 18
 		content_generation_avail = 1 % this variable is for content trials
 		%disp(content_generation_avail)
 	end
-	disp('FUTURE BEEP')
+	disp('Timer starts')
 	disp(timer)
 	do in timer
-		disp('CURRENT BEEP')
+		disp('Timer ends')
 		if (wrong_outer_visit == 0 && centerRewardReady == 0 && decision_timeout ==0 && reward_available_out_if_poke == 0 && content_generation_avail == 1) do
-			disp('BEEP READY')
+			disp('2nd Centerpoke ready')
 			reward_available_out_if_poke = 1
 		end
 	end
