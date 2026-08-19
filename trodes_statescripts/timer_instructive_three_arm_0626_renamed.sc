@@ -22,8 +22,8 @@ int lockoutPeriod_timeout= 0 	    % Punishment; length of lockout after not goin
 int lockoutPeriod_centerReward = 0  %(DS) if the BEEP sound happens right after the rat started to consume reward, it won't react
 
 %Reward pump duration in ms
-int RewardDelivery_duration_center_TS1= 300			% how long to deliver the reward at back/center, 100 uL ; RENAMED deliverPeriodBox -> RewardDelivery_duration_center_TS1
-int RewardDelivery_duration_center_TS2 = 300	% milk delivery time for content trials, 100 uL ; RENAMED deliverPeriodBox_content -> RewardDelivery_duration_center_TS2
+int RewDelivery_dur_center_TS1= 300			% how long to deliver the reward at back/center, 100 uL ; RENAMED deliverPeriodBox -> RewDelivery_dur_center_TS1 (shortened from RewardDelivery_duration_center_TS1, >30 char statescript limit)
+int RewDelivery_dur_center_TS2 = 300	% milk delivery time for content trials, 100 uL ; RENAMED deliverPeriodBox_content -> RewDelivery_dur_center_TS2 (shortened from RewardDelivery_duration_center_TS2, >30 char statescript limit)
 int RewardDelivery_duration_Arms= 400   		% how long to deliver the reward at outer wells, 150 uL -- if 400; reduced ; RENAMED deliverPeriodOuter -> RewardDelivery_duration_Arms
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
@@ -122,14 +122,14 @@ int waslock = 0						% flag for lockout state
 function 1
 	if taskstate == 1 do
 		portout[port_to_reward]=1 % reward
-		do in RewardDelivery_duration_center_TS1
+		do in RewDelivery_dur_center_TS1
 			portout[port_to_reward]=0 % reset reward
 		end
 
 	else if taskstate == 2 do
 		%disp('content reward at back')
 		portout[port_to_reward]=1 % reward
-		do in RewardDelivery_duration_center_TS2
+		do in RewDelivery_dur_center_TS2
 			portout[port_to_reward]=0 % reset reward
 		end
 	end
