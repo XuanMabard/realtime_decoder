@@ -276,14 +276,14 @@ def chooseGoal():
 	global arm1_order8
 	global arm2_order8
 	global ts1_reward_prob
-	global mean_beep_interval
+	global timer_mean
 	# taskstate ==1 is cued visits to each outer arm
 	if taskState == 1:
 
 		# trial 0: set reward order for each arm
 		if cued_trial_counter == 0: # (DS) reward probability during arm visits
 			# 2 of 4 arm visits rewarded - ranint(6)
-			print("SCQTMESSAGE: timer = "+str(mean_beep_interval)+";\n")
+			print("SCQTMESSAGE: timer = "+str(timer_mean)+";\n")
 			
 			if ts1_reward_prob == 50:
 				order_options = np.array([[1,1,0,0],[1,0,1,0],[1,0,0,1],[0,1,1,0],[0,1,0,1],[0,0,1,1],
@@ -788,7 +788,7 @@ def lockend():
 # called from statescript, when "NEXT_TRIAL" displayed
 def startContentTrial():
 	global trialtype
-	global mean_beep_interval
+	global timer_mean
 	global target_location_vec
 	global trial_instructive
 	global currWell
@@ -812,7 +812,7 @@ def startContentTrial():
 
 	# original line for trial length
 	# 30 here is for 30 seconds
-	content_trial_time = int((1 + np.random.exponential(scale= mean_beep_interval, size=None)))
+	content_trial_time = int((1 + np.random.exponential(scale= timer_mean, size=None)))
 	if content_trial_time > timer_max: 
 		content_trial_time = timer_max
 	if content_trial_time < timer_min:
@@ -971,7 +971,7 @@ def callback(line):
 	global target_location_vec2
 	global stream # for beep sound 
 	global p  # for beep sound
-	global mean_beep_interval
+	global timer_mean
 	global timer_max
 	global timer_min
 	global correct_trial_bit
@@ -1134,10 +1134,10 @@ def callback(line):
 		value = int(re.findall(r'\d+',line)[1])
 		print(type(value))
 		print(value)
-		mean_beep_interval = int(value) #ms         
+		timer_mean = int(value) #ms         
 		timer_max = value + 8000             
 		timer_min = value - 8000
-		print(mean_beep_interval)
+		print(timer_mean)
 		print(timer_max)
 		print(timer_min)
 	if line.find('reward_center_during_TS2') >=0:
@@ -1275,7 +1275,7 @@ data = struct.pack("%dh"%(len(signal)), *list(signal))
 # (DS) variables that I can change 
 ##############################################################################################################################
 # TS2 timer variable
-mean_beep_interval = 3000 #ms         # timer average; interval between beeps -- 20 is for final pretraining, reduce it to 5 for testing;
+timer_mean = 3000 #ms         # timer average; interval between beeps -- 20 is for final pretraining, reduce it to 5 for testing;
 timer_max = 7000 #ms             # timer max;  maximum timer between trial is 40s
 timer_min = 1000 #ms              # timer min;
 
