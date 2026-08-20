@@ -6,7 +6,7 @@
 
 % PARAMETERS to change
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-int TrialforDecision = -1 %(DS) from this trial, start decision trial. for guided, make it 100; for decision, make it -1
+int TrialforDecision = -1 %(DS) from this trial, start turning on both outer arm LED. for visually guided, make it 100; for content discrimination with decision, make it -1
 int reward_window_outer_arm = 10000 % (DS) window of outer arm reward / decision time out time interval
 int choice_window = 1 % to have decision_timeout or not
 int accept_scm = 1 % whether i will use content shortcut message or not (0 if pretraining)
