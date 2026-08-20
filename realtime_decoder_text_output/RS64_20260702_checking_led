@@ -1,0 +1,68 @@
+[mpiexec@westerlies] Sending Ctrl-C to processes as requested
+[mpiexec@westerlies] Press Ctrl-C again to force abort
+Rank 0 past barrier
+Rank 1 past barrier
+initial number of posterior buffer values: 74
+Rank 2 past barrier
+state_labels: ['state', ' ', 'thresh']
+Rank 3 past barrier
+Rank 4 past barrier
+Rank 5 past barrier
+Rank 6 past barrier
+Rank 7 past barrier
+Rank 8 past barrier
+Rank 9 past barrier
+Rank 10 past barrier
+Rank 11 past barrier
+Rank 12 past barrier
+Rank 13 past barrier
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+x_env.shape = (15, 10)
+num_signals: 10
+n_spikes_current_in_buffer in encoder 27: 0n_spikes_current_in_buffer in encoder 33: 0
+n_spikes_current_in_buffer in encoder 18: 0
+n_spikes_current_in_buffer in encoder 30: 0
+n_spikes_current_in_buffer in encoder 36: 0
+
+n_spikes_current_in_buffer in encoder 8: 0
+n_spikes_current_in_buffer in encoder 12: 0
+n_spikes_current_in_buffer in encoder 2: 0n_spikes_current_in_buffer in encoder 5: 0
+
+n_spikes_current_in_buffer in encoder 21: 0
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 31.0 velocity 0.0 segment 2 raw_x 700.0 raw_y 680.0 angle -110.9 angle_well_1 40.3 angle_well_2 164.2
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 3.0 velocity 1.27 segment 0 raw_x 702.0 raw_y 680.0 angle -0.0 angle_well_1 61.8 angle_well_2 134.8
+position 0.0 velocity 61.7 segment 0 raw_x 700.0 raw_y 680.0 angle 125.48 angle_well_1 83.7 angle_well_2 124.2
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 4.0 velocity 3.25 segment 0 raw_x 702.0 raw_y 678.0 angle 45.0 angle_well_1 61.8 angle_well_2 134.9
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 5.0 velocity 0.0 segment 0 raw_x 700.0 raw_y 656.0 angle -26.57 angle_well_1 60.1 angle_well_2 136.5
+position 5.0 velocity 0.0 segment 0 raw_x 700.0 raw_y 656.0 angle -26.57 angle_well_1 60.1 angle_well_2 136.5
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 5.0 velocity 0.0 segment 0 raw_x 700.0 raw_y 656.0 angle -26.57 angle_well_1 60.1 angle_well_2 136.5
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 5.0 velocity 0.0 segment 0 raw_x 700.0 raw_y 656.0 angle -26.57 angle_well_1 60.1 angle_well_2 136.5
+position 0.0 velocity 28.67 segment 0 raw_x 708.0 raw_y 842.0 angle -90.0 angle_well_1 69.0 angle_well_2 126.3
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 0.0 velocity 13.99 segment 0 raw_x 708.0 raw_y 847.0 angle -90.0 angle_well_1 68.9 angle_well_2 126.5
+position 0.0 velocity 70.19 segment 0 raw_x 708.0 raw_y 860.0 angle -90.0 angle_well_1 69.2 angle_well_2 126.0
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 0.0 velocity 6.33 segment 0 raw_x 710.0 raw_y 803.0 angle 91.68 angle_well_1 69.4 angle_well_2 126.2
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 0.0 velocity 30.42 segment 0 raw_x 708.0 raw_y 838.0 angle -94.76 angle_well_1 68.9 angle_well_2 126.6
+position 0.0 velocity 1.32 segment 0 raw_x 708.0 raw_y 907.0 angle 89.36 angle_well_1 73.4 angle_well_2 119.5
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 0.0 velocity 0.0 segment 0 raw_x 696.0 raw_y 992.0 angle -102.01 angle_well_1 70.9 angle_well_2 123.1
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 4.0 velocity 0.08 segment 0 raw_x 696.0 raw_y 661.0 angle 135.0 angle_well_1 60.3 angle_well_2 135.8
+position 4.0 velocity 0.0 segment 0 raw_x 696.0 raw_y 661.0 angle 135.0 angle_well_1 60.3 angle_well_2 135.8
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 4.0 velocity 0.0 segment 0 raw_x 696.0 raw_y 662.0 angle 111.8 angle_well_1 60.6 angle_well_2 135.5
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 4.0 velocity 1.19 segment 0 raw_x 696.0 raw_y 662.0 angle -180.0 angle_well_1 60.3 angle_well_2 135.8
+position 4.0 velocity 0.0 segment 0 raw_x 696.0 raw_y 661.0 angle 135.0 angle_well_1 60.3 angle_well_2 135.8
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+[<realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd7a8edb50>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd7a8e3450>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd7a8e3590>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd7a937490>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd7a941cd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd78ddbf10>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd78de49d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd78de4a50>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd78dee550>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd7a901450>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd78df5fd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd78dfdb10>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7efd78e0e0d0>]

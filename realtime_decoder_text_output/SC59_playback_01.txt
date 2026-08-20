@@ -1,0 +1,1498 @@
+[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtime[22;0t]0;IPython: lorenlab/spykshrk_realtimestarting local record manager for rank 16
+starting mpisend for rank 16
+about to configure network for decoding tetrode:  16
+finished trodes setup for tetrode:  16
+starting local record manager for rankstarting local record manager for rank 10
+starting mpisend for rank 10
+about to configure network for decoding tetrode:  10
+finished trodes setup for tetrode:  10
+starting local record manager for rank 14
+starting mpisend for rank 14
+about to configure network for decoding tetrode:  14
+starting local record manager for rank 8
+starting local record manager for rank 13
+starting mpisend for rank 13
+finished trodes setup for tetrode:  14
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+starting mpisend for rank 8
+about to configure network for decoding tetrode:  13
+starting local record manager for rank 5
+starting local record manager for rank 7
+about to configure network for decoding tetrode:  8
+starting local record manager for rank 9
+starting local record manager for rank 12
+starting mpisend for rank 5
+starting local record manager for rank 6
+starting mpisend for rank 6
+starting mpisend for rank 7
+starting mpisend for rank 9
+starting mpisend for rank 12
+finished trodes setup for tetrode:  13
+about to configure trdoes network for ripple tetrode: about to configure network for decoding tetrode:  5
+about to configure network for decoding tetrode:  7
+finished trodes setup for tetrode:  8
+about to configure network for decoding tetrode:  9
+starting local record manager for rank 11
+starting mpisend for rank 11
+starting local record manager for rank 15
+starting mpisend for rank 15
+ 2
+finished trodes setup for tetrode:  5
+about to configure network for decoding tetrode:  6
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+about to configure network for decoding tetrode:  12
+finished trodes setup for tetrode:  2
+finished trodes setup for tetrode:  7
+finished trodes setup for tetrode:  9
+about to configure network for decoding tetrode:  11
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+about to configure network for decoding tetrode:  15
+finished trodes setup for tetrode:  6
+finished trodes setup for tetrode:  12
+======================================
+In MainProcess: datasource =  trodes
+======================================finished trodes setup for tetrode:  11
+finished trodes setup for tetrode:  15
+
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+init camera process 0 0
+init camera process 1  4
+starting mpisend for rank 4
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+1
+init camera process 2 2
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+about to configure network for decoding tetrode:  4
+finished trodes setup for tetrode:  4
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+init camera process 0 0
+init camera process 1 1
+init camera process 2 2
+init camera processinit camera process 0 0
+init camera process 1 1
+init camera process 2 2
+ 0 0
+init camera process 1 1
+init camera process 2 2
+bin delay 5
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+start handel ntrode list
+finished round robin
+rank 4 encoder tet [3]
+rank 5 encoder tet [8]
+rank 6 encoder tet [10]
+rank 7 encoder tet [12]
+rank 8 encoder tet [29]
+rank 9 encoder tet [37]
+rank 10 encoder tet [38]
+rank 11 encoder tet [39]
+rank 12 encoder tet [40]
+rank 13 encoder tet [41]
+rank 14 encoder tet [43]
+rank 15 encoder tet [44]
+rank 16 encoder tet [48]
+startup stim decider
+content ripple lockout time: 3000
+big ripple lockout time: 0
+posterior sum lockout time: 0
+rank 1 manager ntrode list [3, 8, 10, 12, 29, 37, 38, 39, 40, 41, 43, 44, 48]
+decoder rank 1 decoder ntrode list [3, 8, 10, 12, 29, 37, 38, 39, 40, 41, 43, 44, 48]
+Created Tree: b'/tmp/ntrode8' successfully
+Created Tree: b'/tmp/ntrode3' successfully
+Opened Tree:b'/tmp/ntrode3' successfullyOpened Tree:b'/tmp/ntrode8' successfully
+
+Created Tree: b'/tmp/ntrode10' successfully
+Created Tree: b'/tmp/ntrode12' successfully
+Opened Tree:b'/tmp/ntrode10' successfullyOpened Tree:b'/tmp/ntrode12' successfully
+
+Created Tree: b'/tmp/ntrode37' successfully
+Created Tree: b'/tmp/ntrode39' successfullyCreated Tree: b'/tmp/ntrode41' successfully
+Opened Tree:b'/tmp/ntrode41' successfully
+Created Tree: b'/tmp/ntrode29' successfully
+Opened Tree:b'/tmp/ntrode29' successfully
+Opened Tree:b'/tmp/ntrode37' successfully
+Created Tree: b'/tmp/ntrode38' successfully
+Opened Tree:b'/tmp/ntrode38' successfully
+Created Tree: b'/tmp/ntrode40' successfully
+Opened Tree:b'/tmp/ntrode40' successfully
+Created Tree: b'/tmp/ntrode48' successfully
+Created Tree: b'/tmp/ntrode43' successfully
+Created Tree: b'/tmp/ntrode44' successfully
+Opened Tree:b'/tmp/ntrode48' successfully
+Opened Tree:b'/tmp/ntrode43' successfully
+Opened Tree:b'/tmp/ntrode44' successfully
+
+wrote json header 1
+Opened Tree:b'/tmp/ntrode39' successfullywrote json header 0
+
+wrote json header 5
+wrote json header 7
+wrote json header 4
+wrote json header 6
+wrote json header 16
+wrote json header 8
+wrote json header 9
+wrote json header 12
+wrote json header 10
+wrote json header 14
+wrote json header 15
+wrote json header 13
+wrote json header 11
+wrote json header 2
+session type: run
+run, initial LFP mean: 15 std: 8
+initial spike count baseline: 1.312 0.931
+tetrode: 41 dead channel: [1]
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 40  and velocity = 0.0 segment = 3 raw_x 596 raw_y 748 angle 0.0
+ 
+1 total spikes: 186 dropped spikes: 0 duplicated spikes: 0
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 33  and velocity = 9.2 segment = 3 raw_x 748 raw_y 417 angle 114.52
+ 
+1 total spikes: 449 dropped spikes: 0 duplicated spikes: 0
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 24  and velocity = 26.15 segment = 1 raw_x 1048 raw_y 745 angle 104.04
+ 
+1 total spikes: 1058 dropped spikes: 2 duplicated spikes: 0
+ 
+bin delay 5
+decoder1 delay 30.0 count 3000
+decoder2 delay 1585886.0 count 0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 15  and velocity = 96.81 segment = 1 raw_x 854 raw_y 582 angle 32.47
+ 
+1 total spikes: 1630 dropped spikes: 2 duplicated spikes: 4
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 3.17 segment = 0 raw_x 750 raw_y 416 angle 180.0
+ 
+1 total spikes: 2295 dropped spikes: 7 duplicated spikes: 8
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 21.49 segment = 0 raw_x 767 raw_y 432 angle 45.0
+ 
+1 total spikes: 2932 dropped spikes: 7 duplicated spikes: 10
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+decoder1 delay 30.0 count 6000
+decoder2 delay 1603886.0 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 24  and velocity = 36.73 segment = 1 raw_x 1027 raw_y 748 angle -75.96
+ 
+1 total spikes: 3610 dropped spikes: 12 duplicated spikes: 16
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 4.88 segment = 0 raw_x 746 raw_y 421 angle 28.74
+ 
+1 total spikes: 4559 dropped spikes: 15 duplicated spikes: 24
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 1.15 segment = 0 raw_x 750 raw_y 417 angle 180.0
+ 
+1 total spikes: 5124 dropped spikes: 17 duplicated spikes: 26
+ 
+bin delay 5
+decoder1 delay 30.0 count 9000
+decoder2 delay 1621886.0 count 0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 50.35 segment = 0 raw_x 764 raw_y 435 angle 0.0
+ 
+1 total spikes: 5893 dropped spikes: 17 duplicated spikes: 34
+ 
+bin delay 5
+mean - " 38 ": 15 , - stdev - " 38 ": 8 ,
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+running sum of posterior 10000
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 40  and velocity = 0.0 segment = 3 raw_x 588 raw_y 752 angle 90.0
+ 
+1 total spikes: 6741 dropped spikes: 20 duplicated spikes: 40
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 37.12 segment = 0 raw_x 756 raw_y 404 angle 69.57
+ 
+1 total spikes: 7620 dropped spikes: 26 duplicated spikes: 42
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+decoder1 delay 30.0 count 12000
+decoder2 delay 1639886.0 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+max posterior in arm: 1 0.74 position: 3
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 16.75 segment = 0 raw_x 764 raw_y 398 angle 79.08
+ 
+1 total spikes: 8103 dropped spikes: 43 duplicated spikes: 44
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+added 10000 spikes to tree in tet 8
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 32  and velocity = 68.55 segment = 3 raw_x 738 raw_y 607 angle -45.0
+ 
+1 total spikes: 9213 dropped spikes: 47 duplicated spikes: 60
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+added 15000 spikes to tree in tet 40
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 38  and velocity = 70.38 segment = 3 raw_x 628 raw_y 723 angle -75.96
+ 
+1 total spikes: 10054 dropped spikes: 59 duplicated spikes: 64
+ 
+bin delay 5
+decoder1 delay 30.0 count 15000
+decoder2 delay 1657886.0 count 0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 1.19 segment = 0 raw_x 749 raw_y 417 angle -135.0
+ 
+1 total spikes: 11000 dropped spikes: 59 duplicated spikes: 68
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 2  and velocity = 3.66 segment = 0 raw_x 751 raw_y 415 angle -90.0
+ 
+1 total spikes: 11565 dropped spikes: 62 duplicated spikes: 68
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+added 20000 spikes to tree in tet 38
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 0  and velocity = 4.11 segment = 0 raw_x 790 raw_y 352 angle -45.0
+ 
+1 total spikes: 11945 dropped spikes: 62 duplicated spikes: 68
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+decoder1 delay 30.0 count 18000
+decoder2 delay 1675886.0 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+max posterior in arm: 1 0.7 position: 0
+position = 0  and velocity = 4.46 segment = 0 raw_x 795 raw_y 348 angle 0.0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 12352 dropped spikes: 62 duplicated spikes: 68
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 3.77 segment = 0 raw_x 750 raw_y 421 angle 135.0
+added 20000 spikes to tree in tet 44
+ 
+1 total spikes: 13159 dropped spikes: 67 duplicated spikes: 74
+ 
+bin delay 5
+mean - " 38 ": 15 , - stdev - " 38 ": 8 ,
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+running sum of posterior 20000
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 0  and velocity = 2.31 segment = 0 raw_x 780 raw_y 346 angle 0.0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 13997 dropped spikes: 67 duplicated spikes: 84
+ 
+bin delay 5
+decoder1 delay 30.0 count 21000
+decoder2 delay 1693886.0 count 0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 24  and velocity = 32.84 segment = 1 raw_x 1010 raw_y 766 angle -46.47
+ 
+1 total spikes: 14912 dropped spikes: 69 duplicated spikes: 88
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+added 25000 spikes to tree in tet 38
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 39.05 segment = 0 raw_x 764 raw_y 400 angle 67.56
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 15937 dropped spikes: 71 duplicated spikes: 94
+ 
+bin delay 5
+max posterior in arm: 2 0.72 position: 3
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 4.92 segment = 0 raw_x 748 raw_y 419 angle -45.0
+ 
+1 total spikes: 16546 dropped spikes: 73 duplicated spikes: 102
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+decoder1 delay 30.0 count 24000
+decoder2 delay 1711886.0 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 0  and velocity = 17.79 segment = 0 raw_x 763 raw_y 348 angle -116.57
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 17465 dropped spikes: 84 duplicated spikes: 116
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 40  and velocity = 2.75 segment = 3 raw_x 587 raw_y 755 angle 62.1
+ 
+1 total spikes: 18572 dropped spikes: 90 duplicated spikes: 120
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 4  and velocity = 24.85 segment = 0 raw_x 764 raw_y 400 angle 71.79
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 19731 dropped spikes: 95 duplicated spikes: 130
+ 
+bin delay 5
+decoder1 delay 30.0 count 27000
+decoder2 delay 1729886.0 count 0
+max posterior in arm: 1 0.79 position: 3
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 3.74 segment = 0 raw_x 750 raw_y 417 angle -135.0
+max posterior in arm: 1 0.87 position: 3
+ 
+1 total spikes: 20357 dropped spikes: 103 duplicated spikes: 130
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 0.16 segment = 0 raw_x 751 raw_y 427 angle -90.0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 21414 dropped spikes: 110 duplicated spikes: 140
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 40  and velocity = 32.4 segment = 3 raw_x 572 raw_y 734 angle 49.4
+ 
+1 total spikes: 22446 dropped spikes: 116 duplicated spikes: 150
+ 
+bin delay 5
+mean - " 38 ": 15 , - stdev - " 38 ": 8 ,
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+running sum of posterior 30000
+decoder1 delay 30.0 count 30000
+decoder2 delay 1747886.0 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 2.01 segment = 0 raw_x 748 raw_y 417 angle 0.0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 23432 dropped spikes: 117 duplicated spikes: 156
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 2.14 segment = 0 raw_x 750 raw_y 417 angle 135.0
+ 
+1 total spikes: 24366 dropped spikes: 123 duplicated spikes: 162
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 24  and velocity = 18.66 segment = 1 raw_x 1027 raw_y 749 angle -63.43
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 24934 dropped spikes: 123 duplicated spikes: 166
+ 
+bin delay 5
+decoder1 delay 30.0 count 33000
+decoder2 delay 1765886.0 count 0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+added 30000 spikes to tree in tet 3
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 9.33 segment = 0 raw_x 743 raw_y 421 angle 29.74
+ 
+1 total spikes: 26159 dropped spikes: 127 duplicated spikes: 170
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 2  and velocity = 2.43 segment = 0 raw_x 751 raw_y 414 angle 180.0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 26617 dropped spikes: 127 duplicated spikes: 176
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 2.05 segment = 0 raw_x 752 raw_y 416 angle 135.0
+added 40000 spikes to tree in tet 38
+ 
+1 total spikes: 27430 dropped spikes: 131 duplicated spikes: 184
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+decoder1 delay 30.0 count 36000
+decoder2 delay 1783886.0 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 24  and velocity = 39.36 segment = 1 raw_x 1014 raw_y 764 angle -48.81
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 28563 dropped spikes: 139 duplicated spikes: 208
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 4  and velocity = 61.26 segment = 0 raw_x 772 raw_y 448 angle 101.31
+ 
+1 total spikes: 29675 dropped spikes: 150 duplicated spikes: 228
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+max posterior in arm: 2 0.84 position: 2
+position = 2  and velocity = 3.27 segment = 0 raw_x 752 raw_y 415 angle -153.43
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 30263 dropped spikes: 154 duplicated spikes: 234
+ 
+bin delay 5
+decoder1 delay 30.0 count 39000
+decoder2 delay 1803554.6666666667 count 0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 2  and velocity = 2.01 segment = 0 raw_x 750 raw_y 414 angle -56.31
+ 
+1 total spikes: 30636 dropped spikes: 154 duplicated spikes: 234
+ 
+bin delay 5
+mean - " 38 ": 15 , - stdev - " 38 ": 8 ,
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+running sum of posterior 40000
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+max posterior in arm: 2 0.66 position: 3
+position = 3  and velocity = 2.14 segment = 0 raw_x 749 raw_y 417 angle -56.31
+added 40000 spikes to tree in tet 44
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+added 15000 spikes to tree in tet 43
+added 45000 spikes to tree in tet 38
+ 
+1 total spikes: 31187 dropped spikes: 165 duplicated spikes: 246
+ 
+bin delay 5
+max posterior in arm: 2 0.79 position: 3
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 1.11 segment = 0 raw_x 748 raw_y 426 angle 0.0
+ 
+1 total spikes: 31626 dropped spikes: 165 duplicated spikes: 252
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+decoder1 delay 30.0 count 42000
+decoder2 delay 1821554.6666666667 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 2.52 segment = 0 raw_x 748 raw_y 419 angle -45.0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 32136 dropped spikes: 165 duplicated spikes: 262
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 4.71 segment = 0 raw_x 748 raw_y 420 angle 45.0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 32791 dropped spikes: 165 duplicated spikes: 268
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 1.03 segment = 0 raw_x 750 raw_y 421 angle 0.0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 33120 dropped spikes: 165 duplicated spikes: 270
+ 
+bin delay 5
+decoder1 delay 30.0 count 45000
+decoder2 delay 1839554.6666666667 count 0
+max posterior in arm: 2 0.74 position: 3
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 1.15 segment = 0 raw_x 751 raw_y 420 angle 0.0
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 33552 dropped spikes: 165 duplicated spikes: 280
+ 
+bin delay 5
+main taskState: 1
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+position = 4  and velocity = 14.09 segment = 0 raw_x 799 raw_y 435 angle -163.3
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+max posterior in arm: 2 0.76 position: 3
+ 
+1 total spikes: 34221 dropped spikes: 169 duplicated spikes: 290
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+[ 470.   66.  294. 3683.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  696.]
+[0.0669325  0.00939903 0.04186841 0.52449445 0.02506408 0.00825976
+ 0.00398747 0.00541156 0.00683566        nan        nan        nan
+        nan 0.00398747 0.00370265 0.0029906  0.00327542 0.00469952
+ 0.00327542 0.00256337 0.00256337 0.00412988 0.00384506 0.00398747
+ 0.1146397         nan        nan        nan        nan 0.00284819
+ 0.0029906  0.00412988 0.00412988 0.02406722 0.00284819 0.00242096
+ 0.00156651 0.00313301 0.00242096 0.0044147  0.09911706]
+position = 3  and velocity = 2.78 segment = 0 raw_x 754 raw_y 430 angle -135.0
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 34761 dropped spikes: 169 duplicated spikes: 294
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+decoder1 delay 30.0 count 48000
+decoder2 delay 1859362.6666666667 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 2.92 segment = 0 raw_x 751 raw_y 425 angle 45.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 35519 dropped spikes: 192 duplicated spikes: 296
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 1.19 segment = 0 raw_x 748 raw_y 420 angle -63.43
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 36525 dropped spikes: 193 duplicated spikes: 308
+ 
+bin delay 5
+mean - " 38 ": 15 , - stdev - " 38 ": 8 ,
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+running sum of posterior 50000
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 0  and velocity = 2.67 segment = 0 raw_x 792 raw_y 350 angle -90.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+[ 470.   66.  294. 3685.  176.   58.   28.   38.   48.   nan   nan   nan
+   nan   28.   26.   21.   23.   33.   23.   18.   18.   29.   27.   28.
+  805.   nan   nan   nan   nan   20.   21.   29.   29.  169.   20.   17.
+   11.   22.   17.   31.  709.]
+[0.06678983 0.009379   0.04177917 0.52366065 0.02501066 0.00824215
+ 0.00397897 0.00540003 0.00682109        nan        nan        nan
+        nan 0.00397897 0.00369476 0.00298423 0.00326844 0.0046895
+ 0.00326844 0.00255791 0.00255791 0.00412107 0.00383686 0.00397897
+ 0.11439534        nan        nan        nan        nan 0.00284212
+ 0.00298423 0.00412107 0.00412107 0.02401592 0.00284212 0.0024158
+ 0.00156317 0.00312633 0.0024158  0.00440529 0.10075316]
+ 
+1 total spikes: 37278 dropped spikes: 200 duplicated spikes: 314
+ 
+bin delay 5
+decoder1 delay 30.0 count 51000
+decoder2 delay 1877362.6666666667 count 0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 0.78 segment = 0 raw_x 748 raw_y 423 angle 123.69
+max posterior in arm: 2 0.74 position: 3
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 37995 dropped spikes: 200 duplicated spikes: 321
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 2.19 segment = 0 raw_x 750 raw_y 425 angle 135.0
+max posterior in arm: 2 0.9 position: 3
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 38567 dropped spikes: 201 duplicated spikes: 321
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 1.11 segment = 0 raw_x 750 raw_y 424 angle -90.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 39022 dropped spikes: 204 duplicated spikes: 331
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+decoder1 delay 30.0 count 54000
+decoder2 delay 1895362.6666666667 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 5.29 segment = 0 raw_x 749 raw_y 425 angle -90.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 39685 dropped spikes: 204 duplicated spikes: 337
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 14.01 segment = 0 raw_x 782 raw_y 440 angle -120.96
+max posterior in arm: 1 0.76 position: 3
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 40294 dropped spikes: 209 duplicated spikes: 339
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+max posterior in arm: 2 0.82 position: 3
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 34.59 segment = 0 raw_x 789 raw_y 433 angle 0.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 41458 dropped spikes: 210 duplicated spikes: 349
+ 
+bin delay 5
+decoder1 delay 30.0 count 57000
+decoder2 delay 1913362.6666666667 count 0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 40  and velocity = 19.42 segment = 3 raw_x 592 raw_y 766 angle -57.26
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 43047 dropped spikes: 222 duplicated spikes: 371
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 3.24 segment = 0 raw_x 754 raw_y 428 angle -135.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 44078 dropped spikes: 226 duplicated spikes: 389
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 4  and velocity = 5.15 segment = 0 raw_x 792 raw_y 439 angle 118.61
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 44825 dropped spikes: 226 duplicated spikes: 399
+ 
+bin delay 5
+mean - " 38 ": 15 , - stdev - " 38 ": 8 ,
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+running sum of posterior 60000
+decoder1 delay 30.0 count 60000
+decoder2 delay 1931362.6666666667 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+max posterior in arm: 1 0.77 position: 3
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 1.92 segment = 0 raw_x 752 raw_y 426 angle 180.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 45307 dropped spikes: 265 duplicated spikes: 403
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 4.45 segment = 0 raw_x 752 raw_y 425 angle -26.57
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 46103 dropped spikes: 271 duplicated spikes: 411
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+position = 4  and velocity = 72.97 segment = 0 raw_x 802 raw_y 427 angle 141.01
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 47007 dropped spikes: 281 duplicated spikes: 415
+ 
+bin delay 5
+decoder1 delay 30.0 count 63000
+decoder2 delay 1949362.6666666667 count 0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 14.38 segment = 0 raw_x 768 raw_y 427 angle 0.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 47690 dropped spikes: 281 duplicated spikes: 423
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+position = 17  and velocity = 67.95 segment = 1 raw_x 903 raw_y 613 angle 135.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 48877 dropped spikes: 294 duplicated spikes: 433
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 4  and velocity = 34.41 segment = 0 raw_x 783 raw_y 433 angle 119.05
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 50131 dropped spikes: 303 duplicated spikes: 443
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+decoder1 delay 30.0 count 66000
+decoder2 delay 1967362.6666666667 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+position = 3  and velocity = 3.1 segment = 0 raw_x 748 raw_y 423 angle -90.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 50537 dropped spikes: 303 duplicated spikes: 447
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 0.35 segment = 0 raw_x 749 raw_y 419 angle 90.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 51252 dropped spikes: 305 duplicated spikes: 463
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+position = 3  and velocity = 26.06 segment = 0 raw_x 773 raw_y 433 angle 0.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 52113 dropped spikes: 308 duplicated spikes: 469
+ 
+bin delay 5
+decoder1 delay 30.0 count 69000
+decoder2 delay 1985362.6666666667 count 0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 7.06 segment = 0 raw_x 742 raw_y 432 angle 29.74
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 53110 dropped spikes: 311 duplicated spikes: 479
+ 
+bin delay 5
+mean - " 38 ": 15 , - stdev - " 38 ": 8 ,
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+running sum of posterior 70000
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+position = 0  and velocity = 6.37 segment = 0 raw_x 766 raw_y 341 angle -45.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+ 
+1 total spikes: 54196 dropped spikes: 315 duplicated spikes: 483
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+position = 3  and velocity = 3.65 segment = 0 raw_x 752 raw_y 423 angle 104.04
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 54590 dropped spikes: 315 duplicated spikes: 483
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+decoder1 delay 30.0 count 72000
+decoder2 delay 2003362.6666666667 count 0
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+max posterior in arm: 2 0.69 position: 3
+position = 3  and velocity = 4.98 segment = 0 raw_x 758 raw_y 430 angle 180.0
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 55454 dropped spikes: 317 duplicated spikes: 503
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+posterior threshold: 0.4 rip num tets 4 ripple vel 10.0 reward mode replay shortcut msg: True target arm: 2 position limit: 1 well dist max (cm) 17.0
+INSTRUCTIVE: choose new arm 1
+position = 3  and velocity = 16.87 segment = 0 raw_x 768 raw_y 436 angle -104.04
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+ 
+1 total spikes: 56356 dropped spikes: 322 duplicated spikes: 505
+ 
+bin delay 5
+main taskState: 2
+config: /home/lorenlab/Trodes_Configs/reverse_64tet_SC59.trodesconf
+angle parameters: 25 2 well angle 10
+spike count baseline. mean: 1.312 std: 0.931 diff: 0.846
+Closed Tree...
+Closed Tree...
+Closed Tree...
+Closed Tree...
+Closed Tree...
+Closed Tree...Closed Tree...
+Closed Tree...
+Closed Tree...
+Closed Tree...
+Closed Tree...
+
+Closed Tree...
+Closed Tree...

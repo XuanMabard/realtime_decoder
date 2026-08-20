@@ -1,0 +1,59 @@
+Rank 0 past barrier
+Rank 1 past barrier
+Rank 2 past barrier
+state_labels: ['state', ' ', 'thresh']
+Rank 3 past barrier
+Rank 4 past barrier
+Rank 5 past barrier
+Rank 6 past barrier
+Rank 7 past barrier
+Rank 8 past barrier
+Rank 9 past barrier
+Rank 10 past barrier
+Rank 11 past barrier
+Rank 12 past barrier
+Rank 13 past barrier
+Rank 14 past barrier
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+x_env.shape = (15, 7)
+num_signals: 7
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+Replay arm 1 detected with lower target posterior prob: 0.278 than threshold: 0.33
+num spikes(TS1) : 21, [34. 41. 47. 51. 41. 43. 34. 41. 43. 41. 23. 47. 34. 20. 29. 41. 34. 47.
+ 41. 41. 43.]
+Unique trodes(TS1): 8, [20. 23. 29. 34. 41. 43. 47. 51.]
+Replay arm 1 detected with lower target posterior prob: 0.266 than threshold: 0.33
+num spikes(TS1) : 16, [34. 23. 41. 20. 47. 41. 43. 34. 47. 41. 20. 51. 20. 47. 23. 41.]
+Unique trodes(TS1): 7, [20. 23. 34. 41. 43. 47. 51.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[47. 41. 23. 41. 34.  0.  0.  0.  0.  0.]
+  [47.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [51. 41. 23. 20. 47. 51. 34.  0.  0.  0.]
+  [41. 43.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [34.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.449 with threshold: 0.33
+num spikes(TS1) : 16, [47. 41. 23. 41. 34. 47. 51. 41. 23. 20. 47. 51. 34. 41. 43. 34.]
+Unique trodes(TS1): 7, [20. 23. 34. 41. 43. 47. 51.]
+position 4.0 velocity 7.09 segment 0 raw_x 773.0 raw_y 460.0 angle -69.78 angle_well_1 49.4 angle_well_2 160.8
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[20. 20. 47. 34. 23. 41.  0.  0.  0.  0.]
+  [51. 43.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [47. 43. 20. 43. 47.  0.  0.  0.  0.  0.]
+  [34. 41. 41. 47.  0.  0.  0.  0.  0.  0.]
+  [34. 41. 51.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.435 with threshold: 0.33
+num spikes(TS1) : 20, [20. 20. 47. 34. 23. 41. 51. 43. 47. 43. 20. 43. 47. 34. 41. 41. 47. 34.
+ 41. 51.]
+Unique trodes(TS1): 7, [20. 23. 34. 41. 43. 47. 51.]
+Number of decoder occupancy points: 100
+Decoder 0 firing rate: (mean: 268.199 std: 258.145 )
+position 40.0 velocity 40.03 segment 2 raw_x 582.0 raw_y 788.0 angle -56.31 angle_well_1 56.5 angle_well_2 118.9
+[<realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f6319872510>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f6319867ed0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f631df5e050>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f631986e0d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f63198d6f90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f631882b610>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f631882dc10>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f631882dc90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f631883b310>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f6318824f90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f6318841950>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f6318849f90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f6318859c10>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f63187e0290>]

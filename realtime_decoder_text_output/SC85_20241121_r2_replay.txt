@@ -1,0 +1,404 @@
+Rank 0 past barrier
+Rank 1 past barrier
+decoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20241121_142240*decoder_rank_1.occupancy.npz
+Rank 2 past barrier
+state_labels: ['state', ' ', 'thresh']
+Rank 3 past barrier
+Rank 4 past barrier
+Rank 5 past barrier
+Rank 6 past barrier
+Rank 7 past barrier
+Rank 8 past barrier
+Rank 9 past barrier
+Rank 10 past barrier
+Rank 11 past barrier
+Rank 12 past barrier
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20241121_142240*trode_10.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20241121_142240*trode_13.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20241121_142240*trode_16.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20241121_142240*trode_18.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20241121_142240*trode_21.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20241121_142240*trode_23.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20241121_142240*trode_26.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20241121_142240*trode_29.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20241121_142240*trode_32.encoder.npz
+x_env.shape = (15, 9)
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+Number of decoder occupancy points: 5000Number of encoder occupancy points: 5000
+Number of encoder occupancy points: 5000
+Number of encoder occupancy points: 5000
+Number of encoder occupancy points: 5000
+Number of encoder occupancy points: 5000
+
+Number of encoder occupancy points: 5000
+Number of encoder occupancy points: 5000
+Number of encoder occupancy points: 5000
+Number of encoder occupancy points: 5000
+position 7.0 velocity 101.74 segment 0 raw_x 790.0 raw_y 504.0 angle 118.81 angle_well_1 63.6 angle_well_2 153.5
+Number of decoder occupancy points: 5100
+Decoder 0 firing rate: (mean: 606.447 std: 458.109 )
+position 40.0 velocity 12.2 segment 2 raw_x 568.0 raw_y 784.0 angle -116.57 angle_well_1 55.2 angle_well_2 118.8
+Number of decoder occupancy points: 5200
+position 40.0 velocity 0.59 segment 2 raw_x 614.0 raw_y 774.0 angle -0.0 angle_well_1 58.7 angle_well_2 122.2
+Number of decoder occupancy points: 5300
+Decoder 0 firing rate: (mean: 522.328 std: 413.539 )
+position 39.0 velocity 60.06 segment 2 raw_x 610.0 raw_y 737.0 angle -47.29 angle_well_1 52.7 angle_well_2 124.7
+Number of decoder occupancy points: 5400
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0. 10.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 10.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 29.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 3, [10. 10. 29.]
+Unique trodes(TS1): 2, [10. 29.]
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 2, [32. 32.]
+Unique trodes(TS1): 1, [32.]
+position 3.0 velocity 6.58 segment 0 raw_x 768.0 raw_y 428.0 angle -0.0 angle_well_1 47.0 angle_well_2 162.1
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [13.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [21.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [21.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 3, [13. 21. 21.]
+Unique trodes(TS1): 2, [13. 21.]
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 2, [13. 13.]
+Unique trodes(TS1): 1, [13.]
+Decoder 0 firing rate: (mean: 540.243 std: 430.269 )
+position 40.0 velocity 3.89 segment 2 raw_x 566.0 raw_y 780.0 angle -129.81 angle_well_1 55.2 angle_well_2 118.3
+Number of decoder occupancy points: 5500
+position 29.0 velocity 75.31 segment 2 raw_x 805.0 raw_y 552.0 angle 53.62 angle_well_1 67.5 angle_well_2 149.4
+Number of decoder occupancy points: 5600
+Decoder 0 firing rate: (mean: 555.868 std: 434.398 )
+Number of decoder occupancy points: 5700
+position 13.0 velocity 120.49 segment 1 raw_x 814.0 raw_y 562.0 angle 148.39 angle_well_1 71.0 angle_well_2 150.6
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 2, [13. 13.]
+Unique trodes(TS1): 1, [13.]
+position 3.0 velocity 14.21 segment 0 raw_x 765.0 raw_y 432.0 angle 161.57 angle_well_1 48.9 angle_well_2 161.4
+Number of decoder occupancy points: 5800
+Decoder 0 firing rate: (mean: 559.327 std: 436.679 )
+Number of decoder occupancy points: 5900
+position 4.0 velocity 18.31 segment 0 raw_x 751.0 raw_y 444.0 angle 166.76 angle_well_1 48.7 angle_well_2 159.6
+Number of decoder occupancy points: 6000
+position 5.0 velocity 29.77 segment 0 raw_x 765.0 raw_y 464.0 angle 168.69 angle_well_1 53.6 angle_well_2 158.1
+Decoder 0 firing rate: (mean: 577.632 std: 432.364 )
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0. 13.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [26. 13.  0.  0. 21.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 4, [13. 26. 13. 21.]
+Unique trodes(TS1): 3, [13. 21. 26.]
+position 2.0 velocity 50.44 segment 0 raw_x 765.0 raw_y 410.0 angle -116.57 angle_well_1 43.1 angle_well_2 164.3
+Number of decoder occupancy points: 6100
+position 24.0 velocity 76.43 segment 1 raw_x 1091.0 raw_y 770.0 angle -26.57 angle_well_1 107.4 angle_well_2 148.1
+Number of decoder occupancy points: 6200
+Decoder 0 firing rate: (mean: 575.328 std: 441.954 )
+Number of decoder occupancy points: 6300
+position 5.0 velocity 74.92 segment 0 raw_x 777.0 raw_y 476.0 angle -170.54 angle_well_1 55.9 angle_well_2 157.6
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0. 16.  0.  0.  0.  0.]
+  [13.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 2, [16. 13.]
+Unique trodes(TS1): 2, [13. 16.]
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 2, [13. 13.]
+Unique trodes(TS1): 1, [13.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[21.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 13.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 21.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 3, [21. 13. 21.]
+Unique trodes(TS1): 2, [13. 21.]
+position 8.0 velocity 110.28 segment 0 raw_x 797.0 raw_y 542.0 angle -180.0 angle_well_1 65.7 angle_well_2 152.0
+Decoder 0 firing rate: (mean: 561.85 std: 443.697 )
+Number of decoder occupancy points: 6400
+position 40.0 velocity 3.61 segment 2 raw_x 579.0 raw_y 790.0 angle -171.25 angle_well_1 57.2 angle_well_2 119.1
+Number of decoder occupancy points: 6500
+Number of decoder occupancy points: 6600
+Decoder 0 firing rate: (mean: 566.172 std: 441.763 )
+position 24.0 velocity 29.22 segment 1 raw_x 1091.0 raw_y 766.0 angle -41.5 angle_well_1 107.0 angle_well_2 149.1
+Number of decoder occupancy points: 6700
+position 8.0 velocity 55.98 segment 0 raw_x 803.0 raw_y 531.0 angle 135.0 angle_well_1 66.9 angle_well_2 152.6
+Number of decoder occupancy points: 6800
+Decoder 0 firing rate: (mean: 549.381 std: 439.396 )
+position 3.0 velocity 1.39 segment 0 raw_x 766.0 raw_y 432.0 angle -90.0 angle_well_1 47.0 angle_well_2 161.8
+Number of decoder occupancy points: 6900
+position 40.0 velocity 13.49 segment 2 raw_x 579.0 raw_y 791.0 angle -156.8 angle_well_1 57.1 angle_well_2 119.3
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 1, [26.]
+Unique trodes(TS1): 1, [26.]
+Decoder 0 firing rate: (mean: 547.824 std: 437.432 )
+Number of decoder occupancy points: 7000
+position 24.0 velocity 67.93 segment 1 raw_x 1085.0 raw_y 766.0 angle -100.62 angle_well_1 109.1 angle_well_2 150.8
+Number of decoder occupancy points: 7100
+position 24.0 velocity 105.97 segment 1 raw_x 1047.0 raw_y 781.0 angle -95.57 angle_well_1 103.9 angle_well_2 148.3
+Number of decoder occupancy points: 7200
+Decoder 0 firing rate: (mean: 542.818 std: 437.108 )
+position 3.0 velocity 11.11 segment 0 raw_x 765.0 raw_y 432.0 angle 165.96 angle_well_1 48.7 angle_well_2 161.5
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0. 16.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [10.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 23.  0.  0. 10.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 4, [16. 10. 23. 10.]
+Unique trodes(TS1): 3, [10. 16. 23.]
+Number of decoder occupancy points: 7300
+position 40.0 velocity 68.22 segment 2 raw_x 562.0 raw_y 733.0 angle -113.2 angle_well_1 52.2 angle_well_2 120.3
+Number of decoder occupancy points: 7400
+Decoder 0 firing rate: (mean: 548.088 std: 437.452 )
+position 3.0 velocity 1.27 segment 0 raw_x 764.0 raw_y 433.0 angle -63.43 angle_well_1 46.8 angle_well_2 161.6
+Number of decoder occupancy points: 7500
+position 4.0 velocity 38.83 segment 0 raw_x 757.0 raw_y 447.0 angle -172.41 angle_well_1 49.1 angle_well_2 160.1
+Decoder 0 firing rate: (mean: 548.486 std: 436.444 )
+Number of decoder occupancy points: 7600
+position 4.0 velocity 24.14 segment 0 raw_x 771.0 raw_y 459.0 angle -180.0 angle_well_1 52.9 angle_well_2 159.0
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[32.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [29.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [29.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [29.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 4, [32. 29. 29. 29.]
+Unique trodes(TS1): 2, [29. 32.]
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 4, [13. 13. 13. 13.]
+Unique trodes(TS1): 1, [13.]
+Number of decoder occupancy points: 7700
+position 33.0 velocity 114.93 segment 2 raw_x 728.0 raw_y 650.0 angle 140.6 angle_well_1 65.9 angle_well_2 138.1
+Decoder 0 firing rate: (mean: 549.421 std: 435.475 )
+Number of decoder occupancy points: 7800
+position 40.0 velocity 14.15 segment 2 raw_x 572.0 raw_y 786.0 angle -156.8 angle_well_1 56.4 angle_well_2 119.4
+Number of decoder occupancy points: 7900
+position 40.0 velocity 42.64 segment 2 raw_x 585.0 raw_y 788.0 angle -99.21 angle_well_1 55.5 angle_well_2 121.2
+Decoder 0 firing rate: (mean: 549.071 std: 433.166 )
+Number of decoder occupancy points: 8000
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 2, [32. 32.]
+Unique trodes(TS1): 1, [32.]
+position 3.0 velocity 3.78 segment 0 raw_x 762.0 raw_y 431.0 angle 172.87 angle_well_1 48.2 angle_well_2 161.7
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 32.  0.  0.  0.  0. 23.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 2, [32. 23.]
+Unique trodes(TS1): 2, [23. 32.]
+Number of decoder occupancy points: 8100
+Decoder 0 firing rate: (mean: 549.842 std: 433.622 )
+position 33.0 velocity 105.16 segment 2 raw_x 731.0 raw_y 646.0 angle 153.43 angle_well_1 66.6 angle_well_2 139.2
+Number of decoder occupancy points: 8200
+position 40.0 velocity 16.24 segment 2 raw_x 570.0 raw_y 788.0 angle -126.87 angle_well_1 55.3 angle_well_2 120.4
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[18.  0.  0. 32.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [32.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 3, [18. 32. 32.]
+Unique trodes(TS1): 2, [18. 32.]
+Number of decoder occupancy points: 8300
+Decoder 0 firing rate: (mean: 547.457 std: 431.774 )
+position 3.0 velocity 3.35 segment 0 raw_x 762.0 raw_y 434.0 angle -26.57 angle_well_1 46.6 angle_well_2 161.3
+Number of decoder occupancy points: 8400
+position 6.0 velocity 113.79 segment 0 raw_x 799.0 raw_y 509.0 angle -135.0 angle_well_1 62.9 angle_well_2 155.2
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 1, [21.]
+Unique trodes(TS1): 1, [21.]
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 1, [21.]
+Unique trodes(TS1): 1, [21.]
+Decoder 0 firing rate: (mean: 550.858 std: 432.785 )
+Number of decoder occupancy points: 8500
+position 14.0 velocity 102.24 segment 1 raw_x 819.0 raw_y 567.0 angle 137.29 angle_well_1 72.3 angle_well_2 150.1
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 2, [29. 29.]
+Unique trodes(TS1): 1, [29.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 26.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [13.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 13.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 3, [26. 13. 13.]
+Unique trodes(TS1): 2, [13. 26.]
+position 3.0 velocity 10.07 segment 0 raw_x 765.0 raw_y 435.0 angle -45.0 angle_well_1 47.4 angle_well_2 161.3
+Number of decoder occupancy points: 8600
+Decoder 0 firing rate: (mean: 548.453 std: 432.108 )
+Number of decoder occupancy points: 8700
+position 24.0 velocity 71.08 segment 1 raw_x 1093.0 raw_y 763.0 angle 97.13 angle_well_1 107.5 angle_well_2 147.7
+Number of decoder occupancy points: 8800
+position 15.0 velocity 104.43 segment 1 raw_x 876.0 raw_y 565.0 angle 41.76 angle_well_1 78.7 angle_well_2 150.9
+Decoder 0 firing rate: (mean: 547.003 std: 432.415 )
+Number of decoder occupancy points: 8900
+position 24.0 velocity 38.99 segment 1 raw_x 1099.0 raw_y 761.0 angle 29.36 angle_well_1 106.4 angle_well_2 147.3
+Number of decoder occupancy points: 9000
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 2, [29. 29.]
+Unique trodes(TS1): 1, [29.]
+position 3.0 velocity 13.48 segment 0 raw_x 763.0 raw_y 432.0 angle -116.57 angle_well_1 46.6 angle_well_2 161.8
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0. 32.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0. 21.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 13.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 13. 18.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 5, [32. 21. 13. 13. 18.]
+Unique trodes(TS1): 4, [13. 18. 21. 32.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[21. 21.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [21.  0. 29.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 4, [21. 21. 21. 29.]
+Unique trodes(TS1): 2, [21. 29.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 29.  0.  0.  0.  0.  0.  0.  0.]
+  [13.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 2, [29. 13.]
+Unique trodes(TS1): 2, [13. 29.]
+Decoder 0 firing rate: (mean: 540.401 std: 432.017 )
+Number of decoder occupancy points: 9100
+position 15.0 velocity 96.11 segment 1 raw_x 890.0 raw_y 572.0 angle -24.44 angle_well_1 81.9 angle_well_2 153.6
+Number of decoder occupancy points: 9200
+Number of decoder occupancy points: 9300
+position 24.0 velocity 13.59 segment 1 raw_x 1096.0 raw_y 762.0 angle 10.62 angle_well_1 103.7 angle_well_2 146.5
+Decoder 0 firing rate: (mean: 539.731 std: 433.073 )
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 1, [29.]
+Unique trodes(TS1): 1, [29.]
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 3, [29. 29. 29.]
+Unique trodes(TS1): 1, [29.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[26.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 21.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 21.  0.  0.  0.  0. 21.  0.  0.  0.]
+  [16.  0.  0.  0. 32.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 6, [26. 21. 21. 21. 16. 32.]
+Unique trodes(TS1): 4, [16. 21. 26. 32.]
+position 3.0 velocity 1.35 segment 0 raw_x 763.0 raw_y 433.0 angle -135.0 angle_well_1 46.9 angle_well_2 161.5
+Number of decoder occupancy points: 9400
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 29.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0. 10.  0.  0.  0.  0.]
+  [ 0.  0. 32. 10.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 4, [29. 10. 32. 10.]
+Unique trodes(TS1): 3, [10. 29. 32.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[23.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0. 29.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 2, [23. 29.]
+Unique trodes(TS1): 2, [23. 29.]
+Number of decoder occupancy points: 9500
+position 21.0 velocity 154.7 segment 1 raw_x 948.0 raw_y 724.0 angle 9.46 angle_well_1 92.0 angle_well_2 145.2
+Decoder 0 firing rate: (mean: 539.801 std: 431.821 )
+Number of decoder occupancy points: 9600
+position 24.0 velocity 25.18 segment 1 raw_x 1091.0 raw_y 782.0 angle -37.09 angle_well_1 105.9 angle_well_2 148.4
+Number of decoder occupancy points: 9700
+Decoder 0 firing rate: (mean: 548.476 std: 433.282 )
+position 24.0 velocity 12.17 segment 1 raw_x 1089.0 raw_y 767.0 angle -78.69 angle_well_1 108.7 angle_well_2 151.0
+Number of decoder occupancy points: 9800
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0. 29.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0. 29.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 18.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 3, [29. 29. 18.]
+Unique trodes(TS1): 2, [18. 29.]
+position 3.0 velocity 5.66 segment 0 raw_x 762.0 raw_y 434.0 angle 45.0 angle_well_1 47.1 angle_well_2 161.1
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[18.  0.  0. 10.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0. 10.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 3, [18. 10. 10.]
+Unique trodes(TS1): 2, [10. 18.]
+Number of decoder occupancy points: 9900
+Decoder 0 firing rate: (mean: 554.21 std: 433.847 )
+position 4.0 velocity 10.13 segment 0 raw_x 766.0 raw_y 464.0 angle -76.76 angle_well_1 49.3 angle_well_2 159.9
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.585434952817485
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.7314985287836095
+ripple scm sent. rtype: standard, elec_grp: 23, zscore: 3.5305137107078046
+[<realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea8904f90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea88ed910>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea88ede50>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea894e5d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea8951610>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea76edfd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea76f9790>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea76f9810>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea76fff90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea76e7890>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea7709750>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fcea7710ed0>]

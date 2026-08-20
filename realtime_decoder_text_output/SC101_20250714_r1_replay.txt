@@ -1,0 +1,1510 @@
+Rank 0 past barrier
+Rank 1 past barrier
+initial number of posterior puffer values: 74
+Rank 2 past barrier
+state_labels: ['state', ' ', 'thresh']
+Rank 3 past barrier
+Rank 4 past barrier
+Rank 5 past barrier
+Rank 6 past barrier
+Rank 7 past barrier
+Rank 8 past barrier
+Rank 9 past barrier
+Rank 10 past barrier
+Rank 11 past barrier
+Rank 12 past barrier
+Rank 13 past barrier
+Rank 14 past barrier
+Rank 15 past barrier
+Rank 16 past barrier
+Rank 17 past barrier
+Rank 18 past barrier
+Rank 19 past barrier
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+x_env.shape = (15, 12)
+num_signals: 12
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 2.0 velocity 1.53 segment 0 raw_x 763.0 raw_y 428.0 angle 23.08 angle_well_1 44.8 angle_well_2 153.7
+Decoder 0 firing rate: (mean: 62.385 std: 117.742 )
+position 2.0 velocity 3.69 segment 0 raw_x 765.0 raw_y 428.0 angle 135.0 angle_well_1 49.0 angle_well_2 161.1
+position 2.0 velocity 6.18 segment 0 raw_x 772.0 raw_y 456.0 angle -74.74 angle_well_1 50.2 angle_well_2 160.4
+Number of decoder occupancy points: 100
+Decoder 0 firing rate: (mean: 235.15 std: 312.283 )
+position 3.0 velocity 77.05 segment 0 raw_x 752.0 raw_y 476.0 angle -167.01 angle_well_1 52.0 angle_well_2 156.9
+Number of decoder occupancy points: 200
+position 23.0 velocity 1.15 segment 2 raw_x 579.0 raw_y 794.0 angle -25.2 angle_well_1 56.0 angle_well_2 117.9
+Decoder 0 firing rate: (mean: 321.752 std: 361.359 )
+position 18.0 velocity 94.32 segment 2 raw_x 762.0 raw_y 635.0 angle 88.57 angle_well_1 68.3 angle_well_2 139.2
+Number of decoder occupancy points: 300
+position 2.0 velocity 0.0 segment 0 raw_x 767.0 raw_y 569.0 angle -99.16 angle_well_1 33.8 angle_well_2 171.2
+Number of decoder occupancy points: 400
+Decoder 0 firing rate: (mean: 397.159 std: 407.86 )
+position 2.0 velocity 35.07 segment 0 raw_x 769.0 raw_y 424.0 angle 120.62 angle_well_1 56.3 angle_well_2 157.9
+Number of decoder occupancy points: 500
+position 14.0 velocity 2.94 segment 1 raw_x 997.0 raw_y 764.0 angle -126.03 angle_well_1 99.6 angle_well_2 147.4
+Decoder 0 firing rate: (mean: 485.568 std: 454.556 )
+Number of decoder occupancy points: 600
+position 14.0 velocity 61.29 segment 1 raw_x 1086.0 raw_y 763.0 angle -76.26 angle_well_1 108.1 angle_well_2 150.5
+Number of decoder occupancy points: 700
+position 7.0 velocity 43.07 segment 1 raw_x 832.0 raw_y 572.0 angle 147.99 angle_well_1 73.9 angle_well_2 150.8
+Decoder 0 firing rate: (mean: 568.758 std: 492.339 )
+Number of decoder occupancy points: 800
+position 3.0 velocity 8.12 segment 0 raw_x 786.0 raw_y 463.0 angle 107.53 angle_well_1 58.3 angle_well_2 157.3
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0. 30.  0.  0.  0.  0.  0.  0.]
+  [ 0. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [45. 42.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 30.  0. 48.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.421 with threshold: 0.25
+num spikes(TS1) : 6, [30. 30. 45. 42. 30. 48.]
+Unique trodes(TS1): 4, [30. 42. 45. 48.]
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 2, [30. 30.]
+Unique trodes(TS1): 1, [30.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 30. 45.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.362 with threshold: 0.25
+num spikes(TS1) : 2, [30. 45.]
+Unique trodes(TS1): 2, [30. 45.]
+Number of decoder occupancy points: 900
+position 0.0 velocity 11.25 segment 0 raw_x 736.0 raw_y 341.0 angle -116.57 angle_well_1 18.8 angle_well_2 174.6
+Decoder 0 firing rate: (mean: 620.42 std: 512.714 )
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0. 45. 45.  0.  0.  0.  0.  0.  0. 42.]
+  [ 0.  0.  0.  0. 48.  0. 45.  0.  0.  0.]
+  [63. 18.  0.  0.  0.  0.  0.  0. 42.  0.]
+  [ 0.  0.  0. 63.  0.  0.  0. 45.  0.  0.]
+  [51. 45. 21. 45.  0. 42. 48.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.549 with threshold: 0.25
+num spikes(TS1) : 16, [45. 45. 42. 48. 45. 63. 18. 42. 63. 45. 51. 45. 21. 45. 42. 48.]
+Unique trodes(TS1): 7, [18. 21. 42. 45. 48. 51. 63.]
+Number of decoder occupancy points: 1000
+position 2.0 velocity 27.65 segment 0 raw_x 659.0 raw_y 486.0 angle -90.0 angle_well_1 38.0 angle_well_2 152.2
+position 0.0 velocity 3.41 segment 0 raw_x 754.0 raw_y 320.0 angle 107.82 angle_well_1 36.1 angle_well_2 168.0
+Decoder 0 firing rate: (mean: 651.824 std: 527.711 )
+Number of decoder occupancy points: 1100
+position 2.0 velocity 11.32 segment 0 raw_x 776.0 raw_y 454.0 angle -73.3 angle_well_1 50.7 angle_well_2 160.6
+Number of decoder occupancy points: 1200
+Decoder 0 firing rate: (mean: 681.471 std: 535.849 )
+position 2.0 velocity 14.8 segment 0 raw_x 769.0 raw_y 424.0 angle 106.14 angle_well_1 53.3 angle_well_2 158.7
+position 2.0 velocity 3.1 segment 0 raw_x 767.0 raw_y 428.0 angle 138.37 angle_well_1 49.0 angle_well_2 161.4
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[18.  0. 18.  0.  0.  0. 54.  0.  0.  0.]
+  [51.  0. 27. 48.  0. 54.  0.  0.  0.  0.]
+  [ 0. 18.  0. 63.  0.  0.  0.  0. 45.  0.]
+  [ 0.  0. 21. 42.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 18.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.608 with threshold: 0.25
+num spikes(TS1) : 13, [18. 18. 54. 51. 27. 48. 54. 18. 63. 45. 21. 42. 18.]
+Unique trodes(TS1): 9, [18. 21. 27. 42. 45. 48. 51. 54. 63.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 48.  0. 54.  0.  0.  0.  0.  0. 42.]
+  [63.  0.  0. 54.  0. 51.  0.  0.  0.  0.]
+  [18.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.496 with threshold: 0.25
+num spikes(TS1) : 7, [48. 54. 42. 63. 54. 51. 18.]
+Unique trodes(TS1): 6, [18. 42. 48. 51. 54. 63.]
+Decoder 0 firing rate: (mean: 661.909 std: 544.475 )
+position 0.0 velocity 12.04 segment 0 raw_x 753.0 raw_y 324.0 angle 108.89 angle_well_1 32.2 angle_well_2 169.6
+Number of decoder occupancy points: 1300
+position 23.0 velocity 2.08 segment 2 raw_x 579.0 raw_y 792.0 angle -14.04 angle_well_1 56.1 angle_well_2 117.9
+Decoder 0 firing rate: (mean: 668.871 std: 543.386 )
+position 23.0 velocity 2.99 segment 2 raw_x 565.0 raw_y 786.0 angle -93.69 angle_well_1 54.0 angle_well_2 119.0
+Number of decoder occupancy points: 1400
+Number of decoder occupancy points: 1500
+position 14.0 velocity 5.22 segment 1 raw_x 1088.0 raw_y 757.0 angle 104.93 angle_well_1 107.3 angle_well_2 147.9
+Decoder 0 firing rate: (mean: 690.187 std: 547.835 )
+position 1.0 velocity 2.64 segment 0 raw_x 764.0 raw_y 425.0 angle 159.78 angle_well_1 48.7 angle_well_2 161.9
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0. 45.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 51. 45.  0.  0. 51.  0.  0.  0.  0.]
+  [ 0.  0.  0. 32.  0.  0. 45.  0. 48.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.298 with threshold: 0.25
+num spikes(TS1) : 7, [45. 51. 45. 51. 32. 45. 48.]
+Unique trodes(TS1): 4, [32. 45. 48. 51.]
+position 1.0 velocity 0.63 segment 0 raw_x 768.0 raw_y 428.0 angle 165.07 angle_well_1 49.1 angle_well_2 162.0
+Decoder 0 firing rate: (mean: 680.179 std: 557.93 )
+Number of decoder occupancy points: 1600
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[48. 45. 51. 18. 32.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 45.  0. 48.  0.  0.  0. 18. 24.  0.]
+  [30.  0.  0. 42. 45.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0. 32. 51.  0.  0. 18.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.349 with threshold: 0.25
+num spikes(TS1) : 16, [48. 45. 51. 18. 32. 42. 45. 48. 18. 24. 30. 42. 45. 32. 51. 18.]
+Unique trodes(TS1): 8, [18. 24. 30. 32. 42. 45. 48. 51.]
+position 22.0 velocity 112.79 segment 2 raw_x 679.0 raw_y 747.0 angle -142.43 angle_well_1 63.2 angle_well_2 129.9
+Number of decoder occupancy points: 1700
+position 14.0 velocity 80.61 segment 1 raw_x 1080.0 raw_y 769.0 angle -84.56 angle_well_1 108.2 angle_well_2 151.1
+Decoder 0 firing rate: (mean: 696.023 std: 557.992 )
+Number of decoder occupancy points: 1800
+position 14.0 velocity 19.18 segment 1 raw_x 1086.0 raw_y 761.0 angle 15.26 angle_well_1 106.6 angle_well_2 148.0
+Number of decoder occupancy points: 1900
+position 2.0 velocity 5.03 segment 0 raw_x 763.0 raw_y 429.0 angle 114.84 angle_well_1 56.0 angle_well_2 156.6
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[48.  0.  0. 39. 42.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0. 21.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0. 30.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0. 42.  0.  0.  0.  0.  0.  0.]
+  [ 0. 42.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.526 with threshold: 0.25
+num spikes(TS1) : 7, [48. 39. 42. 21. 30. 42. 42.]
+Unique trodes(TS1): 5, [21. 30. 39. 42. 48.]
+Decoder 0 firing rate: (mean: 698.093 std: 561.625 )
+position 2.0 velocity 29.84 segment 0 raw_x 767.0 raw_y 428.0 angle 59.44 angle_well_1 53.9 angle_well_2 152.1
+Number of decoder occupancy points: 2000
+position 0.0 velocity 0.84 segment 0 raw_x 751.0 raw_y 320.0 angle 110.56 angle_well_1 35.8 angle_well_2 167.9
+Decoder 0 firing rate: (mean: 687.656 std: 564.505 )
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [63.  0. 45.  0. 32. 45.  0.  0. 18.  0.]
+  [ 0. 51.  0. 54.  0.  0. 42.  0.  0.  0.]
+  [ 0.  0.  0.  0. 45. 32.  0.  0.  0. 51.]
+  [21.  0. 63.  0. 48.  0. 51.  0. 45.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.409 with threshold: 0.25
+num spikes(TS1) : 16, [63. 45. 32. 45. 18. 51. 54. 42. 45. 32. 51. 21. 63. 48. 51. 45.]
+Unique trodes(TS1): 9, [18. 21. 32. 42. 45. 48. 51. 54. 63.]
+position 2.0 velocity 3.4 segment 0 raw_x 770.0 raw_y 458.0 angle -107.1 angle_well_1 50.4 angle_well_2 160.4
+Number of decoder occupancy points: 2100
+Decoder 0 firing rate: (mean: 688.955 std: 565.223 )
+position 23.0 velocity 3.07 segment 2 raw_x 578.0 raw_y 792.0 angle -17.35 angle_well_1 56.0 angle_well_2 117.8
+position 5.0 velocity 94.76 segment 0 raw_x 810.0 raw_y 534.0 angle 65.77 angle_well_1 67.6 angle_well_2 151.3
+Number of decoder occupancy points: 2200
+Decoder 0 firing rate: (mean: 688.078 std: 568.028 )
+position 1.0 velocity 8.11 segment 0 raw_x 769.0 raw_y 421.0 angle 123.69 angle_well_1 49.4 angle_well_2 161.5
+position 2.0 velocity 19.34 segment 0 raw_x 774.0 raw_y 457.0 angle -67.38 angle_well_1 50.3 angle_well_2 160.4
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0. 45.  0. 42.  0.  0. 21. 45.  0.]
+  [ 0. 45.  0.  0. 21.  0.  0. 51.  0.  0.]
+  [18.  0.  0. 51. 48.  0.  0.  0.  0.  0.]
+  [45. 21.  0.  0.  0. 45.  0.  0.  0.  0.]
+  [45. 18. 54. 51.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.302 with threshold: 0.25
+num spikes(TS1) : 17, [45. 42. 21. 45. 45. 21. 51. 18. 51. 48. 45. 21. 45. 45. 18. 54. 51.]
+Unique trodes(TS1): 7, [18. 21. 42. 45. 48. 51. 54.]
+Decoder 0 firing rate: (mean: 689.315 std: 567.938 )
+Number of decoder occupancy points: 2300
+position 14.0 velocity 9.9 segment 1 raw_x 1086.0 raw_y 760.0 angle 66.8 angle_well_1 106.5 angle_well_2 147.6
+Number of decoder occupancy points: 2400
+position 14.0 velocity 2.78 segment 1 raw_x 1084.0 raw_y 769.0 angle -81.74 angle_well_1 108.4 angle_well_2 151.1
+Decoder 0 firing rate: (mean: 691.091 std: 568.184 )
+Number of decoder occupancy points: 2500
+position 2.0 velocity 59.04 segment 0 raw_x 768.0 raw_y 457.0 angle -86.42 angle_well_1 49.0 angle_well_2 160.7
+Number of decoder occupancy points: 2600
+position 14.0 velocity 4.71 segment 1 raw_x 1086.0 raw_y 763.0 angle 5.19 angle_well_1 106.6 angle_well_2 148.0
+Decoder 0 firing rate: (mean: 694.555 std: 567.445 )
+Number of decoder occupancy points: 2700
+position 2.0 velocity 7.44 segment 0 raw_x 767.0 raw_y 426.0 angle 111.54 angle_well_1 53.5 angle_well_2 158.5
+position 2.0 velocity 1.33 segment 0 raw_x 767.0 raw_y 428.0 angle 28.51 angle_well_1 47.0 angle_well_2 155.4
+Decoder 0 firing rate: (mean: 698.094 std: 570.364 )
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[18.  0.  0. 45.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [48. 32. 42.  0.  0. 48.  0.  0.  0. 45.]
+  [ 0. 51.  0. 45.  0.  0. 48. 45.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.432 with threshold: 0.25
+num spikes(TS1) : 11, [18. 45. 48. 32. 42. 48. 45. 51. 45. 48. 45.]
+Unique trodes(TS1): 6, [18. 32. 42. 45. 48. 51.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0. 18.  0. 42.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0. 30.  0.  0.]
+  [ 0. 45.  0.  0.  0. 42.  0.  0.  0.  0.]
+  [ 0. 18.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 42.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.463 with threshold: 0.25
+num spikes(TS1) : 7, [18. 42. 30. 45. 42. 18. 42.]
+Unique trodes(TS1): 4, [18. 30. 42. 45.]
+Number of decoder occupancy points: 2800
+position 23.0 velocity 36.02 segment 2 raw_x 580.0 raw_y 794.0 angle -23.63 angle_well_1 56.1 angle_well_2 118.0
+Number of decoder occupancy points: 2900
+position 23.0 velocity 11.83 segment 2 raw_x 580.0 raw_y 789.0 angle 160.35 angle_well_1 57.6 angle_well_2 119.0
+Decoder 0 firing rate: (mean: 707.89 std: 569.946 )
+position 23.0 velocity 2.04 segment 2 raw_x 580.0 raw_y 792.0 angle -21.25 angle_well_1 56.0 angle_well_2 118.0
+Number of decoder occupancy points: 3000
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[18.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 18.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 45.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 45.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.303 with threshold: 0.25
+num spikes(TS1) : 4, [18. 18. 45. 45.]
+Unique trodes(TS1): 2, [18. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0. 45. 32. 45.  0.  0. 51.  0.]
+  [ 0.  0. 45. 48.  0.  0.  0.  0.  0.  0.]
+  [51. 42.  0. 45.  0.  0.  0.  0. 45.  0.]
+  [ 0. 63. 48.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 42.  0.  0.  0. 51. 48.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.356 with threshold: 0.25
+num spikes(TS1) : 15, [45. 32. 45. 51. 45. 48. 51. 42. 45. 45. 63. 48. 42. 51. 48.]
+Unique trodes(TS1): 6, [32. 42. 45. 48. 51. 63.]
+position 2.0 velocity 5.5 segment 0 raw_x 763.0 raw_y 425.0 angle 123.23 angle_well_1 51.8 angle_well_2 159.5
+Decoder 0 firing rate: (mean: 706.558 std: 570.959 )
+position 0.0 velocity 52.43 segment 0 raw_x 750.0 raw_y 319.0 angle 110.22 angle_well_1 35.7 angle_well_2 167.9
+Number of decoder occupancy points: 3100
+Decoder 0 firing rate: (mean: 699.986 std: 571.35 )
+position 1.0 velocity 134.78 segment 0 raw_x 761.0 raw_y 430.0 angle -85.91 angle_well_1 43.7 angle_well_2 163.2
+position 14.0 velocity 15.98 segment 1 raw_x 1087.0 raw_y 763.0 angle 6.34 angle_well_1 106.8 angle_well_2 148.1
+Number of decoder occupancy points: 3200
+Decoder 0 firing rate: (mean: 706.108 std: 570.553 )
+Number of decoder occupancy points: 3300
+position 2.0 velocity 1.37 segment 0 raw_x 768.0 raw_y 428.0 angle 128.16 angle_well_1 50.2 angle_well_2 160.8
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30.  0.  0. 24.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 42.  0.  0.  0. 48.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0. 45.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.467 with threshold: 0.25
+num spikes(TS1) : 6, [30. 24. 30. 42. 48. 45.]
+Unique trodes(TS1): 5, [24. 30. 42. 45. 48.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[42.  0. 45. 63. 60.  0.  0. 32.  0.  0.]
+  [42.  0.  0. 54. 48. 54.  0.  0. 48.  0.]
+  [57.  0.  0.  0. 48. 63. 18.  0.  0. 45.]
+  [54.  0.  0.  0.  0.  0.  0.  0.  0. 54.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.346 with threshold: 0.25
+num spikes(TS1) : 17, [42. 45. 63. 60. 32. 42. 54. 48. 54. 48. 57. 48. 63. 18. 45. 54. 54.]
+Unique trodes(TS1): 9, [18. 32. 42. 45. 48. 54. 57. 60. 63.]
+position 2.0 velocity 1.63 segment 0 raw_x 765.0 raw_y 427.0 angle 88.85 angle_well_1 53.5 angle_well_2 156.7
+Decoder 0 firing rate: (mean: 702.172 std: 571.084 )
+Number of decoder occupancy points: 3400
+position 4.0 velocity 113.82 segment 0 raw_x 796.0 raw_y 534.0 angle -75.96 angle_well_1 62.4 angle_well_2 154.3
+Number of decoder occupancy points: 3500
+position 4.0 velocity 105.92 segment 0 raw_x 781.0 raw_y 540.0 angle -85.6 angle_well_1 61.4 angle_well_2 152.5
+Decoder 0 firing rate: (mean: 711.3 std: 570.7 )
+Number of decoder occupancy points: 3600
+position 2.0 velocity 0.93 segment 0 raw_x 763.0 raw_y 429.0 angle 36.43 angle_well_1 48.6 angle_well_2 153.1
+position 3.0 velocity 1.44 segment 0 raw_x 763.0 raw_y 429.0 angle 71.06 angle_well_1 56.4 angle_well_2 150.3
+Decoder 0 firing rate: (mean: 708.775 std: 572.47 )
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 32.  0.  0.  0. 18.  0.  0.  0.  0.]
+  [32.  0.  0.  0. 45. 48. 51.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.376 with threshold: 0.25
+num spikes(TS1) : 6, [32. 18. 32. 45. 48. 51.]
+Unique trodes(TS1): 5, [18. 32. 45. 48. 51.]
+Number of decoder occupancy points: 3700
+position 14.0 velocity 157.86 segment 1 raw_x 1084.0 raw_y 772.0 angle -8.43 angle_well_1 102.8 angle_well_2 147.0
+Number of decoder occupancy points: 3800
+position 14.0 velocity 54.9 segment 1 raw_x 1085.0 raw_y 767.0 angle -0.0 angle_well_1 104.8 angle_well_2 147.3
+Decoder 0 firing rate: (mean: 711.113 std: 573.058 )
+Number of decoder occupancy points: 3900
+position 23.0 velocity 121.64 segment 2 raw_x 582.0 raw_y 779.0 angle 3.18 angle_well_1 55.9 angle_well_2 118.4
+Number of decoder occupancy points: 4000
+position 1.0 velocity 12.21 segment 0 raw_x 771.0 raw_y 423.0 angle 123.69 angle_well_1 48.1 angle_well_2 162.2
+Decoder 0 firing rate: (mean: 716.892 std: 571.303 )
+Number of decoder occupancy points: 4100
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[27. 18.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [24. 18.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 39. 32. 51. 45.  0.  0.  0.  0.  0.]
+  [48.  0. 32. 32.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.346 with threshold: 0.25
+num spikes(TS1) : 11, [27. 18. 24. 18. 39. 32. 51. 45. 48. 32. 32.]
+Unique trodes(TS1): 8, [18. 24. 27. 32. 39. 45. 48. 51.]
+position 14.0 velocity 26.28 segment 1 raw_x 1086.0 raw_y 757.0 angle -57.99 angle_well_1 107.4 angle_well_2 149.3
+n_spikes_current_in_buffer in encoder 21: 32256
+n_spikes_current_in_buffer in encoder 30: 28274
+n_spikes_current_in_buffer in encoder 35: 12314
+n_spikes_current_in_buffer in encoder 45: 11297
+n_spikes_current_in_buffer in encoder 51: 6333
+n_spikes_current_in_buffer in encoder 63: 1029
+n_spikes_current_in_buffer in encoder 18: 24893
+n_spikes_current_in_buffer in encoder 24: 25216
+n_spikes_current_in_buffer in encoder 32: 10279
+n_spikes_current_in_buffer in encoder 54: 4095
+n_spikes_current_in_buffer in encoder 57: 440
+n_spikes_current_in_buffer in encoder 60: 566
+n_spikes_current_in_buffer in encoder 27: 10929
+n_spikes_current_in_buffer in encoder 39: 9497
+n_spikes_current_in_buffer in encoder 42: 13347
+n_spikes_current_in_buffer in encoder 48: 7036
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.578481299137032
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.558475885774404
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.6160307126144735
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.6793797734953406
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 5.632013860969691
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.7543224718850166
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5327745445425474
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.859012824482774
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.773582669613499
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.677511469564621
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.8877516310033733
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5026218165811907
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.5508957606818963
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.531201843643825
+Decoder 0 firing rate: (mean: 715.523 std: 570.22 )
+position 14.0 velocity 6.52 segment 1 raw_x 1086.0 raw_y 748.0 angle 68.96 angle_well_1 106.3 angle_well_2 147.5
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5009764516326594
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.6923746522612544
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.6970901488859744
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.6319484696148927
+position 5.0 velocity 82.32 segment 0 raw_x 806.0 raw_y 545.0 angle 128.66 angle_well_1 69.0 angle_well_2 151.1
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.50126739448379
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.874723869445353
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.5133093234932278
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.600787168898106
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.6891552892813078
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5454543341259157
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[39.  0. 42.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0. 32.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0. 45.  0. 39.  0.  0.  0.]
+  [42.  0.  0. 45.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 39.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 2
+Replay arm 1 detected with target posterior prob: 0.497 with threshold: 0.25
+num spikes(TS2) : 8, [39. 42. 32. 45. 39. 42. 45. 39.]
+Unique trodes(TS2): 4, [32. 39. 42. 45.]
+Replay arm 1 scm sent
+num_rewards: arm1: 1, arm2: 0, total: 1
+---------------------------------
+ 
+ 
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0. 30.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0. 39.  0.  0.  0.  0.]
+  [ 0. 45.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 45.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 2
+Replay arm 1 detected with target posterior prob: 0.367 with threshold: 0.25
+num spikes(TS2) : 4, [30. 39. 45. 45.]
+Unique trodes(TS2): 3, [30. 39. 45.]
+Replay arm 1 scm sent
+num_rewards: arm1: 2, arm2: 0, total: 2
+---------------------------------
+ 
+ 
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5437414792469486
+Decoder 0 firing rate: (mean: 716.343 std: 567.783 )
+position 3.0 velocity 34.92 segment 0 raw_x 734.0 raw_y 492.0 angle -104.04 angle_well_1 48.9 angle_well_2 155.5
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5204334980190293
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.548175807588134
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.6365448764994905
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.6541239315313954
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.726671691550815
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0. 42.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 39.  0.  0. 51. 42.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 2
+Replay arm 1 detected with target posterior prob: 0.301 with threshold: 0.25
+num spikes(TS2) : 6, [42. 42. 42. 39. 51. 42.]
+Unique trodes(TS2): 3, [39. 42. 51.]
+Replay arm 1 scm sent
+num_rewards: arm1: 3, arm2: 0, total: 3
+---------------------------------
+ 
+ 
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.5296608259835454
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.535341828543397
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.6677908889805027
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.547308632184856
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5285360756431023
+position 16.0 velocity 87.61 segment 2 raw_x 795.0 raw_y 622.0 angle -141.84 angle_well_1 70.4 angle_well_2 146.3
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.5563790578205263
+Decoder 0 firing rate: (mean: 721.193 std: 566.723 )
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 4.12142780905346
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.6790032767903806
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.611537426421489
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.8214413756287144
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.6471498432588247
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.8099505797419506
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.5076903662166488
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.5671450781239313
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.589071228230617
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5402326893963267
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.8204296431575466
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5341016528119202
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.9090728015286773
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.8013575851867
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.688210616780836
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.541269284956166
+position 4.0 velocity 1.63 segment 0 raw_x 808.0 raw_y 548.0 angle -90.59 angle_well_1 58.4 angle_well_2 161.1
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.6791157235816816
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.557609726891177
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.5984759342839787
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.584158950414632
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5461591300581534
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.551848802263489
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.583553355153638
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5982890103321954
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.6178037326593513
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.550952624445114
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.535825598753592
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.627203807451311
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.9480621934678966
+position 2.0 velocity 4.4 segment 0 raw_x 811.0 raw_y 449.0 angle 82.87 angle_well_1 59.6 angle_well_2 160.6
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.6141707052044287
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.7699953020564596
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.972291623433404
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.5416987079857676
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.526775509880539
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5547071659680185
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.664968472806571
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.735362681357352
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.7288127633117933
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.538494237541785
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.576987374902557
+Decoder 0 firing rate: (mean: 720.411 std: 564.366 )
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.809602625343087
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5775701283672845
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.6985580327196517
+position 17.0 velocity 25.0 segment 2 raw_x 780.0 raw_y 591.0 angle 112.11 angle_well_1 68.8 angle_well_2 144.6
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.6911499195103703
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5886229939174483
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5278599435478992
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.5600359427489137
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.5872033703304718
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6490872624816
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.657501838344539
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.6560667074504782
+position 23.0 velocity 68.97 segment 2 raw_x 614.0 raw_y 720.0 angle 112.38 angle_well_1 57.1 angle_well_2 124.5
+Decoder 0 firing rate: (mean: 724.432 std: 562.821 )
+position 14.0 velocity 2.02 segment 1 raw_x 1086.0 raw_y 765.0 angle -80.05 angle_well_1 108.6 angle_well_2 151.1
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.773264591458536
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.9481761573132927
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.6216116759149504
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.576596324123464
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5562012340460685
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.502350932790976
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5836085894992027
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.8872583478378058
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.504246800604236
+position 8.0 velocity 23.82 segment 1 raw_x 841.0 raw_y 610.0 angle 59.04 angle_well_1 76.0 angle_well_2 147.9
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.561466805578897
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 4.750831214523747
+Decoder 0 firing rate: (mean: 727.794 std: 561.387 )
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.6849598992317367
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.5173680563745076
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.7968969707968148
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.671956567972487
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.7321000567133993
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.508708050080559
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.7543425661446395
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.726546964126535
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5463202254969435
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.5969665886698197
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.9830956992859123
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.6551016634281708
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.7181549281906
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.551183224827458
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.655426073750538
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.510749425695226
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.624134334239417
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 4.843172973469752
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.555981926755856
+position 2.0 velocity 38.27 segment 0 raw_x 758.0 raw_y 440.0 angle -18.43 angle_well_1 46.8 angle_well_2 160.5
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5180457012247106
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5152177631750225
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.729283550971807
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.5110793816316277
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.5301107193572117
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5642007049137434
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.579766117703235
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.619364240379329
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.5922055687318037
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.555974993914988
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.5459590848155464
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.8414067476989353
+position 1.0 velocity 3.22 segment 0 raw_x 819.0 raw_y 400.0 angle -41.19 angle_well_1 48.0 angle_well_2 168.0
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.503187706319147
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.7013397041568052
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.530138134691257
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.8011401141980143
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.549826046452901
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.63381258012256
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5367890620394142
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.7347066382255947
+Decoder 0 firing rate: (mean: 729.188 std: 558.947 )
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5266567608067447
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5755394694808116
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.550339327803496
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.54866070123571
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 4.022517039661752
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.548421892691636
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 4.250544438652912
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 6.583184597839324
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.7717168098814677
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 4.026497809580282
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.7433735887690553
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.524731935408391
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5270483050778876
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.5248355833990708
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0. 45.  0.  0.]
+  [48.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0. 30.]]]
+Replay arm 2 detected with more than min unique trodes in ts 2
+Replay arm 2 detected with target posterior prob: 0.252 with threshold: 0.25
+num spikes(TS2) : 3, [45. 48. 30.]
+Unique trodes(TS2): 3, [30. 45. 48.]
+Replay arm 2 scm sent
+num_rewards: arm1: 3, arm2: 1, total: 4
+---------------------------------
+ 
+ 
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.7072820314551094
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.533735424847969
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.7085181876175035
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0. 45.  0.]
+  [ 0.  0.  0.  0.  0.  0. 39.  0.  0.  0.]
+  [ 0.  0. 45.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0. 45.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 2
+Replay arm 1 detected with target posterior prob: 0.33 with threshold: 0.25
+num spikes(TS2) : 5, [45. 39. 45. 42. 45.]
+Unique trodes(TS2): 3, [39. 42. 45.]
+Replay arm 1 scm sent
+num_rewards: arm1: 4, arm2: 1, total: 5
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 4
+number of arm 2 detected events:1
+number of arm 1 below threshold but many cell events:0
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.33 and arm 2 thresh: 0.252
+position 2.0 velocity 6.4 segment 0 raw_x 767.0 raw_y 455.0 angle -150.95 angle_well_1 51.1 angle_well_2 159.9
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.565598137876167
+Replay arm 1 detected with lower target posterior prob: 0.284 than threshold: 0.33
+num spikes(TS2) : 8, [30. 51. 48. 18. 24. 54. 42. 45.]
+Unique trodes(TS2): 8, [18. 24. 30. 42. 45. 48. 51. 54.]
+Replay arm 1 scm sent
+num_rewards: arm1: 5, arm2: 1, total: 6
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 5
+number of arm 2 detected events:1
+number of arm 1 below threshold but many cell events:1
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.367 and arm 2 thresh: 0.252
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.566578880278754
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.9907191692761126
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5264278489852283
+position 13.0 velocity 95.27 segment 1 raw_x 972.0 raw_y 733.0 angle 113.2 angle_well_1 95.4 angle_well_2 145.1
+Decoder 0 firing rate: (mean: 731.687 std: 557.479 )
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5011054025769903
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.885486016629491
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 4.203118293633745
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.9163308720775594
+Replay arm 1 detected less than min unique trodes in ts 2
+num spikes(TS2) : 3, [42. 42. 42.]
+Unique trodes(TS2): 1, [42.]
+position 2.0 velocity 1.88 segment 0 raw_x 763.0 raw_y 468.0 angle -90.0 angle_well_1 50.0 angle_well_2 159.2
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.6719490545982136
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0. 27.  0. 18.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 18.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 30.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 2
+Replay arm 1 detected with target posterior prob: 0.376 with threshold: 0.367
+num spikes(TS2) : 4, [27. 18. 18. 30.]
+Unique trodes(TS2): 3, [18. 27. 30.]
+Replay arm 1 scm sent
+num_rewards: arm1: 6, arm2: 1, total: 7
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 6
+number of arm 2 detected events:1
+number of arm 1 below threshold but many cell events:1
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.376 and arm 2 thresh: 0.252
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 30.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0. 21.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0. 30.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 2
+Replay arm 1 detected with target posterior prob: 0.417 with threshold: 0.376
+num spikes(TS2) : 3, [30. 21. 30.]
+Unique trodes(TS2): 2, [21. 30.]
+Replay arm 1 scm sent
+num_rewards: arm1: 7, arm2: 1, total: 8
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 7
+number of arm 2 detected events:1
+number of arm 1 below threshold but many cell events:1
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.417 and arm 2 thresh: 0.252
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.695470159529507
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5246392700151774
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.5278853027254407
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.7084360794207702
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.7367444125884557
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.563546293779686
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.737437323137121
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.557130210361105
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.7644144924271776
+Decoder 0 firing rate: (mean: 732.058 std: 555.676 )
+position 14.0 velocity 17.84 segment 1 raw_x 1086.0 raw_y 764.0 angle 45.0 angle_well_1 106.3 angle_well_2 147.4
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.6340766323383904
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.8973335426652636
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.515906190074954
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.6372545343885037
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.659976691492341
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.755679856642438
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.6099672269422016
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.9341341215321823
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.55761182428674
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.525159483994008
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.6675814646358664
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.7593346321801873
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5565648209002467
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.545128236565312
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.939911047117694
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6003747562267776
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.587042024437223
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.739048891649843
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.573721131507749
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.808640256926988
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.9205423809090174
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.577768622408717
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.595134739315184
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.61864926573262
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.514928967902425
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.5672047769062547
+position 14.0 velocity 2.25 segment 1 raw_x 1087.0 raw_y 763.0 angle 90.0 angle_well_1 106.9 angle_well_2 147.7
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.7830155193652053
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.8279905233901994
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 6.048670276141594
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.6517403993936126
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.825283785676917
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5261710002439677
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5625707696209683
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5278248754261
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.5294581805095815
+Decoder 0 firing rate: (mean: 731.491 std: 557.644 )
+position 8.0 velocity 76.63 segment 1 raw_x 877.0 raw_y 570.0 angle 165.07 angle_well_1 82.1 angle_well_2 153.1
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.591123004491187
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.6444604017686597
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.632630939442907
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.5536881716763946
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.5377069946570034
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.659155668496892
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5247797715042664
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.613398211582278
+position 2.0 velocity 1.07 segment 0 raw_x 767.0 raw_y 456.0 angle -94.4 angle_well_1 49.3 angle_well_2 160.5
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.6458992849027063
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.7729127609312845
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.6490132956277606
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.507532840497755
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.7028050607085716
+Replay arm 2 detected less than min unique trodes in ts 2
+num spikes(TS2) : 3, [45. 45. 45.]
+Unique trodes(TS2): 1, [45.]
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6588661424413482
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.6329828680407985
+Decoder 0 firing rate: (mean: 732.523 std: 555.592 )
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.8044862414566833
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.8938625964025433
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5031973245552117
+position 3.0 velocity 47.56 segment 0 raw_x 765.0 raw_y 464.0 angle 96.24 angle_well_1 59.5 angle_well_2 151.8
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0. 48. 18.  0.  0. 45.  0.  0.]
+  [ 0.  0.  0.  0. 42.  0. 48.  0.  0.  0.]
+  [54.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 42.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 2
+Replay arm 2 detected with target posterior prob: 0.375 with threshold: 0.252
+num spikes(TS2) : 8, [48. 18. 45. 42. 48. 54. 42. 42.]
+Unique trodes(TS2): 5, [18. 42. 45. 48. 54.]
+Replay arm 2 scm sent
+num_rewards: arm1: 7, arm2: 2, total: 9
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 7
+number of arm 2 detected events:2
+number of arm 1 below threshold but many cell events:1
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.376 and arm 2 thresh: 0.252
+Replay arm 1 detected with lower target posterior prob: 0.369 than threshold: 0.376
+num spikes(TS2) : 15, [45. 48. 45. 18. 63. 42. 63. 45. 51. 18. 45. 48. 45. 51. 18.]
+Unique trodes(TS2): 6, [18. 42. 45. 48. 51. 63.]
+Replay arm 1 scm sent
+num_rewards: arm1: 8, arm2: 2, total: 10
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 8
+number of arm 2 detected events:2
+number of arm 1 below threshold but many cell events:2
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.417 and arm 2 thresh: 0.252
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.5273156230012774
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.811741946442689
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.586686070243331
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5048044487668295
+position 0.0 velocity 8.99 segment 0 raw_x 750.0 raw_y 317.0 angle 111.45 angle_well_1 35.1 angle_well_2 168.3
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.7276204607333177
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.501180246103003
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5207220149278173
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.908101173377326
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.6109305363738615
+Decoder 0 firing rate: (mean: 735.057 std: 554.487 )
+position 14.0 velocity 42.24 segment 1 raw_x 1083.0 raw_y 769.0 angle 18.43 angle_well_1 106.3 angle_well_2 147.6
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 4.734628235158256
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.551715182744378
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.584341445761653
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.7381871778159
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.590619603781238
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.8729331146659303
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.7265742304135214
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.6258015475418532
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.8262891421045233
+position 1.0 velocity 54.59 segment 0 raw_x 898.0 raw_y 378.0 angle 47.07 angle_well_1 72.9 angle_well_2 166.0
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.5258368934500126
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.5103344183590357
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.538077455039652
+Decoder 0 firing rate: (mean: 736.391 std: 553.277 )
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.50114178794514
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.5869142111811505
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.593939169373418
+position 2.0 velocity 3.26 segment 0 raw_x 752.0 raw_y 478.0 angle -82.41 angle_well_1 49.4 angle_well_2 157.6
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6164517538265204
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.545848189581327
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.539290733364108
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.562103943134035
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.519506741280357
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.501414022714099
+Replay arm 1 detected with lower target posterior prob: 0.27 than threshold: 0.417
+num spikes(TS2) : 4, [42. 42. 45. 42.]
+Unique trodes(TS2): 2, [42. 45.]
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.6564295694738536
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.6944720149684205
+position 0.0 velocity 12.14 segment 0 raw_x 765.0 raw_y 324.0 angle -52.13 angle_well_1 19.7 angle_well_2 175.4
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.6128971621889803
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.62035264336372
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5248600422818304
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.7824408895555797
+Decoder 0 firing rate: (mean: 738.471 std: 552.871 )
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.906035375433804
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0. 27. 18. 42.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0. 42. 48.  0.]
+  [ 0. 42.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0. 54.  0.  0. 42.]]]
+Replay arm 2 detected with more than min unique trodes in ts 2
+Replay arm 2 detected with target posterior prob: 0.292 with threshold: 0.252
+num spikes(TS2) : 8, [27. 18. 42. 42. 48. 42. 54. 42.]
+Unique trodes(TS2): 5, [18. 27. 42. 48. 54.]
+Replay arm 2 scm sent
+num_rewards: arm1: 8, arm2: 3, total: 11
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 9
+number of arm 2 detected events:3
+number of arm 1 below threshold but many cell events:2
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.417 and arm 2 thresh: 0.26
+position 12.0 velocity 110.92 segment 1 raw_x 994.0 raw_y 643.0 angle -48.58 angle_well_1 98.8 angle_well_2 153.1
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.640253255278198
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.598475885256333
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.504560970333923
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5007656479473934
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.6450498442198542
+position 23.0 velocity 21.05 segment 2 raw_x 568.0 raw_y 786.0 angle -90.0 angle_well_1 55.6 angle_well_2 117.8
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.5019310255738683
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.53960743479075
+Decoder 0 firing rate: (mean: 741.169 std: 551.564 )
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.604435181308498
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.51620242591654
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.514718696400195
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.7647533327174147
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.754982782401037
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.887186421549413
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.608800109392789
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.5036659041616027
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.6210572062435675
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.597111371633556
+position 7.0 velocity 29.08 segment 1 raw_x 821.0 raw_y 566.0 angle 12.09 angle_well_1 69.9 angle_well_2 150.4
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.6926832237027822
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5908106417063963
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.9493939952217554
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.556069841027105
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 4.033338420339763
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.536542258260209
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.684733735358546
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.627399116022655
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5216016837212467
+Replay arm 2 detected less than min unique trodes in ts 2
+num spikes(TS2) : 4, [48. 48. 48. 48.]
+Unique trodes(TS2): 1, [48.]
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5052243480162346
+position 2.0 velocity 11.23 segment 0 raw_x 778.0 raw_y 473.0 angle -57.53 angle_well_1 53.3 angle_well_2 158.7
+Replay arm 1 detected with lower target posterior prob: 0.365 than threshold: 0.417
+num spikes(TS2) : 4, [18. 27. 18. 18.]
+Unique trodes(TS2): 2, [18. 27.]
+Decoder 0 firing rate: (mean: 744.662 std: 550.933 )
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.671221925808425
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.522536843248611
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5614734283694633
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 4.033177806653236
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.569392613048586
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.6516014476226646
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.5194707298488894
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.8433719222807308
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0. 45. 48.  0. 45.  0.  0.  0.  0.  0.]
+  [ 0. 63.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 51.  0.  0.  0.  0. 18.  0. 42.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [51. 51.  0.  0.  0.  0. 32. 48.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 2
+Replay arm 1 detected with target posterior prob: 0.444 with threshold: 0.417
+num spikes(TS2) : 11, [45. 48. 45. 63. 51. 18. 42. 51. 51. 32. 48.]
+Unique trodes(TS2): 7, [18. 32. 42. 45. 48. 51. 63.]
+Replay arm 1 scm sent
+num_rewards: arm1: 9, arm2: 3, total: 12
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 11
+number of arm 2 detected events:3
+number of arm 1 below threshold but many cell events:2
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.417 and arm 2 thresh: 0.252
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.8125585978379894
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5238059131511563
+position 14.0 velocity 25.11 segment 1 raw_x 1069.0 raw_y 760.0 angle 157.17 angle_well_1 106.3 angle_well_2 147.8
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5962288511907867
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.6859726597438347
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.51678213425838
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.504906470957112
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.679748841400218
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 5.087260119788277
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.6764803290308543
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.69679029069788
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.682713575337162
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.5212774586970483
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.8022907218937756
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5432387144115425
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.606495125244684
+Decoder 0 firing rate: (mean: 744.971 std: 552.232 )
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.8189374401802705
+position 14.0 velocity 4.98 segment 1 raw_x 1086.0 raw_y 763.0 angle 65.56 angle_well_1 106.6 angle_well_2 147.6
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.6325491613947616
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5944792931579905
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.573803731818117
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.511194959306935
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.6152795014533385
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.6100861400350657
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.5065481101855505
+position 14.0 velocity 76.16 segment 1 raw_x 1084.0 raw_y 770.0 angle -6.34 angle_well_1 106.3 angle_well_2 147.7
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.6856892803923174
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.5506910659472912
+Replay arm 1 detected less than min unique trodes in ts 2
+num spikes(TS2) : 3, [48. 48. 48.]
+Unique trodes(TS2): 1, [48.]
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5431898918488254
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.5546738834541327
+Decoder 0 firing rate: (mean: 744.705 std: 551.793 )
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5290610356510324
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.7576855547595414
+position 3.0 velocity 13.38 segment 0 raw_x 774.0 raw_y 488.0 angle -67.38 angle_well_1 54.5 angle_well_2 157.1
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.6739771248059334
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.562717756676904
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5968472258193764
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5032923683197263
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.558025027688342
+position 14.0 velocity 9.02 segment 1 raw_x 1086.0 raw_y 763.0 angle -76.83 angle_well_1 108.2 angle_well_2 150.6
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.65923486119509
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.7960995379697784
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.652956570646492
+Decoder 0 firing rate: (mean: 747.283 std: 551.525 )
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5495190061741435
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.8009430309545253
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.511557282610566
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.586300574016727
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.6878813244500104
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.5526675006515687
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.632826925491067
+position 23.0 velocity 80.96 segment 2 raw_x 576.0 raw_y 716.0 angle -129.81 angle_well_1 52.2 angle_well_2 123.3
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.629355081858834
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.7621864690514917
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5520759112943288
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 4.5464232170052465
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.7935219064158443
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.791990895451372
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.544018501374901
+position 4.0 velocity 66.9 segment 0 raw_x 823.0 raw_y 518.0 angle 60.26 angle_well_1 68.2 angle_well_2 154.5
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5616616277559094
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.549165343042686
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5030278575116305
+Decoder 0 firing rate: (mean: 749.697 std: 550.896 )
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.519068540214193
+position 2.0 velocity 6.46 segment 0 raw_x 777.0 raw_y 460.0 angle -33.69 angle_well_1 52.9 angle_well_2 159.2
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.731219492140571
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5119416590014256
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 4.274066625082567
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5194189198299215
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0. 18.  0.  0.  0. 45.  0.  0. 51.]
+  [ 0. 21.  0.  0. 30. 45.  0.  0.  0.  0.]
+  [ 0.  0. 18.  0.  0.  0. 48.  0.  0.  0.]
+  [ 0.  0. 48.  0. 45.  0. 32.  0.  0. 48.]
+  [ 0.  0.  0.  0.  0.  0. 24.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 2
+Replay arm 1 detected with target posterior prob: 0.582 with threshold: 0.417
+num spikes(TS2) : 13, [18. 45. 51. 21. 30. 45. 18. 48. 48. 45. 32. 48. 24.]
+Unique trodes(TS2): 8, [18. 21. 24. 30. 32. 45. 48. 51.]
+Replay arm 1 scm sent
+num_rewards: arm1: 10, arm2: 3, total: 13
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 12
+number of arm 2 detected events:3
+number of arm 1 below threshold but many cell events:2
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.417 and arm 2 thresh: 0.25
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.524777371147584
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.9987480567755327
+position 14.0 velocity 1.79 segment 1 raw_x 1087.0 raw_y 764.0 angle 53.97 angle_well_1 106.5 angle_well_2 147.5
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6079258963751095
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.548091166809684
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.549437364531016
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.643233137532968
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.6798071250211826
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.6201218960474124
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 4.026001995255303
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.7555299549446253
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.6403925689749475
+Decoder 0 firing rate: (mean: 748.584 std: 550.838 )
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 4.003124311887778
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.7258069098497737
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.5223551564776576
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.542573175937724
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 4.57691041945719
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.5030301538937456
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.6296365559793156
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.5969380607524015
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.634257648966242
+position 14.0 velocity 5.47 segment 1 raw_x 1086.0 raw_y 763.0 angle 61.39 angle_well_1 106.5 angle_well_2 147.6
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.810163856683252
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.681443000025205
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5127379401950787
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.8170176387521204
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.745699071376745
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6111862385989655
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.830354550423729
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.550167617859971
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.974498029481082
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5908738119441543
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.692427488764441
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.9555821188251743
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.644441288108495
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5843562274827785
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5686976766539424
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.511578942885169
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.519779169194687
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.8098995025076796
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.508663244318968
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.555537132901971
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.6344467060962433
+position 4.0 velocity 121.87 segment 0 raw_x 796.0 raw_y 526.0 angle 2.45 angle_well_1 58.5 angle_well_2 151.3
+Decoder 0 firing rate: (mean: 748.803 std: 552.114 )
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.50416418066529
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5952706793343183
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.585871594081645
+Replay arm 2 detected less than min unique trodes in ts 2
+num spikes(TS2) : 4, [42. 42. 42. 42.]
+Unique trodes(TS2): 1, [42.]
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.6400669697861803
+Replay arm 1 detected less than min unique trodes in ts 2
+num spikes(TS2) : 5, [42. 42. 42. 42. 42.]
+Unique trodes(TS2): 1, [42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0. 48.  0.  0.]
+  [ 0.  0.  0. 39.  0.  0.  0.  0.  0.  0.]
+  [ 0. 39.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 42.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 2
+Replay arm 1 detected with target posterior prob: 0.575 with threshold: 0.417
+num spikes(TS2) : 4, [48. 39. 39. 42.]
+Unique trodes(TS2): 3, [39. 42. 48.]
+Replay arm 1 scm sent
+num_rewards: arm1: 11, arm2: 3, total: 14
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 13
+number of arm 2 detected events:3
+number of arm 1 below threshold but many cell events:2
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.444 and arm 2 thresh: 0.25
+position 3.0 velocity 13.65 segment 0 raw_x 787.0 raw_y 470.0 angle -36.87 angle_well_1 55.1 angle_well_2 158.8
+Replay arm 1 detected less than min unique trodes in ts 2
+num spikes(TS2) : 4, [42. 42. 42. 42.]
+Unique trodes(TS2): 1, [42.]
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5379823373222963
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.731244267956401
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0. 42.  0.  0.  0.  0.  0. 30.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0. 42.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 2
+Replay arm 1 detected with target posterior prob: 0.52 with threshold: 0.444
+num spikes(TS2) : 3, [42. 30. 42.]
+Unique trodes(TS2): 2, [30. 42.]
+Replay arm 1 scm sent
+num_rewards: arm1: 12, arm2: 3, total: 15
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 14
+number of arm 2 detected events:3
+number of arm 1 below threshold but many cell events:2
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.497 and arm 2 thresh: 0.25
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.570286678305445
+position 2.0 velocity 19.44 segment 0 raw_x 757.0 raw_y 454.0 angle -113.63 angle_well_1 47.4 angle_well_2 160.7
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.891443184073493
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.5098115794379736
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5564408595339736
+Decoder 0 firing rate: (mean: 750.927 std: 551.809 )
+Replay arm 1 detected with lower target posterior prob: 0.283 than threshold: 0.497
+num spikes(TS2) : 4, [18. 27. 42. 18.]
+Unique trodes(TS2): 3, [18. 27. 42.]
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.788486759781496
+Replay arm 1 detected with lower target posterior prob: 0.315 than threshold: 0.497
+num spikes(TS2) : 12, [45. 48. 48. 18. 48. 42. 18. 51. 42. 48. 32. 48.]
+Unique trodes(TS2): 6, [18. 32. 42. 45. 48. 51.]
+Replay arm 1 scm sent
+num_rewards: arm1: 13, arm2: 3, total: 16
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 16
+number of arm 2 detected events:3
+number of arm 1 below threshold but many cell events:3
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.52 and arm 2 thresh: 0.25
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5987341730307705
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.5938883220041915
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[54. 45.  0.  0. 42.  0.  0.  0.  0.  0.]
+  [18.  0. 48.  0.  0.  0.  0.  0.  0. 27.]
+  [ 0.  0.  0.  0. 45.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0. 30.]
+  [ 0. 42.  0. 32.  0.  0. 27.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 2
+Replay arm 2 detected with target posterior prob: 0.393 with threshold: 0.25
+num spikes(TS2) : 12, [54. 45. 42. 18. 48. 27. 45. 42. 30. 42. 32. 27.]
+Unique trodes(TS2): 8, [18. 27. 30. 32. 42. 45. 48. 54.]
+Replay arm 2 scm sent
+num_rewards: arm1: 13, arm2: 4, total: 17
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 16
+number of arm 2 detected events:4
+number of arm 1 below threshold but many cell events:3
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.52 and arm 2 thresh: 0.252
+position 14.0 velocity 76.19 segment 1 raw_x 1085.0 raw_y 766.0 angle -80.22 angle_well_1 108.5 angle_well_2 151.1
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.6968708287021768
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5028547621808888
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5319930883264345
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.568965553265464
+position 1.0 velocity 73.93 segment 0 raw_x 792.0 raw_y 388.0 angle 98.75 angle_well_1 49.7 angle_well_2 164.5
+Decoder 0 firing rate: (mean: 750.419 std: 551.547 )
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.828036308234714
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.5317317066700853
+Replay arm 1 detected with lower target posterior prob: 0.476 than threshold: 0.52
+num spikes(TS2) : 3, [42. 18. 42.]
+Unique trodes(TS2): 2, [18. 42.]
+Replay arm 1 detected with lower target posterior prob: 0.372 than threshold: 0.52
+num spikes(TS2) : 5, [42. 32. 42. 42. 18.]
+Unique trodes(TS2): 3, [18. 32. 42.]
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.665797612734623
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5334722286391287
+Replay arm 1 detected with lower target posterior prob: 0.458 than threshold: 0.52
+num spikes(TS2) : 4, [42. 45. 30. 30.]
+Unique trodes(TS2): 3, [30. 42. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0. 42.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 42.  0. 18.  0.  0.  0.  0.  0.  0.]
+  [ 0. 42.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 42. 18.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 2
+Replay arm 2 detected with target posterior prob: 0.35 with threshold: 0.252
+num spikes(TS2) : 7, [42. 42. 18. 42. 42. 42. 18.]
+Unique trodes(TS2): 2, [18. 42.]
+Replay arm 2 scm sent
+num_rewards: arm1: 13, arm2: 5, total: 18
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 19
+number of arm 2 detected events:5
+number of arm 1 below threshold but many cell events:3
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.52 and arm 2 thresh: 0.26
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5307423042820387
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 4.034995148051945
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.607980772787865
+Replay arm 1 detected with lower target posterior prob: 0.419 than threshold: 0.52
+num spikes(TS2) : 6, [42. 42. 48. 32. 42. 42.]
+Unique trodes(TS2): 3, [32. 42. 48.]
+Replay arm 1 scm sent
+num_rewards: arm1: 14, arm2: 5, total: 19
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 20
+number of arm 2 detected events:5
+number of arm 1 below threshold but many cell events:4
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.575 and arm 2 thresh: 0.26
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5736086593875664
+position 3.0 velocity 18.71 segment 0 raw_x 776.0 raw_y 482.0 angle -77.47 angle_well_1 53.4 angle_well_2 158.5
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.5145818659397636
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.5546971082557746
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.564704266278114
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.614474073730158
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6042102222224632
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.578563389093015
+Decoder 0 firing rate: (mean: 750.181 std: 550.76 )
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 4.053747462781636
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.5177005594519124
+position 23.0 velocity 6.02 segment 2 raw_x 575.0 raw_y 791.0 angle -18.43 angle_well_1 55.9 angle_well_2 117.7
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5668520289925323
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.866981645399483
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 4.124037752453191
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.7719015168347436
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.8343722289891033
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.685618500561931
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.7271723017513385
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.7144196465423778
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.610254296898528
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.6055087472779594
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.8264056138813993
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.5181029297715014
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.533069872380945
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.637473825451466
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.614576002871147
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.7047647995085367
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.727744682667373
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6990253202484777
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5500742276073898
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.7799765827459777
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.500668686676632
+position 23.0 velocity 18.12 segment 2 raw_x 567.0 raw_y 787.0 angle -117.82 angle_well_1 54.6 angle_well_2 120.2
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.771589557933833
+Decoder 0 firing rate: (mean: 749.236 std: 552.503 )
+position 0.0 velocity 9.38 segment 0 raw_x 743.0 raw_y 327.0 angle -107.1 angle_well_1 17.7 angle_well_2 175.3
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.5233495887618034
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.5311092437027285
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.7976047347282784
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5262216074507835
+Replay arm 2 detected less than min unique trodes in ts 2
+num spikes(TS2) : 4, [42. 42. 42. 42.]
+Unique trodes(TS2): 1, [42.]
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.6024346011046546
+Replay arm 1 detected with lower target posterior prob: 0.297 than threshold: 0.575
+num spikes(TS2) : 10, [39. 51. 45. 48. 32. 48. 42. 27. 18. 45.]
+Unique trodes(TS2): 8, [18. 27. 32. 39. 42. 45. 48. 51.]
+Replay arm 1 scm sent
+num_rewards: arm1: 15, arm2: 5, total: 20
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 21
+number of arm 2 detected events:5
+number of arm 1 below threshold but many cell events:5
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.575 and arm 2 thresh: 0.252
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.7355134248213626
+position 14.0 velocity 2.34 segment 1 raw_x 1086.0 raw_y 763.0 angle 41.19 angle_well_1 106.6 angle_well_2 147.8
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.7728422799894954
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6444694410687433
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.662264617091243
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.7455959415085545
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.822608710689832
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.6247267916469124
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.73772153801809
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.7907520504564656
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.536472069056356
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5977335302155837
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5871368998661173
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.7906705804122027
+Decoder 0 firing rate: (mean: 747.344 std: 551.777 )
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5729916320944937
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5995694785615115
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 4.5405827501651075
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6548424470206906
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.6106484136760675
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5917299716082605
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.68562490819369
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5533569369611766
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.554915650212133
+position 14.0 velocity 0.56 segment 1 raw_x 1086.0 raw_y 762.0 angle 77.01 angle_well_1 106.7 angle_well_2 147.6
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.6197909296804816
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.5795541460814198
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.6129808863517368
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.732581121123669
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.8795328812518455
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.6695264451129876
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 4.253118623872454
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.508151623111318
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.523249371531409
+ripple scm sent. rtype: standard, elec_grp: 35, zscore: 3.54862320394721
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.6658474921223165
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.758955354543137
+ripple scm sent. rtype: standard, elec_grp: 27, zscore: 3.5791400509881863
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6424379986012476
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 4.090932702804832
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.52387788613896
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.600145649593303
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.7893518637808405
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.6836531539296127
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.6502069669747788
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.995805368087995
+position 14.0 velocity 20.15 segment 1 raw_x 1083.0 raw_y 767.0 angle -52.43 angle_well_1 106.5 angle_well_2 149.0
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.5466706755439374
+Decoder 0 firing rate: (mean: 747.795 std: 552.979 )
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.51795548457128
+ripple scm sent. rtype: standard, elec_grp: 42, zscore: 3.689350017192871
+Replay arm 1 detected with lower target posterior prob: 0.318 than threshold: 0.575
+num spikes(TS2) : 5, [54. 42. 18. 32. 42.]
+Unique trodes(TS2): 4, [18. 32. 42. 54.]
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.554406770969097
+position 3.0 velocity 1.6 segment 0 raw_x 763.0 raw_y 476.0 angle -128.66 angle_well_1 52.5 angle_well_2 158.0
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5410996559378183
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.5580687859378703
+Replay arm 1 detected with lower target posterior prob: 0.365 than threshold: 0.575
+num spikes(TS2) : 4, [18. 39. 42. 42.]
+Unique trodes(TS2): 3, [18. 39. 42.]
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.5983088776046603
+position 2.0 velocity 23.5 segment 0 raw_x 790.0 raw_y 453.0 angle -39.81 angle_well_1 52.4 angle_well_2 161.1
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.6252628556036792
+Decoder 0 firing rate: (mean: 749.776 std: 552.252 )
+position 8.0 velocity 75.56 segment 1 raw_x 855.0 raw_y 559.0 angle 153.43 angle_well_1 77.4 angle_well_2 152.9
+ripple scm sent. rtype: standard, elec_grp: 39, zscore: 3.538613130485902
+ripple scm sent. rtype: standard, elec_grp: 48, zscore: 3.6935036567329935
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.5468040104739775
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.5501555249387056
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.521107539513764
+Replay arm 1 detected with lower target posterior prob: 0.319 than threshold: 0.575
+num spikes(TS2) : 7, [48. 32. 48. 18. 51. 18. 32.]
+Unique trodes(TS2): 4, [18. 32. 48. 51.]
+Replay arm 1 scm sent
+num_rewards: arm1: 16, arm2: 5, total: 21
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 24
+number of arm 2 detected events:5
+number of arm 1 below threshold but many cell events:6
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.575 and arm 2 thresh: 0.25
+ripple scm sent. rtype: standard, elec_grp: 51, zscore: 3.6763325046077866
+Replay arm 1 detected with lower target posterior prob: 0.275 than threshold: 0.575
+num spikes(TS2) : 5, [42. 42. 42. 42. 18.]
+Unique trodes(TS2): 2, [18. 42.]
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5295076150527764
+Replay arm 1 detected less than min unique trodes in ts 2
+num spikes(TS2) : 3, [42. 42. 42.]
+Unique trodes(TS2): 1, [42.]
+position 3.0 velocity 2.39 segment 0 raw_x 776.0 raw_y 470.0 angle -146.31 angle_well_1 54.6 angle_well_2 158.2
+Replay arm 1 detected with lower target posterior prob: 0.251 than threshold: 0.575
+num spikes(TS2) : 8, [45. 18. 51. 45. 32. 39. 51. 45.]
+Unique trodes(TS2): 5, [18. 32. 39. 45. 51.]
+Replay arm 1 scm sent
+num_rewards: arm1: 17, arm2: 5, total: 22
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 26
+number of arm 2 detected events:5
+number of arm 1 below threshold but many cell events:7
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.582 and arm 2 thresh: 0.25
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 45.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [45. 42.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 45.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 2
+Replay arm 2 detected with target posterior prob: 0.316 with threshold: 0.25
+num spikes(TS2) : 4, [45. 45. 42. 45.]
+Unique trodes(TS2): 2, [42. 45.]
+Replay arm 2 scm sent
+num_rewards: arm1: 17, arm2: 6, total: 23
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 26
+number of arm 2 detected events:6
+number of arm 1 below threshold but many cell events:7
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.582 and arm 2 thresh: 0.252
+ripple scm sent. rtype: standard, elec_grp: 24, zscore: 3.6738641765635043
+Replay arm 1 detected less than min unique trodes in ts 2
+num spikes(TS2) : 2, [42. 42.]
+Unique trodes(TS2): 1, [42.]
+Decoder 0 firing rate: (mean: 750.426 std: 551.496 )
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.6721013040760275
+ripple scm sent. rtype: standard, elec_grp: 45, zscore: 3.5974872480854083
+Replay arm 1 detected with lower target posterior prob: 0.488 than threshold: 0.582
+num spikes(TS2) : 3, [42. 42. 35.]
+Unique trodes(TS2): 2, [35. 42.]
+ripple scm sent. rtype: standard, elec_grp: 21, zscore: 3.583782031236689
+position 2.0 velocity 6.99 segment 0 raw_x 780.0 raw_y 464.0 angle -78.69 angle_well_1 52.2 angle_well_2 160.2
+ripple scm sent. rtype: standard, elec_grp: 18, zscore: 3.5890455841195883
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[54. 35.  0.  0. 54.  0.  0.  0.  0.  0.]
+  [42.  0.  0. 18.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0. 32. 54.  0.  0.  0. 24.  0.]
+  [ 0.  0.  0. 42. 24.  0.  0.  0.  0. 54.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 2
+Replay arm 2 detected with target posterior prob: 0.28 with threshold: 0.252
+num spikes(TS2) : 11, [54. 35. 54. 42. 18. 32. 54. 24. 42. 24. 54.]
+Unique trodes(TS2): 6, [18. 24. 32. 35. 42. 54.]
+Replay arm 2 scm sent
+num_rewards: arm1: 17, arm2: 7, total: 24
+---------------------------------
+ 
+ 
+number of arm 1 detected events: 27
+number of arm 2 detected events:7
+number of arm 1 below threshold but many cell events:7
+number of arm 2 below threshold but many cell events:0
+new arm 1 thresh: 0.582 and arm 2 thresh: 0.26
+ripple scm sent. rtype: standard, elec_grp: 30, zscore: 3.5287177152210774
+ripple scm sent. rtype: standard, elec_grp: 32, zscore: 3.8858455517933055
+[<realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa364a77d90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa364a667d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa364a66dd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa364abcf50>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa364ace410>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa363a1e350>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa363a25f10>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa363a25f90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa363a2abd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa363a16710>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa363a35810>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa363a3b450>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa363a48c50>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa3639cf890>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa3639d64d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa3639de110>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa3639e4d10>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa3639ea950>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fa3639f1590>]
+[mpiexec@westerlies] Sending Ctrl-C to processes as requested
+[mpiexec@westerlies] Press Ctrl-C again to force abort

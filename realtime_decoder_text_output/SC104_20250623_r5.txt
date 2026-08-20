@@ -1,0 +1,78 @@
+Rank 0 past barrier
+Rank 1 past barrier
+Rank 2 past barrier
+initial number of posterior puffer values: 74
+state_labels: ['state', ' ', 'thresh']
+Rank 3 past barrier
+Rank 4 past barrier
+Rank 5 past barrier
+Rank 6 past barrier
+Rank 7 past barrier
+Rank 8 past barrier
+Rank 9 past barrier
+Rank 10 past barrier
+Rank 11 past barrier
+Rank 12 past barrier
+Rank 13 past barrier
+Rank 14 past barrier
+Rank 15 past barrier
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+x_env.shape = (15, 11)
+num_signals: 11
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+Number of decoder occupancy points: 100
+position 24.0 velocity 1.37 segment 1 raw_x 1064.0 raw_y 753.0 angle -26.57 angle_well_1 105.0 angle_well_2 148.1
+Number of decoder occupancy points: 200
+Decoder 0 firing rate: (mean: 330.335 std: 388.336 )
+position 24.0 velocity 27.73 segment 1 raw_x 1088.0 raw_y 748.0 angle -69.68 angle_well_1 108.3 angle_well_2 150.4
+Number of decoder occupancy points: 300
+position 24.0 velocity 30.68 segment 1 raw_x 1088.0 raw_y 748.0 angle -11.89 angle_well_1 107.0 angle_well_2 149.0
+Number of decoder occupancy points: 400
+Decoder 0 firing rate: (mean: 409.564 std: 468.398 )
+position 40.0 velocity 15.02 segment 2 raw_x 567.0 raw_y 774.0 angle -159.44 angle_well_1 55.5 angle_well_2 119.7
+Number of decoder occupancy points: 500
+Number of decoder occupancy points: 600
+position 40.0 velocity 39.02 segment 2 raw_x 606.0 raw_y 773.0 angle -92.86 angle_well_1 57.1 angle_well_2 122.7
+Decoder 0 firing rate: (mean: 526.634 std: 528.571 )
+position 40.0 velocity 6.76 segment 2 raw_x 580.0 raw_y 782.0 angle -115.46 angle_well_1 55.8 angle_well_2 120.4
+Number of decoder occupancy points: 700
+position 2.0 velocity 8.26 segment 0 raw_x 754.0 raw_y 431.0 angle 150.26 angle_well_1 46.4 angle_well_2 161.0
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [21.  0.  0.  0. 21.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 18.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.305 with threshold: 0.25
+num spikes(TS1) : 3, [21. 21. 18.]
+Unique trodes(TS1): 2, [18. 21.]
+Decoder 0 firing rate: (mean: 495.959 std: 515.818 )
+position 2.0 velocity 5.32 segment 0 raw_x 756.0 raw_y 433.0 angle 165.96 angle_well_1 46.8 angle_well_2 161.1
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 1, [21.]
+Unique trodes(TS1): 1, [21.]
+position 2.0 velocity 18.61 segment 0 raw_x 760.0 raw_y 425.0 angle 143.13 angle_well_1 46.8 angle_well_2 161.7
+Decoder 0 firing rate: (mean: 479.985 std: 524.216 )
+Number of decoder occupancy points: 800
+position 40.0 velocity 55.52 segment 2 raw_x 607.0 raw_y 744.0 angle 144.46 angle_well_1 57.2 angle_well_2 123.3
+Number of decoder occupancy points: 900
+position 24.0 velocity 11.45 segment 1 raw_x 1080.0 raw_y 754.0 angle -21.8 angle_well_1 105.8 angle_well_2 148.7
+Decoder 0 firing rate: (mean: 502.097 std: 512.74 )
+Number of decoder occupancy points: 1000
+position 24.0 velocity 10.4 segment 1 raw_x 1068.0 raw_y 745.0 angle -66.8 angle_well_1 105.9 angle_well_2 149.0
+Number of decoder occupancy points: 1100
+position 24.0 velocity 10.51 segment 1 raw_x 1068.0 raw_y 747.0 angle -80.54 angle_well_1 106.1 angle_well_2 149.1
+Decoder 0 firing rate: (mean: 476.811 std: 508.783 )
+Number of decoder occupancy points: 1200
+position 2.0 velocity 20.48 segment 0 raw_x 756.0 raw_y 429.0 angle 135.0 angle_well_1 46.1 angle_well_2 161.2
+Decoder 0 firing rate: (mean: 460.44 std: 504.369 )
+position 2.0 velocity 1.81 segment 0 raw_x 756.0 raw_y 432.0 angle 173.66 angle_well_1 46.6 angle_well_2 161.3
+position 3.0 velocity 2.04 segment 0 raw_x 774.0 raw_y 461.0 angle -67.38 angle_well_1 50.9 angle_well_2 160.0
+Number of decoder occupancy points: 1300
+Decoder 0 firing rate: (mean: 479.547 std: 514.953 )
+[<realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f59007f5910>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58fbad8910>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58fbad85d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58fbb36c10>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58fbb3b590>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58faa9b710>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58faaa2310>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58faaa2390>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58faaabf90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58faa92ad0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58faab4bd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58faabc810>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58faa4bfd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58faa52c50>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f58faa5a890>]

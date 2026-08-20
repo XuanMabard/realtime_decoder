@@ -1,0 +1,40 @@
+Rank 0 past barrier
+Rank 1 past barrier
+Rank 2 past barrier
+state_labels: ['state', ' ', 'thresh']
+Rank 3 past barrier
+Rank 4 past barrier
+Rank 5 past barrier
+Rank 6 past barrier
+Rank 7 past barrier
+Rank 8 past barrier
+Rank 9 past barrier
+Rank 10 past barrier
+Rank 11 past barrier
+Rank 12 past barrier
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+x_env.shape = (15, 9)
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 40.0 velocity 52.78 segment 2 raw_x 605.0 raw_y 799.0 angle -63.16 angle_well_1 53.2 angle_well_2 122.8
+Number of decoder occupancy points: 100
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[21.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 21.  0. 29.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0. 18.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 23. 21. 32. 21. 26.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+num spikes(TS1) : 9, [21. 21. 29. 18. 23. 21. 32. 21. 26.]
+Unique trodes(TS1): 6, [18. 21. 23. 26. 29. 32.]
+Decoder 0 firing rate: (mean: 274.613 std: 316.689 )
+position 3.0 velocity 3.91 segment 0 raw_x 762.0 raw_y 435.0 angle -180.0 angle_well_1 48.1 angle_well_2 161.3
+Number of decoder occupancy points: 200
+Number of decoder occupancy points: 300
+position 40.0 velocity 6.72 segment 2 raw_x 568.0 raw_y 779.0 angle 155.9 angle_well_1 57.7 angle_well_2 118.9
+[mpiexec@westerlies] Sending Ctrl-C to processes as requested
+[mpiexec@westerlies] Press Ctrl-C again to force abort
+Ctrl-C caught... cleaning up processes

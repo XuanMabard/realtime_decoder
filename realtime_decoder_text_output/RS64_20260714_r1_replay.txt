@@ -1,0 +1,256 @@
+Rank 0 past barrier
+Rank 1 past barrier
+decoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*decoder_rank_1.occupancy.npz
+Rank 2 past barrier
+Trial timer enabled: timeline=/home/lorenlab/realtime_decoder/config/task_trial_timeline.txt, target=/home/lorenlab/realtime_decoder/config/target_location.txt, seed vector n=1, cue_scm=30
+initial number of posterior buffer values: 74
+state_labels: ['state', ' ', 'thresh']
+Rank 3 past barrier
+Rank 4 past barrier
+Rank 5 past barrier
+Rank 6 past barrier
+Rank 7 past barrier
+Rank 8 past barrier
+Rank 9 past barrier
+Rank 10 past barrier
+Rank 11 past barrier
+Rank 12 past barrier
+Rank 13 past barrier
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*trode_5.encoder.npzencoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*trode_8.encoder.npz
+
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*trode_2.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*trode_12.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*trode_18.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*trode_21.encoder.npzencoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*trode_27.encoder.npz
+
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*trode_33.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*trode_30.encoder.npzencoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260714_091513*trode_36.encoder.npz
+
+x_env.shape = (15, 10)
+num_signals: 10
+[6579]
+[4381]
+[5605]
+[22134][28128]
+
+[16251]
+[40795]
+[4495]
+[13923]
+[1405]
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+[proximity] ENTERED center-well zone (dist 9.1 <= 10), task_state 1
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 3, [2. 2. 2.]
+Unique trodes(TS1): 1, [2.]
+position 4.0 velocity 1.99 segment 0 raw_x 700.0 raw_y 663.0 angle 86.42 angle_well_1 61.6 angle_well_2 134.8
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [27.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  2.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.253 with threshold: 0.25
+num spikes(TS1) : 2, [27.  2.]
+Unique trodes(TS1): 2, [ 2. 27.]
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 1, [36.]
+Unique trodes(TS1): 1, [36.]
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 3, [2. 2. 2.]
+Unique trodes(TS1): 1, [2.]
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 1, [12.]
+Unique trodes(TS1): 1, [12.]
+Decoder 0 firing rate: (mean: 254.789 std: 281.359 )
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 2, [18. 18.]
+Unique trodes(TS1): 1, [18.]
+[proximity] LEFT center-well zone (dist 10.3 > 10), task_state 1
+position 40.0 velocity 16.22 segment 2 raw_x 907.0 raw_y 353.0 angle 71.57 angle_well_1 77.6 angle_well_2 172.0
+position 40.0 velocity 4.02 segment 2 raw_x 914.0 raw_y 361.0 angle 75.96 angle_well_1 82.0 angle_well_2 171.9
+Decoder 0 firing rate: (mean: 238.065 std: 271.148 )
+[proximity] ENTERED center-well zone (dist 9.5 <= 10), task_state 1
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 3, [18. 18. 18.]
+Unique trodes(TS1): 1, [18.]
+[proximity] LEFT center-well zone (dist 11.2 > 10), task_state 1
+position 13.0 velocity 42.96 segment 1 raw_x 669.0 raw_y 551.0 angle 98.13 angle_well_1 50.1 angle_well_2 142.1
+Decoder 0 firing rate: (mean: 256.763 std: 267.133 )
+[proximity] ENTERED center-well zone (dist 9.4 <= 10), task_state 1
+position 4.0 velocity 3.58 segment 0 raw_x 701.0 raw_y 663.0 angle 86.42 angle_well_1 61.7 angle_well_2 134.8
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 1, [33.]
+Unique trodes(TS1): 1, [33.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0. 33.  0.  0.  0.  0.  0.  0. 30.]
+  [36. 12.  0.  0. 36.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0. 36.  0. 12.  0. 36.  0.]
+  [ 0. 36. 12. 18. 36. 33.  0.  0. 18. 12.]
+  [12. 33.  0.  0.  0. 12. 18.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.393 with threshold: 0.25
+num spikes(TS1) : 19, [33. 30. 36. 12. 36. 36. 12. 36. 36. 12. 18. 36. 33. 18. 12. 12. 33. 12.
+ 18.]
+Unique trodes(TS1): 5, [12. 18. 30. 33. 36.]
+Replay arm 2 detected less than min unique trodes in ts 1
+num spikes(TS1) : 3, [2. 2. 2.]
+Unique trodes(TS1): 1, [2.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [12.  0.  0. 36.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.355 with threshold: 0.25
+num spikes(TS1) : 2, [12. 36.]
+Unique trodes(TS1): 2, [12. 36.]
+[proximity] LEFT center-well zone (dist 10.2 > 10), task_state 1
+position 0.0 velocity 19.47 segment 0 raw_x 699.0 raw_y 753.0 angle -63.43 angle_well_1 64.7 angle_well_2 130.3
+[proximity] ENTERED center-well zone (dist 9.9 <= 10), task_state 1
+Decoder 0 firing rate: (mean: 260.072 std: 270.778 )
+[proximity] LEFT center-well zone (dist 10.7 > 10), task_state 1
+position 24.0 velocity 5.01 segment 1 raw_x 429.0 raw_y 370.0 angle 171.87 angle_well_1 13.1 angle_well_2 144.6
+Decoder 0 firing rate: (mean: 253.908 std: 263.482 )
+[proximity] ENTERED center-well zone (dist 9.3 <= 10), task_state 1
+position 4.0 velocity 40.62 segment 0 raw_x 677.0 raw_y 675.0 angle -9.46 angle_well_1 58.3 angle_well_2 133.1
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 2, [18. 18.]
+Unique trodes(TS1): 1, [18.]
+[proximity] LEFT center-well zone (dist 10.3 > 10), task_state 1
+[proximity] ENTERED center-well zone (dist 9.7 <= 10), task_state 1
+position 4.0 velocity 4.09 segment 0 raw_x 699.0 raw_y 663.0 angle 82.87 angle_well_1 61.4 angle_well_2 134.7
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 3, [18. 18. 18.]
+Unique trodes(TS1): 1, [18.]
+[proximity] LEFT center-well zone (dist 10.4 > 10), task_state 1
+Decoder 0 firing rate: (mean: 266.547 std: 263.081 )
+position 24.0 velocity 173.84 segment 1 raw_x 440.0 raw_y 355.0 angle -116.57 angle_well_1 11.3 angle_well_2 151.6
+position 13.0 velocity 50.26 segment 1 raw_x 652.0 raw_y 588.0 angle -73.3 angle_well_1 49.2 angle_well_2 139.3
+Decoder 0 firing rate: (mean: 259.862 std: 259.429 )
+[proximity] ENTERED center-well zone (dist 9.3 <= 10), task_state 1
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[33.  0.  0.  5.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 12.  0. 12.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.284 with threshold: 0.25
+num spikes(TS1) : 4, [33.  5. 12. 12.]
+Unique trodes(TS1): 3, [ 5. 12. 33.]
+Replay arm 1 detected less than min unique trodes in ts 1
+num spikes(TS1) : 1, [18.]
+Unique trodes(TS1): 1, [18.]
+[proximity] LEFT center-well zone (dist 10.6 > 10), task_state 1
+[trial timer] target_location -> 3
+[trial timer] read 2 timeline event(s): [(1, 'POKE', 1784047136.5), (1, 'CUE', 1784047136.55)]
+[trial 1] started; sampled budget 6.0s (vector n=1)
+[empirical dist] trial 1 closed: appended 0.0s -> n=2, min/mean/max=0.0/3.0/6.0
+position 56.0 velocity 6.12 segment 3 raw_x 667.0 raw_y 258.0 angle 116.57 angle_well_1 3.3 angle_well_2 -178.8
+n_spikes_current_in_buffer in encoder 5: 28127
+n_spikes_current_in_buffer in encoder 12: 13922
+n_spikes_current_in_buffer in encoder 18: 16250n_spikes_current_in_buffer in encoder 21: 1404
+n_spikes_current_in_buffer in encoder 27: 6578
+n_spikes_current_in_buffer in encoder 30: 5604
+n_spikes_current_in_buffer in encoder 33: 4494
+n_spikes_current_in_buffer in encoder 8: 29999
+n_spikes_current_in_buffer in encoder 36: 4380
+
+n_spikes_current_in_buffer in encoder 2: 22133
+Decoder 0 firing rate: (mean: 257.651 std: 258.488 )
+position 54.0 velocity 91.88 segment 3 raw_x 642.0 raw_y 346.0 angle -107.35 angle_well_1 14.7 angle_well_2 171.3
+[proximity] ENTERED center-well zone (dist 8.6 <= 10), task_state 2
+[trial timer] read 2 timeline event(s): [(2, 'POKE', 1784047152.67), (2, 'CUE', 1784047152.73)]
+[trial 2] started; sampled budget 6.0s (vector n=2)
+[empirical dist] trial 2 closed: appended 0.0s -> n=3, min/mean/max=0.0/2.0/6.0
+Replay arm 1 detected less than min unique trodes in ts 2
+num spikes(TS2) : 1, [18.]
+Unique trodes(TS2): 1, [18.]
+[proximity] LEFT center-well zone (dist 10.1 > 10), task_state 2
+position 40.0 velocity 13.86 segment 2 raw_x 902.0 raw_y 351.0 angle 75.96 angle_well_1 75.0 angle_well_2 172.3
+Decoder 0 firing rate: (mean: 262.708 std: 258.125 )
+[proximity] ENTERED center-well zone (dist 9.6 <= 10), task_state 2
+[trial timer] target_location -> 4
+[trial timer] read 1 timeline event(s): [(3, 'POKE', 1784047161.78)]
+[trial 3] started; sampled budget 0.0s (vector n=3)
+Replay arm 2 detected less than min unique trodes in ts 2
+num spikes(TS2) : 2, [27. 27.]
+Unique trodes(TS2): 1, [27.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 2.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 2.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [27.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 2
+Replay arm 2 detected with target posterior prob: 0.268 with threshold: 0.25
+num spikes(TS2) : 3, [ 2.  2. 27.]
+Unique trodes(TS2): 2, [ 2. 27.]
+Replay arm 2 scm sent
+num_rewards: arm1: 0, arm2: 1, total: 1
+---------------------------------
+ 
+ 
+position 4.0 velocity 7.44 segment 0 raw_x 701.0 raw_y 666.0 angle 86.19 angle_well_1 61.8 angle_well_2 134.7
+Replay arm 2 detected less than min unique trodes in ts 2
+num spikes(TS2) : 1, [27.]
+Unique trodes(TS2): 1, [27.]
+[proximity] LEFT center-well zone (dist 10.5 > 10), task_state 2
+[proximity] ENTERED center-well zone (dist 9.3 <= 10), task_state 2
+Decoder 0 firing rate: (mean: 262.187 std: 255.22 )
+position 4.0 velocity 7.52 segment 0 raw_x 699.0 raw_y 660.0 angle 83.29 angle_well_1 61.3 angle_well_2 134.8
+[trial timer] read 1 timeline event(s): [(4, 'POKE', 1784047175.97)]
+[empirical dist] trial 3 closed: appended 12.12s -> n=4, min/mean/max=0.0/4.53/12.12
+[trial 4] started; sampled budget 12.12s (vector n=4)
+Replay arm 1 detected less than min unique trodes in ts 2
+num spikes(TS2) : 1, [18.]
+Unique trodes(TS2): 1, [18.]
+[proximity] LEFT center-well zone (dist 10.4 > 10), task_state 2
+[proximity] ENTERED center-well zone (dist 9.3 <= 10), task_state 2
+[proximity] LEFT center-well zone (dist 10.5 > 10), task_state 2
+position 4.0 velocity 12.61 segment 0 raw_x 658.0 raw_y 674.0 angle 111.8 angle_well_1 57.5 angle_well_2 131.7
+[proximity] ENTERED center-well zone (dist 9.4 <= 10), task_state 2
+[proximity] LEFT center-well zone (dist 10.3 > 10), task_state 2
+[proximity] ENTERED center-well zone (dist 9.8 <= 10), task_state 2
+Decoder 0 firing rate: (mean: 276.359 std: 276.077 )
+Replay arm 1 detected less than min unique trodes in ts 2
+num spikes(TS2) : 2, [12. 12.]
+Unique trodes(TS2): 1, [12.]
+position 4.0 velocity 10.59 segment 0 raw_x 697.0 raw_y 660.0 angle 86.63 angle_well_1 61.1 angle_well_2 134.7
+Replay arm 1 detected less than min unique trodes in ts 2
+num spikes(TS2) : 1, [18.]
+Unique trodes(TS2): 1, [18.]
+[proximity] LEFT center-well zone (dist 10.2 > 10), task_state 2
+Decoder 0 firing rate: (mean: 278.329 std: 274.802 )
+position 30.0 velocity 17.06 segment 2 raw_x 707.0 raw_y 550.0 angle 61.39 angle_well_1 53.7 angle_well_2 144.9
+[proximity] ENTERED center-well zone (dist 9.2 <= 10), task_state 2
+[proximity] LEFT center-well zone (dist 10.8 > 10), task_state 2
+[proximity] ENTERED center-well zone (dist 9.8 <= 10), task_state 2
+[trial timer] read 1 timeline event(s): [(5, 'POKE', 1784047197.96)]
+[empirical dist] trial 4 closed: appended 11.98s -> n=5, min/mean/max=0.0/6.02/12.12
+[trial 5] started; sampled budget 0.0s (vector n=5)
+[proximity] LEFT center-well zone (dist 11.1 > 10), task_state 2
+[proximity] ENTERED center-well zone (dist 9.8 <= 10), task_state 2
+position 4.0 velocity 2.84 segment 0 raw_x 699.0 raw_y 666.0 angle 86.19 angle_well_1 61.6 angle_well_2 134.6
+[proximity] LEFT center-well zone (dist 10.9 > 10), task_state 2
+Decoder 0 firing rate: (mean: 282.214 std: 273.491 )
+[trial timer] target_location -> 3
+[trial 5] cue scm 30 sent after 4.95s proximate (budget 0.0s)
+position 30.0 velocity 0.16 segment 2 raw_x 714.0 raw_y 554.0 angle 9.46 angle_well_1 53.7 angle_well_2 145.6
+[<realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb0998b1110>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb094d8c310>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb094d8c4d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb094dda950>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb093239950>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb093249150>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb093252cd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb093252d50>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb09325b950>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb093241550>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb093263550>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb09326c150>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fb093d3e8d0>]

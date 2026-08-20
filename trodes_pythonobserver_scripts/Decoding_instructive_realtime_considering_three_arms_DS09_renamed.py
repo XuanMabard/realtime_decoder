@@ -1275,18 +1275,18 @@ data = struct.pack("%dh"%(len(signal)), *list(signal))
 # (DS) variables that I can change 
 ##############################################################################################################################
 # TS2 timer variable
-timer_mean = 3000 #ms         # timer average; interval between beeps -- 20 is for final pretraining, reduce it to 5 for testing;
-timer_max = 7000 #ms             # timer max;  maximum timer between trial is 40s
-timer_min = 1000 #ms              # timer min;
+timer_mean = 6000 #ms         # timer average; interval between beeps -- 20 is for final pretraining, reduce it to 5 for testing;
+timer_max = 12000 #ms             # timer max;  maximum timer between trial is 40s
+timer_min = 3000 #ms              # timer min;
 
 # This panal is about reward delivery at center in TS2;
 reward_center_during_TS2 = True 
-give_only_at_the_correct_bit = False # only correct at center in TS2; 
+give_only_at_the_correct_bit = True # only correct at center in TS2; 
 half_reward_at_center = False # TS1: if giving half rewards at center during TS1; False = 50%, True = 100%
 
 # TS1 outer arm variable
 outerarm_required_rewards = 12  # number of visits required to change task state from 1 to 2
-ts1_reward_prob = 100 #for outer arm
+ts1_reward_prob = 50 #for outer arm
 
 # lockout variable (no need to worry about this for now)
 lockoutPeriod_centerReward = 0;# NOTE(DS): when no reward at the center no need for a lockout15000;

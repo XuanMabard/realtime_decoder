@@ -1,0 +1,90 @@
+Rank 0 past barrier
+Rank 1 past barrier
+decoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*decoder_rank_1.occupancy.npz
+initial number of posterior buffer values: 74
+Rank 2 past barrier
+state_labels: ['state', ' ', 'thresh']
+Rank 3 past barrier
+Rank 4 past barrier
+Rank 5 past barrier
+Rank 6 past barrier
+Rank 7 past barrier
+Rank 8 past barrier
+Rank 9 past barrier
+Rank 10 past barrier
+Rank 11 past barrier
+Rank 12 past barrier
+Rank 13 past barrier
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*trode_5.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*trode_8.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*trode_12.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*trode_2.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*trode_18.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*trode_21.encoder.npzencoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*trode_27.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*trode_30.encoder.npz
+
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*trode_33.encoder.npz
+encoder model fname: /media/lorenlab/84fc44d3-77e1-4289-a1bc-dc9525326ee9/josh_decoder_output/20260630_083533*trode_36.encoder.npz
+x_env.shape = (15, 10)
+num_signals: 10
+[1035]
+[2779]
+[3139]
+[4286]
+[50]
+[13804]
+[33267]
+[16672]
+[31690]
+[17045]
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+n_spikes_current_in_buffer in encoder 21: 49
+n_spikes_current_in_buffer in encoder 27: 4285n_spikes_current_in_buffer in encoder 30: 3138
+n_spikes_current_in_buffer in encoder 18: 13803
+n_spikes_current_in_buffer in encoder 36: 2778
+n_spikes_current_in_buffer in encoder 2: 17044
+n_spikes_current_in_buffer in encoder 5: 29999n_spikes_current_in_buffer in encoder 8: 29999
+n_spikes_current_in_buffer in encoder 12: 1034
+
+
+n_spikes_current_in_buffer in encoder 33: 16671
+position 4.0 velocity 15.62 segment 0 raw_x 705.0 raw_y 603.0 angle 90.0 angle_well_1 57.7 angle_well_2 140.5
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[27.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [27.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 5. 27.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 3
+Replay arm 2 detected with target posterior prob: 0.616 with threshold: 0.25
+num spikes(TS3) : 4, [27. 27.  5. 27.]
+Unique trodes(TS3): 2, [ 5. 27.]
+Replay arm 2 detected less than min unique trodes in ts 3
+num spikes(TS3) : 3, [27. 27. 27.]
+Unique trodes(TS3): 1, [27.]
+Decoder 0 firing rate: (mean: 176.495 std: 180.811 )
+position 24.0 velocity 9.91 segment 1 raw_x 411.0 raw_y 323.0 angle 139.09 angle_well_1 9.0 angle_well_2 153.5
+position 24.0 velocity 9.55 segment 1 raw_x 413.0 raw_y 324.0 angle 146.31 angle_well_1 9.1 angle_well_2 154.2
+Decoder 0 firing rate: (mean: 155.836 std: 182.686 )
+Replay arm 2 detected less than min unique trodes in ts 3
+num spikes(TS3) : 4, [27. 27. 27. 27.]
+Unique trodes(TS3): 1, [27.]
+Replay arm 2 detected less than min unique trodes in ts 3
+num spikes(TS3) : 2, [33. 33.]
+Unique trodes(TS3): 1, [33.]
+Replay arm 2 detected less than min unique trodes in ts 3
+num spikes(TS3) : 3, [27. 27. 27.]
+Unique trodes(TS3): 1, [27.]
+position 4.0 velocity 5.9 segment 0 raw_x 709.0 raw_y 601.0 angle 90.0 angle_well_1 59.4 angle_well_2 139.4
+Decoder 0 firing rate: (mean: 159.862 std: 182.901 )
+position 40.0 velocity 1.15 segment 2 raw_x 920.0 raw_y 289.0 angle 90.0 angle_well_1 80.4 angle_well_2 177.2
+Replay arm 2 detected less than min unique trodes in ts 3
+num spikes(TS3) : 3, [27. 27. 27.]
+Unique trodes(TS3): 1, [27.]
+position 13.0 velocity 54.58 segment 1 raw_x 667.0 raw_y 512.0 angle 93.37 angle_well_1 46.3 angle_well_2 145.5
+[<realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f24851ab8d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f2485199250>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f24851993d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f24851ed150>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f24851f7f90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f247f6c41d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f247f6cbc50>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f247f6cbcd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f247f6d37d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f24851b16d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f247f6de2d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f247f6e5d90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f247f6f5350>]

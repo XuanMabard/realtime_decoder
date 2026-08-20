@@ -1,0 +1,176 @@
+Rank 0 past barrier
+Rank 1 past barrier
+initial number of posterior puffer values: 74
+Rank 2 past barrier
+state_labels: ['state', ' ', 'thresh']
+Rank 3 past barrier
+Rank 4 past barrier
+Rank 5 past barrier
+Rank 6 past barrier
+Rank 7 past barrier
+Rank 8 past barrier
+Rank 9 past barrier
+Rank 10 past barrier
+Rank 11 past barrier
+Rank 12 past barrier
+Rank 13 past barrier
+Rank 14 past barrier
+Rank 15 past barrier
+Rank 16 past barrier
+Rank 17 past barrier
+Rank 18 past barrier
+Rank 19 past barrier
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+x_env.shape = (15, 15)
+num_signals: 15
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+Number of decoder occupancy points: 100
+position 14.0 velocity 9.45 segment 1 raw_x 827.0 raw_y 588.0 angle -164.05 angle_well_1 74.4 angle_well_2 150.4
+Decoder 0 firing rate: (mean: 331.001 std: 340.902 )
+Number of decoder occupancy points: 200
+position 3.0 velocity 9.29 segment 0 raw_x 750.0 raw_y 436.0 angle 46.2 angle_well_1 49.9 angle_well_2 150.8
+Number of decoder occupancy points: 300
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[21.  0. 39.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0. 57. 54. 21. 50. 24.  0.  0.]
+  [ 0.  0.  0. 18. 33. 63.  0. 50. 27. 18.]
+  [30.  0.  0.  0. 30.  0.  0.  0.  0.  0.]
+  [ 0. 18.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.445 with threshold: 0.25
+num spikes(TS1) : 16, [21. 39. 57. 54. 21. 50. 24. 18. 33. 63. 50. 27. 18. 30. 30. 18.]
+Unique trodes(TS1): 11, [18. 21. 24. 27. 30. 33. 39. 50. 54. 57. 63.]
+position 2.0 velocity 50.23 segment 0 raw_x 751.0 raw_y 436.0 angle 126.87 angle_well_1 46.3 angle_well_2 160.2
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[60. 21. 18.  0.  0.  0.  0.  0.  0.  0.]
+  [21. 54.  0. 30.  0.  0. 21.  0. 30.  0.]
+  [36. 33.  0.  0.  0.  0.  0.  0. 39. 24.]
+  [50.  0.  0. 63.  0.  0.  0.  0.  0.  0.]
+  [39.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.306 with threshold: 0.25
+num spikes(TS1) : 15, [60. 21. 18. 21. 54. 30. 21. 30. 36. 33. 39. 24. 50. 63. 39.]
+Unique trodes(TS1): 11, [18. 21. 24. 30. 33. 36. 39. 50. 54. 60. 63.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[27. 60.  0. 36.  0.  0.  0.  0.  0.  0.]
+  [54. 60. 33.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.468 with threshold: 0.25
+num spikes(TS1) : 6, [27. 60. 36. 54. 60. 33.]
+Unique trodes(TS1): 5, [27. 33. 36. 54. 60.]
+Number of decoder occupancy points: 400
+Decoder 0 firing rate: (mean: 312.755 std: 359.053 )
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0. 39.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 30. 21.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 54.  0. 21.  0.  0.  0.  0.  0.  0.]
+  [ 0. 63.  0.  0.  0. 21. 18.  0. 27.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.283 with threshold: 0.25
+num spikes(TS1) : 9, [39. 30. 21. 54. 21. 63. 21. 18. 27.]
+Unique trodes(TS1): 7, [18. 21. 27. 30. 39. 54. 63.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 54.  0. 18.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 21.  0.  0.  0. 30. 21.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.441 with threshold: 0.25
+num spikes(TS1) : 5, [54. 18. 21. 30. 21.]
+Unique trodes(TS1): 4, [18. 21. 30. 54.]
+position 3.0 velocity 58.02 segment 0 raw_x 734.0 raw_y 438.0 angle 51.74 angle_well_1 48.7 angle_well_2 150.2
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0. 27.  0. 18.  0. 27. 54.  0.  0.  0.]
+  [ 0.  0.  0.  0. 21.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [54. 39. 30.  0. 21.  0. 33.  0.  0.  0.]
+  [ 0.  0.  0. 54.  0.  0.  0. 50.  0.  0.]]]
+Replay arm 1 detected with more than min unique trodes in ts 1
+Replay arm 1 detected with target posterior prob: 0.451 with threshold: 0.25
+num spikes(TS1) : 12, [27. 18. 27. 54. 21. 54. 39. 30. 21. 33. 54. 50.]
+Unique trodes(TS1): 8, [18. 21. 27. 30. 33. 39. 50. 54.]
+Number of decoder occupancy points: 500
+position 2.0 velocity 5.76 segment 0 raw_x 751.0 raw_y 434.0 angle -180.0 angle_well_1 45.9 angle_well_2 161.0
+Number of decoder occupancy points: 600
+Decoder 0 firing rate: (mean: 404.571 std: 411.606 )
+Number of decoder occupancy points: 700
+position 40.0 velocity 94.99 segment 2 raw_x 565.0 raw_y 784.0 angle -150.02 angle_well_1 55.7 angle_well_2 119.4
+position 40.0 velocity 1.56 segment 2 raw_x 576.0 raw_y 783.0 angle 11.31 angle_well_1 56.0 angle_well_2 118.0
+Decoder 0 firing rate: (mean: 389.201 std: 421.178 )
+Number of decoder occupancy points: 800
+position 39.0 velocity 12.75 segment 2 raw_x 592.0 raw_y 716.0 angle -59.04 angle_well_1 53.4 angle_well_2 123.7
+Number of decoder occupancy points: 900
+position 20.0 velocity 70.39 segment 1 raw_x 959.0 raw_y 682.0 angle -45.0 angle_well_1 93.4 angle_well_2 148.9
+Decoder 0 firing rate: (mean: 481.285 std: 502.233 )
+Number of decoder occupancy points: 1000
+position 24.0 velocity 12.4 segment 1 raw_x 1085.0 raw_y 761.0 angle -42.4 angle_well_1 106.6 angle_well_2 149.1
+Number of decoder occupancy points: 1100
+position 3.0 velocity 22.15 segment 0 raw_x 757.0 raw_y 439.0 angle 138.37 angle_well_1 48.9 angle_well_2 159.8
+Decoder 0 firing rate: (mean: 491.14 std: 505.555 )
+position 2.0 velocity 10.24 segment 0 raw_x 750.0 raw_y 434.0 angle 165.96 angle_well_1 46.0 angle_well_2 160.7
+Number of decoder occupancy points: 1200
+position 2.0 velocity 0.52 segment 0 raw_x 752.0 raw_y 436.0 angle -168.69 angle_well_1 46.1 angle_well_2 161.1
+Decoder 0 firing rate: (mean: 459.717 std: 505.044 )
+position 0.0 velocity 23.04 segment 0 raw_x 754.0 raw_y 362.0 angle 90.0 angle_well_1 35.9 angle_well_2 167.0
+Number of decoder occupancy points: 1300
+Decoder 0 firing rate: (mean: 463.638 std: 496.988 )
+position 13.0 velocity 39.76 segment 1 raw_x 828.0 raw_y 585.0 angle -52.43 angle_well_1 71.5 angle_well_2 150.6
+Number of decoder occupancy points: 1400
+position 40.0 velocity 4.37 segment 2 raw_x 575.0 raw_y 782.0 angle 5.71 angle_well_1 55.8 angle_well_2 118.0
+Decoder 0 firing rate: (mean: 449.716 std: 493.407 )
+position 40.0 velocity 7.74 segment 2 raw_x 575.0 raw_y 780.0 angle 11.31 angle_well_1 55.7 angle_well_2 118.0
+Number of decoder occupancy points: 1500
+Number of decoder occupancy points: 1600
+position 23.0 velocity 75.0 segment 1 raw_x 1035.0 raw_y 733.0 angle -42.71 angle_well_1 102.1 angle_well_2 148.6
+Decoder 0 firing rate: (mean: 469.018 std: 507.072 )
+Number of decoder occupancy points: 1700
+position 24.0 velocity 77.79 segment 1 raw_x 1056.0 raw_y 773.0 angle 26.57 angle_well_1 103.3 angle_well_2 146.4
+Number of decoder occupancy points: 1800
+position 1.0 velocity 12.61 segment 0 raw_x 754.0 raw_y 431.0 angle -95.49 angle_well_1 35.7 angle_well_2 167.4
+Number of decoder occupancy points: 1900
+Decoder 0 firing rate: (mean: 457.881 std: 495.202 )
+position 2.0 velocity 64.45 segment 0 raw_x 753.0 raw_y 437.0 angle -144.46 angle_well_1 45.7 angle_well_2 161.3
+Number of decoder occupancy points: 2000
+position 1.0 velocity 7.95 segment 0 raw_x 750.0 raw_y 435.0 angle -98.13 angle_well_1 33.8 angle_well_2 168.2
+Number of decoder occupancy points: 2100
+Decoder 0 firing rate: (mean: 444.537 std: 490.923 )
+Number of decoder occupancy points: 2200
+position 0.0 velocity 0.97 segment 0 raw_x 738.0 raw_y 328.0 angle 105.35 angle_well_1 34.0 angle_well_2 167.1
+position 0.0 velocity 2.46 segment 0 raw_x 740.0 raw_y 327.0 angle 106.09 angle_well_1 34.3 angle_well_2 167.2
+Decoder 0 firing rate: (mean: 430.445 std: 482.586 )
+position 6.0 velocity 71.89 segment 0 raw_x 757.0 raw_y 538.0 angle -36.87 angle_well_1 57.0 angle_well_2 150.8
+Number of decoder occupancy points: 2300
+Number of decoder occupancy points: 2400
+position 40.0 velocity 17.26 segment 2 raw_x 573.0 raw_y 781.0 angle 14.04 angle_well_1 55.7 angle_well_2 117.9
+Decoder 0 firing rate: (mean: 419.08 std: 473.718 )
+Number of decoder occupancy points: 2500
+position 8.0 velocity 5.71 segment 0 raw_x 801.0 raw_y 556.0 angle 85.6 angle_well_1 67.7 angle_well_2 149.7
+position 2.0 velocity 2.06 segment 0 raw_x 753.0 raw_y 436.0 angle -171.87 angle_well_1 46.2 angle_well_2 160.9
+Decoder 0 firing rate: (mean: 410.725 std: 466.451 )
+position 2.0 velocity 7.9 segment 0 raw_x 754.0 raw_y 432.0 angle 146.31 angle_well_1 46.5 angle_well_2 160.8
+Number of decoder occupancy points: 2600
+Decoder 0 firing rate: (mean: 400.607 std: 459.286 )
+position 0.0 velocity 6.65 segment 0 raw_x 734.0 raw_y 330.0 angle 113.05 angle_well_1 33.4 angle_well_2 167.3
+[<realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad53672f90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad52ebf610>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad52ebf110>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad52f1d610>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad52f076d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad51e83890>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad51e8c990>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad51e8ca10>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad51e93b50>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad51e7b750>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad51e9bc90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad51ea5dd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad51973fd0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad5197b190>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad519832d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad5198c410>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad51994550>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad5199c690>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7fad519a67d0>]
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         [mpiexec@westerlies] Sending Ctrl-C to processes as requested
+[mpiexec@westerlies] Press Ctrl-C again to force abort
+Ctrl-C caught... cleaning up processes

@@ -1,0 +1,412 @@
+Rank 0 past barrier
+Rank 1 past barrier
+initial number of posterior puffer values: 74
+Rank 2 past barrier
+state_labels: ['state', ' ', 'thresh']
+Rank 3 past barrier
+Rank 4 past barrier
+Rank 5 past barrier
+Rank 6 past barrier
+Rank 7 past barrier
+Rank 8 past barrier
+Rank 9 past barrier
+Rank 10 past barrier
+Rank 11 past barrier
+Rank 12 past barrier
+***************************************
+   All ranks are set up, ok to start   
+***************************************
+x_env.shape = (15, 9)
+num_signals: 9
+Decoder 0 firing rate: (mean: 0.0 std: 0.0 )
+position 40.0 velocity 27.18 segment 2 raw_x 599.0 raw_y 752.0 angle -122.47 angle_well_1 56.1 angle_well_2 123.0
+Number of decoder occupancy points: 100
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[45. 35. 32. 35. 39.  0.  0.  0.  0.  0.]
+  [45. 35. 30.  0.  0.  0.  0.  0.  0.  0.]
+  [45. 42. 42.  0.  0.  0.  0.  0.  0.  0.]
+  [42. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [35. 30.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.864 with threshold: 0.25
+num spikes(TS1) : 15, [45. 35. 32. 35. 39. 45. 35. 30. 45. 42. 42. 42. 30. 35. 30.]
+Unique trodes(TS1): 6, [30. 32. 35. 39. 42. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[32.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [32. 39. 35.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 35. 18. 32. 35.  0.  0.  0.  0.  0.]
+  [35. 45. 30. 42.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.619 with threshold: 0.25
+num spikes(TS1) : 14, [32. 30. 32. 39. 35. 30. 35. 18. 32. 35. 35. 45. 30. 42.]
+Unique trodes(TS1): 7, [18. 30. 32. 35. 39. 42. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[35. 42. 35.  0.  0.  0.  0.  0.  0.  0.]
+  [45. 30. 35. 45.  0.  0.  0.  0.  0.  0.]
+  [30. 42. 45. 30. 32.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [32. 45. 42.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.414 with threshold: 0.25
+num spikes(TS1) : 16, [35. 42. 35. 45. 30. 35. 45. 30. 42. 45. 30. 32. 30. 32. 45. 42.]
+Unique trodes(TS1): 5, [30. 32. 35. 42. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30. 45. 45.  0.  0.  0.  0.  0.  0.  0.]
+  [35. 32. 30.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 32. 30. 35.  0.  0.  0.  0.  0.  0.]
+  [30. 30.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.407 with threshold: 0.25
+num spikes(TS1) : 12, [30. 45. 45. 35. 32. 30. 30. 32. 30. 35. 30. 30.]
+Unique trodes(TS1): 4, [30. 32. 35. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30. 42. 30. 35.  0.  0.  0.  0.  0.  0.]
+  [39. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42. 30. 35.  0.  0.  0.  0.  0.  0.  0.]
+  [45. 42. 39.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.313 with threshold: 0.25
+num spikes(TS1) : 14, [30. 42. 30. 35. 39. 30. 30. 30. 42. 30. 35. 45. 42. 39.]
+Unique trodes(TS1): 5, [30. 35. 39. 42. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[35. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [39.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 35.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [39. 42. 42.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.371 with threshold: 0.25
+num spikes(TS1) : 9, [35. 30. 39. 30. 35. 42. 39. 42. 42.]
+Unique trodes(TS1): 4, [30. 35. 39. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[42. 39.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [32. 42. 39. 35.  0.  0.  0.  0.  0.  0.]
+  [39. 32. 30. 42. 42.  0.  0.  0.  0.  0.]
+  [30. 45. 30. 32.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.252 with threshold: 0.25
+num spikes(TS1) : 15, [42. 39. 32. 42. 39. 35. 39. 32. 30. 42. 42. 30. 45. 30. 32.]
+Unique trodes(TS1): 6, [30. 32. 35. 39. 42. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[45. 42. 45.  0.  0.  0.  0.  0.  0.  0.]
+  [42. 39. 30.  0.  0.  0.  0.  0.  0.  0.]
+  [48.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42. 35.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.335 with threshold: 0.25
+num spikes(TS1) : 10, [45. 42. 45. 42. 39. 30. 48. 42. 35. 42.]
+Unique trodes(TS1): 6, [30. 35. 39. 42. 45. 48.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 45. 42. 35.  0.  0.  0.  0.  0.  0.]
+  [ 0. 42. 30.  0.  0.  0.  0.  0.  0.  0.]
+  [45. 42. 32.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.291 with threshold: 0.25
+num spikes(TS1) : 10, [30. 42. 45. 42. 35. 42. 30. 45. 42. 32.]
+Unique trodes(TS1): 5, [30. 32. 35. 42. 45.]
+position 3.0 velocity 0.0 segment 0 raw_x 775.0 raw_y 430.0 angle 45.0 angle_well_1 49.3 angle_well_2 160.9
+Decoder 0 firing rate: (mean: 185.824 std: 238.849 )
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 42. 35. 42.  0.  0.  0.  0.  0.  0.]
+  [35.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [32. 30. 42.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 42.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.276 with threshold: 0.25
+num spikes(TS1) : 11, [30. 30. 42. 35. 42. 35. 32. 30. 42. 30. 42.]
+Unique trodes(TS1): 4, [30. 32. 35. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [35. 45.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 42.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.345 with threshold: 0.25
+num spikes(TS1) : 6, [30. 35. 45. 30. 42. 30.]
+Unique trodes(TS1): 4, [30. 35. 42. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [32. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42. 39. 45.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.25 with threshold: 0.25
+num spikes(TS1) : 6, [30. 32. 30. 42. 39. 45.]
+Unique trodes(TS1): 5, [30. 32. 39. 42. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [39.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.32 with threshold: 0.25
+num spikes(TS1) : 4, [30. 30. 30. 39.]
+Unique trodes(TS1): 2, [30. 39.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 32. 42.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 42. 35.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.413 with threshold: 0.25
+num spikes(TS1) : 7, [30. 30. 32. 42. 30. 42. 35.]
+Unique trodes(TS1): 4, [30. 32. 35. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[35. 30. 45.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 35.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [45.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.288 with threshold: 0.25
+num spikes(TS1) : 6, [35. 30. 45. 30. 35. 45.]
+Unique trodes(TS1): 3, [30. 35. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30. 35.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.326 with threshold: 0.25
+num spikes(TS1) : 3, [30. 35. 30.]
+Unique trodes(TS1): 2, [30. 35.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42. 32.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 30. 48.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.302 with threshold: 0.25
+num spikes(TS1) : 5, [30. 42. 32. 30. 48.]
+Unique trodes(TS1): 4, [30. 32. 42. 48.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30. 39. 35.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [35. 30. 30.  0.  0.  0.  0.  0.  0.  0.]
+  [35. 39.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [35. 30.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.264 with threshold: 0.25
+num spikes(TS1) : 11, [30. 39. 35. 30. 35. 30. 30. 35. 39. 35. 30.]
+Unique trodes(TS1): 3, [30. 35. 39.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42. 30. 35.  0.  0.  0.  0.  0.  0.  0.]
+  [42. 35.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.293 with threshold: 0.25
+num spikes(TS1) : 6, [30. 42. 30. 35. 42. 35.]
+Unique trodes(TS1): 3, [30. 35. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [35.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [35. 30.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.36 with threshold: 0.25
+num spikes(TS1) : 5, [30. 35. 42. 35. 30.]
+Unique trodes(TS1): 3, [30. 35. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 42. 42.  0.  0.  0.  0.  0.  0.  0.]
+  [39. 42. 30.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 30.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.305 with threshold: 0.25
+num spikes(TS1) : 8, [42. 30. 42. 42. 39. 42. 30. 30.]
+Unique trodes(TS1): 3, [30. 39. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 32.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [35. 42. 30.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.3 with threshold: 0.25
+num spikes(TS1) : 6, [42. 32. 35. 42. 30. 30.]
+Unique trodes(TS1): 4, [30. 32. 35. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[42. 30. 35.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.323 with threshold: 0.25
+num spikes(TS1) : 5, [42. 30. 35. 30. 30.]
+Unique trodes(TS1): 3, [30. 35. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30. 42.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 42.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.31 with threshold: 0.25
+num spikes(TS1) : 5, [30. 42. 30. 42. 42.]
+Unique trodes(TS1): 2, [30. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 42. 35.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 39.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [32. 30.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.473 with threshold: 0.25
+num spikes(TS1) : 7, [30. 42. 35. 30. 39. 32. 30.]
+Unique trodes(TS1): 5, [30. 32. 35. 39. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [35. 42.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.293 with threshold: 0.25
+num spikes(TS1) : 4, [30. 30. 35. 42.]
+Unique trodes(TS1): 3, [30. 35. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 30.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.253 with threshold: 0.25
+num spikes(TS1) : 5, [42. 30. 30. 30. 30.]
+Unique trodes(TS1): 2, [30. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.477 with threshold: 0.25
+num spikes(TS1) : 3, [30. 30. 42.]
+Unique trodes(TS1): 2, [30. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[35.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [32. 39. 30. 35.  0.  0.  0.  0.  0.  0.]
+  [42.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [35. 42. 30.  0. 30.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.454 with threshold: 0.25
+num spikes(TS1) : 11, [35. 30. 32. 39. 30. 35. 42. 35. 42. 30. 30.]
+Unique trodes(TS1): 5, [30. 32. 35. 39. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[45. 42. 39.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [30. 42. 30. 39. 39.  0.  0.  0.  0.  0.]
+  [32. 42.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0. 45. 45.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.306 with threshold: 0.25
+num spikes(TS1) : 12, [45. 42. 39. 30. 42. 30. 39. 39. 32. 42. 45. 45.]
+Unique trodes(TS1): 5, [30. 32. 39. 42. 45.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[42. 35.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [32. 30.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [32. 39.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.376 with threshold: 0.25
+num spikes(TS1) : 6, [42. 35. 32. 30. 32. 39.]
+Unique trodes(TS1): 5, [30. 32. 35. 39. 42.]
+ 
+ 
++++++++++++++++++++++++++++++++
+[[[ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [45.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [18.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+  [27. 45. 27.  0.  0.  0.  0.  0.  0.  0.]]]
+Replay arm 2 detected with more than min unique trodes in ts 1
+Replay arm 2 detected with target posterior prob: 0.328 with threshold: 0.25
+num spikes(TS1) : 5, [45. 18. 27. 45. 27.]
+Unique trodes(TS1): 3, [18. 27. 45.]
+[<realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf9c85910>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf9c8c110>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf9c8c2d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf9ce35d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf9cf1290>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf8c4c950>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf8c54290>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf8c54310>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf8c5dc50>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf8c44f90>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf8c645d0>, <realtime_decoder.binary_record.BinaryRecordsFileReader object at 0x7f4cf8c6bf10>]
+[mpiexec@westerlies] Sending Ctrl-C to processes as requested
+[mpiexec@westerlies] Press Ctrl-C again to force abort

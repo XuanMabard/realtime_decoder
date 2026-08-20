@@ -8,7 +8,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 int TrialforDecision = 100 %(DS) from this trial, start turning on both outer arm LED. for visually guided (Decision = no), make it 100; for content discrimination with decision (Decision = yes), make it -1
 
-int enable_decision_timeout = 0 % to have decision_timeout or not ; RENAMED choice_window -> enable_decision_timeout
+int enable_decision_timeout = 1 % to have decision_timeout or not ; RENAMED choice_window -> enable_decision_timeout
 int outer_arm_choice_duration = 15000 % (DS) window of outer arm reward / decision time out time interval ; RENAMED reward_window_outer_arm -> outer_arm_choice_duration
 
 int accept_scm = 0 % whether i will use content shortcut message or not (0 if pretraining)
@@ -51,7 +51,7 @@ int port_to_reward = 0  % RENAMED rewardWell -> port_to_reward ; will be set to 
 int currPort = 0	   	% RENAMED currWell -> currPort
 int lastPort = 0		% RENAMED lastWell -> lastPort
 int dio = 0
-int timer = 3000000				% first timer trial -timers ; RENAMED content_trial_time -> timer
+int timer = 3000000				% first timer trial -timers ; RENAMED content_trial_time -> timer; 260
 
 
 % Initialization of epoch parameters
