@@ -1,3 +1,5 @@
+import csv
+
 import numpy as np
 
 from realtime_decoder import utils
@@ -65,6 +67,57 @@ def sungod_transition_matrix(pos_bins, arm_coords, bias):
     transmat[np.isnan(transmat)] = 0
 
     return transmat
+
+
+def load_hex_graph(path):
+    """Load a hex maze adjacency graph from a CSV of hex_a,hex_b edges.
+
+    The edges are undirected; each connected pair may appear once or in
+    both directions in the file (both are handled identically here).
+    Returns {hex_id: set of neighboring hex ids}.
+    """
+
+    adjacency = {}
+    with open(path, newline='') as f:
+        reader = csv.reader(f)
+        next(reader, None)  # header row
+        for row in reader:
+            if not row:
+                continue
+            a, b = int(row[0]), int(row[1])
+            adjacency.setdefault(a, set()).add(b)
+            adjacency.setdefault(b, set()).add(a)
+    return adjacency
+
+
+def hex_transition_matrix(hex_ids, adjacency, bias):
+
+    """Generate a transition matrix for a hex maze from its adjacency
+    graph. Unlike sungod_transition_matrix (uniform over every valid bin,
+    only excluding structurally-invalid "gap" bins), this restricts each
+    hex's transition probability to itself and its physically adjacent
+    neighbors, since the animal cannot jump to a non-adjacent hex within
+    one decoder time bin.
+
+    `hex_ids` is the canonical, ordered list of hex ids; row/column i of
+    the returned matrix corresponds to hex_ids[i]. A hex with no entry in
+    `adjacency` (e.g. not yet visited this session, but still a real,
+    physically valid maze location) gets self-transition probability 1 --
+    it's a valid isolated state rather than an error.
+    """
+
+    n = len(hex_ids)
+    index = {hex_id: i for i, hex_id in enumerate(hex_ids)}
+    transmat = np.zeros((n, n)) + bias * np.identity(n)
+
+    for hex_id in hex_ids:
+        i = index[hex_id]
+        for neighbor in adjacency.get(hex_id, ()):
+            j = index.get(neighbor)
+            if j is not None:
+                transmat[i, j] = bias
+
+    return _normalize_row_probability(transmat)
 
 ##########################################################################
 # Clusterless classifier transitions

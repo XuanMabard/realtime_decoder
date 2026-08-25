@@ -18,6 +18,8 @@ from PyQt5.QtWidgets import (
     QFileDialog, QMessageBox, QRadioButton, QTextEdit, QStatusBar
 )
 
+from trodes_tracker import centroid as trodes_tracker_centroid
+
 from realtime_decoder import base, messages
 
 _DEFAULT_GUI_PARAMS = {
@@ -149,10 +151,12 @@ class ArmEventsRecvInterface(base.MPIRecvInterface):
     def __init__(self, comm, rank, config, msg_handler):
         super().__init__(comm, rank, config)
         self._msg_handler = msg_handler
-        self._msg_buffer = np.zeros(
-            len(config['encoder']['position']['arm_coords']),
-            dtype='=i4'
+        pos_config = config['encoder']['position']
+        num_arms = (
+            0 if pos_config.get('type') == 'hex' else
+            len(pos_config['arm_coords'])
         )
+        self._msg_buffer = np.zeros(num_arms, dtype='=i4')
         self._mpi_status = MPI.Status()
         self._req = self.comm.Irecv(
             buf=self._msg_buffer,
@@ -1336,9 +1340,12 @@ class DecodingResultsWindow(QMainWindow):
 
         # Status bar data
         self._sbdata = {}
-        self._sbdata['arm_events'] = [0] * len(
-            self._config['encoder']['position']['arm_coords']
+        pos_config = self._config['encoder']['position']
+        num_arms = (
+            0 if pos_config.get('type') == 'hex' else
+            len(pos_config['arm_coords'])
         )
+        self._sbdata['arm_events'] = [0] * num_arms
         self._sbdata['dropped_spikes'] = [0] * len(
             self._config['rank']['decoders']
         )
@@ -1452,17 +1459,27 @@ class DecodingResultsWindow(QMainWindow):
         self._data['state'] = [np.zeros((S, N)) for _ in range(num_plots)]
         self._data['ind'] = [0] * num_plots
 
-        # used for likelihood/posterior plots
-        bin_edges = np.linspace(
-            self._config['encoder']['position']['lower'],
-            self._config['encoder']['position']['upper'],
-            self._config['encoder']['position']['num_bins'] + 1
-        )
-        arm_coords = self._config['encoder']['position']['arm_coords']
+        pos_config = self._config['encoder']['position']
+        self._is_hex = pos_config.get('type') == 'hex'
+
+        # used for likelihood/posterior plots. arm_coords has no hex
+        # equivalent -- an empty list means _setup_lk_plots/
+        # _setup_posterior_plots skip drawing arm-boundary lines
+        if self._is_hex:
+            bin_edges = np.arange(B + 1)
+            arm_coords = []
+        else:
+            bin_edges = np.linspace(
+                pos_config['lower'], pos_config['upper'], B + 1
+            )
+            arm_coords = pos_config['arm_coords']
 
         self._setup_lk_plots(num_plots, bin_edges, arm_coords)
         self._setup_posterior_plots(num_plots, bin_edges, arm_coords)
         self._setup_state_prob_plots(num_plots, state_labels, state_colors)
+
+        if self._is_hex:
+            self._setup_hex_position_plot(num_plots)
 
         num_xticks = self._config['gui']['num_xticks']
         self._set_plot_ticks(num_plots, dt, N, num_xticks)
@@ -1483,6 +1500,7 @@ class DecodingResultsWindow(QMainWindow):
 
         cmap._init()
         lut = (cmap._lut * 255).view(np.ndarray)
+        self._lut = lut
 
         for ii, (lk_image, post_image) in enumerate(
             zip(
@@ -1527,7 +1545,14 @@ class DecodingResultsWindow(QMainWindow):
             )
             self._plots['lk'][ii].setMenuEnabled(False)
 
-            # add plot items
+            self._plot_items['lk']['image'][ii] = pg.ImageItem(border=None)
+            self._plot_items['lk']['image'][ii].setZValue(-100)
+            self._plots['lk'][ii].addItem(
+                self._plot_items['lk']['image'][ii]
+            )
+
+            # arm boundaries have no hex-maze equivalent -- arm_coords is
+            # empty in that case, so this loop is simply skipped
             for lower_bin, upper_bin in arm_coords:
                 lb = bin_edges[lower_bin]
                 ub = bin_edges[upper_bin + 1]
@@ -1541,13 +1566,6 @@ class DecodingResultsWindow(QMainWindow):
                     pg.PlotDataItem(
                         np.ones(self._num_time_bins) * ub, pen='w', width=10
                     )
-                )
-
-                self._plot_items['lk']['image'][ii] = pg.ImageItem(border=None)
-                self._plot_items['lk']['image'][ii].setZValue(-100)
-
-                self._plots['lk'][ii].addItem(
-                    self._plot_items['lk']['image'][ii]
                 )
 
     def _setup_posterior_plots(self, num_plots, bin_edges, arm_coords):
@@ -1568,7 +1586,14 @@ class DecodingResultsWindow(QMainWindow):
             )
             self._plots['post'][ii].setMenuEnabled(False)
 
-            # add plot items
+            self._plot_items['post']['image'][ii] = pg.ImageItem(border=None)
+            self._plot_items['post']['image'][ii].setZValue(-100)
+            self._plots['post'][ii].addItem(
+                self._plot_items['post']['image'][ii]
+            )
+
+            # arm boundaries have no hex-maze equivalent -- arm_coords is
+            # empty in that case, so this loop is simply skipped
             for lower_bin, upper_bin in arm_coords:
                 lb = bin_edges[lower_bin]
                 ub = bin_edges[upper_bin + 1]
@@ -1584,14 +1609,63 @@ class DecodingResultsWindow(QMainWindow):
                     )
                 )
 
-                self._plot_items['post']['image'][ii] = pg.ImageItem(border=None)
-                self._plot_items['post']['image'][ii].setZValue(-100)
+    def _setup_hex_position_plot(self, num_plots):
+        """Set up spatial plots showing the current posterior over hex
+        cells, plotted at each hex's real (x, y) centroid -- the
+        hex-maze counterpart to the arm-boundary lines drawn on the
+        bin/time plots above, laid out in actual physical space rather
+        than by bin index."""
 
-                self._plots['post'][ii].addItem(
-                    self._plot_items['post']['image'][ii]
-                )
+        pos_config = self._config['encoder']['position']
+        centroids = trodes_tracker_centroid.load_centroids(
+            pos_config['hex_centroid_file']
+        )
+        self._hex_ids = pos_config['hex_ids']
 
-    # TODO(DS): Change this to a consensus ripple power 
+        xy = np.array([centroids[h] for h in self._hex_ids], dtype=float)
+        # flip y: pixel/image y grows downward, plot y grows upward
+        xy[:, 1] = -xy[:, 1]
+        self._hex_xy = xy
+
+        self._plots['hexpost'] = [None] * num_plots
+        self._plot_items['hexpost'] = {'scatter': [None] * num_plots}
+
+        for ii in range(num_plots):
+
+            dec_rank = self._config['rank']['decoders'][ii]
+
+            plot = self._graphics_widget.addPlot(
+                3, ii, 1, 1,
+                title=f'Hex posterior (Rank {dec_rank})',
+                labels={'left': 'y (px)', 'bottom': 'x (px)'}
+            )
+            plot.setMenuEnabled(False)
+            plot.setAspectLocked(True)
+
+            scatter = pg.ScatterPlotItem(
+                pos=self._hex_xy, size=26,
+                brush=pg.mkBrush(80, 80, 80), pen=pg.mkPen('w')
+            )
+            plot.addItem(scatter)
+
+            self._plots['hexpost'][ii] = plot
+            self._plot_items['hexpost']['scatter'][ii] = scatter
+
+    def _update_hex_scatter_colors(self, plot_ind, values):
+        """Recolor the hex-posterior scatter plot for one decoder rank
+        from a probability vector over hex cells (dense-index order,
+        matching self._hex_ids). Uses the same probability*255 scaling
+        as the likelihood/posterior heatmaps for visual consistency."""
+
+        vals = np.nan_to_num(values, nan=0.0)
+        lut_idx = np.clip(vals * 255, 0, 255).astype(int)
+        colors = self._lut[lut_idx][:, :3]
+        brushes = [pg.mkBrush(int(r), int(g), int(b)) for r, g, b in colors]
+        self._plot_items['hexpost']['scatter'][plot_ind].setData(
+            pos=self._hex_xy, brush=brushes, size=26, pen=pg.mkPen('w')
+        )
+
+    # TODO(DS): Change this to a consensus ripple power
     def _setup_state_prob_plots(self, num_plots, labels, colors):
         """Set up the plots visualizing state probabilities"""
 
@@ -1727,6 +1801,11 @@ class DecodingResultsWindow(QMainWindow):
         self._data['post'][plot_ind][:, ind] = np.nansum(
             msg[0]['posterior'], axis=0
         )
+
+        if self._is_hex:
+            self._update_hex_scatter_colors(
+                plot_ind, self._data['post'][plot_ind][:, ind]
+            )
 
         ''' #NOTE(DS): original state function from Josh and Mike
         self._data['state'][plot_ind][:, ind] = np.nansum(

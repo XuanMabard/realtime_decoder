@@ -71,8 +71,10 @@ class Encoder(base.LoggingClass):
             self._config['encoder']['position']['num_bins']
         )
 
-        self._arm_coords = np.array(
-            self._config['encoder']['position']['arm_coords']
+        pos_config = self._config['encoder']['position']
+        self._is_hex = pos_config.get('type') == 'hex'
+        self._arm_coords = (
+            None if self._is_hex else np.array(pos_config['arm_coords'])
         )
 
         if config['preloaded_model']:
@@ -240,7 +242,7 @@ class Encoder(base.LoggingClass):
         hist, hist_edges = np.histogram(
             a=positions,
             bins=self._pos_bin_struct.pos_bin_edges,
-            weights=weights, normed=False
+            weights=weights
         )
 
         hist += 0.0000001
@@ -269,8 +271,11 @@ class Encoder(base.LoggingClass):
 
             bin_idx = self._pos_bin_struct.get_bin(self._position)
             self._occupancy[bin_idx] += 1
-            utils.apply_no_anim_boundary(
-                self._pos_bins, self._arm_coords, self._occupancy, np.nan)
+            if not self._is_hex:
+                # no "gap between arms" concept for a hex maze -- every
+                # hex is a physically valid location
+                utils.apply_no_anim_boundary(
+                    self._pos_bins, self._arm_coords, self._occupancy, np.nan)
 
             self._occupancy_ct += 1
 
@@ -433,6 +438,12 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
         self.p['spk_amp'] = self._config['encoder']['spk_amp']
         self.p['preloaded_model'] = self._config['preloaded_model']
         self.p['frozen_model'] = self._config['frozen_model']
+        # if true, the encoding model keeps growing after the task state
+        # switches away from 1 (i.e. train and decode simultaneously).
+        # default false preserves the original train-then-decode behavior
+        self.p['train_all_task_states'] = self._config['encoder'].get(
+            'train_all_task_states', False
+        )
         self.p['smooth_x'] = self._config['kinematics']['smooth_x']
         self.p['smooth_y'] = self._config['kinematics']['smooth_y']
         self.p['smooth_speed'] = self._config['kinematics']['smooth_speed']
@@ -517,8 +528,8 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
                 self._spike_msg[0]['current_pos'] = self._current_pos
                 self._spike_msg[0]['cred_int'] = cred_int
                 self._spike_msg[0]['hist'] = joint_prob_obj.hist
-                self._spike_msg[0]['send_time'] = time.time_ns()
-                t_start_enc_send = self._spike_msg['send_time']
+                t_start_enc_send = time.time_ns()
+                self._spike_msg[0]['send_time'] = t_start_enc_send
                 self.send_interface.send_joint_prob(decoder_rank, self._spike_msg)
                 t_end_enc_send = time.time_ns()
 
@@ -545,7 +556,7 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
             # either first spike or not enough neighboring spikes
             # (assuming filter is on). still record result
             else:
-                if len(mark_vec) is not 8:
+                if len(mark_vec) != 8:
                    print(f"******************mark_vec: {len(mark_vec)}*******************")
                 self.write_record(
                     binary_record.RecordIDs.ENCODER_OUTPUT,
@@ -619,8 +630,13 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
             smooth_speed=self.p['smooth_speed']
         )
 
-        # map position to linear coordinates
-        self._current_pos = self._pos_mapper.map_position(pos_msg)
+        # map position to linear coordinates. None means the animal
+        # couldn't be confidently placed (e.g. hex mode, lost tracking)
+        # -- freeze at the last known position rather than propagate
+        # None into code that assumes an int
+        mapped_pos = self._pos_mapper.map_position(pos_msg)
+        if mapped_pos is not None:
+            self._current_pos = mapped_pos
 
         #####################################################################################################
         # For testing, remove when finalized
@@ -655,11 +671,16 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
                     encoder._chosen_indices = np.arange(encoder._mark_idx)
                 
                 encoder.save()
-                encoder._marks = encoder._marks[:np.min([n_spikes_currently_in_buffer,n_spikes_capacity_buffer])]
-                encoder._positions = encoder._positions[:np.min([n_spikes_currently_in_buffer,n_spikes_capacity_buffer])]
+                # Compacting the buffers is only safe once we are done
+                # collecting: it shrinks _marks to exactly _mark_idx rows,
+                # and a trode with no spikes yet would be truncated to zero
+                # rows, which add_new_mark() can never grow again.
+                if not self.p['train_all_task_states']:
+                    encoder._marks = encoder._marks[:np.min([n_spikes_currently_in_buffer,n_spikes_capacity_buffer])]
+                    encoder._positions = encoder._positions[:np.min([n_spikes_currently_in_buffer,n_spikes_capacity_buffer])]
                 self.class_log.info(
-                        f"encoder {encoder._trode} shape: {encoder._marks.shape}")                
-                            
+                        f"encoder {encoder._trode} shape: {encoder._marks.shape}")
+
                 self._save_early = False
 
         self._pos_counter += 1
@@ -730,7 +751,7 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
 
         res = (
             abs(self._current_vel) >= self.p['vel_thresh'] and
-            self._task_state == 1 and
+            (self._task_state == 1 or self.p['train_all_task_states']) and
             not self.p['frozen_model']
         )
         return res

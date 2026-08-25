@@ -242,10 +242,7 @@ class RippleManager(base.BinaryRecordBase, base.MessageHandler):
         self._init_params()
         self._init_timings()
 
-        self._pos_mapper = position.TrodesPositionMapper(
-            config['encoder']['position']['arm_ids'],
-            config['encoder']['position']['arm_coords']
-        )
+        self._pos_mapper = position.build_position_mapper(config)
 
 
         self._current_pos = 0
@@ -481,7 +478,12 @@ class RippleManager(base.BinaryRecordBase, base.MessageHandler):
             smooth_speed=self.p['smooth_speed']
         )
 
-        self._current_pos = self._pos_mapper.map_position(pos_msg)
+        # None means the animal couldn't be confidently placed (e.g. hex
+        # mode, lost tracking) -- freeze at the last known position
+        # rather than propagate None into code that assumes an int
+        mapped_pos = self._pos_mapper.map_position(pos_msg)
+        if mapped_pos is not None:
+            self._current_pos = mapped_pos
 
         self._x = xv / self.p['kinematics_sf']
         self._y = yv / self.p['kinematics_sf']

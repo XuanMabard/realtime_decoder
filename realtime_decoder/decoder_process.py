@@ -134,7 +134,11 @@ class ClusterlessDecoder(base.Decoder):
         # be aware that this starts from zero. in order to be correct,
         # we must have self._config['encoder']['position']['lower'] be 0
         self._pos_bins = np.arange(num_bins)
-        self._arm_coords = np.array(self._config['encoder']['position']['arm_coords'])
+        pos_config = self._config['encoder']['position']
+        self._is_hex = pos_config.get('type') == 'hex'
+        self._arm_coords = (
+            None if self._is_hex else np.array(pos_config['arm_coords'])
+        )
         self._init_transitions()
 
         if config['preloaded_model']:
@@ -187,10 +191,20 @@ class ClusterlessDecoder(base.Decoder):
         algorithm = self._config['algorithm']
 
         if algorithm == 'clusterless_decoder':
-            self._transmat = transitions.sungod_transition_matrix(
-                self._pos_bins, self._arm_coords,
-                self._config['clusterless_decoder']['transmat_bias']
-            )
+            if self._is_hex:
+                pos_config = self._config['encoder']['position']
+                adjacency = transitions.load_hex_graph(
+                    pos_config['hex_graph_file']
+                )
+                self._transmat = transitions.hex_transition_matrix(
+                    pos_config['hex_ids'], adjacency,
+                    self._config['clusterless_decoder']['transmat_bias']
+                )
+            else:
+                self._transmat = transitions.sungod_transition_matrix(
+                    self._pos_bins, self._arm_coords,
+                    self._config['clusterless_decoder']['transmat_bias']
+                )
         elif algorithm == 'clusterless_classifier':
 
             num_bins = self._config['encoder']['position']['num_bins']
@@ -309,8 +323,11 @@ class ClusterlessDecoder(base.Decoder):
 
             bin_idx = self._pos_bin_struct.get_bin(self._position)
             self._occupancy[bin_idx] += 1
-            utils.apply_no_anim_boundary(
-                self._pos_bins, self._arm_coords, self._occupancy, np.nan)
+            if not self._is_hex:
+                # no "gap between arms" concept for a hex maze -- every
+                # hex is a physically valid location
+                utils.apply_no_anim_boundary(
+                    self._pos_bins, self._arm_coords, self._occupancy, np.nan)
 
             self._occupancy_ct += 1
 
@@ -348,12 +365,17 @@ class DecoderManager(base.BinaryRecordBase, base.MessageHandler):
             raise ValueError(f"Unknown algorithm '{algorithm}'")
         state_labels = config[algorithm]['state_labels']
 
-        num_bins = config['encoder']['position']['num_bins']
+        pos_config = config['encoder']['position']
+        num_bins = pos_config['num_bins']
         dig = len(str(num_bins))
-        n_arms = len(config['encoder']['position']['arm_coords'])
 
         pos_labels = [f'x{v:0{dig}d}_{l}' for l in state_labels for v in range(num_bins)]
-        arm_labels = [f'arm{a}' for a in range(n_arms)]
+        # arm_labels is unused below (dead code pre-existing this change);
+        # only arm_coords-based mazes have a meaningful "arm" concept
+        arm_labels = (
+            [] if pos_config.get('type') == 'hex' else
+            [f'arm{a}' for a in range(len(pos_config['arm_coords']))]
+        )
         likelihood_labels = [f'x{v:0{dig}d}' for v in range(num_bins)]
         occupancy_labels = likelihood_labels
 
@@ -518,7 +540,7 @@ class DecoderManager(base.BinaryRecordBase, base.MessageHandler):
         config = self._config
         rank = self.rank
 
-        if config['algorithm'] in ('clusterless_decoder, clusterless_classifier'):
+        if config['algorithm'] in ('clusterless_decoder', 'clusterless_classifier'):
             self._decoder = ClusterlessDecoder(
                 rank, config,
                 position.PositionBinStruct(
@@ -571,6 +593,11 @@ class DecoderManager(base.BinaryRecordBase, base.MessageHandler):
         self.p['algorithm'] = self._config['algorithm']
         self.p['preloaded_model'] = self._config['preloaded_model']
         self.p['frozen_model'] = self._config['frozen_model']
+        # keep updating occupancy after the task state switches away from 1,
+        # so it stays in step with an encoding model that is still growing
+        self.p['train_all_task_states'] = self._config['encoder'].get(
+            'train_all_task_states', False
+        )
         self.p['algorithm'] = self._config['algorithm']
         self.p['kinematics_sf'] = self._config['kinematics']['scale_factor']
         self.p['smooth_x'] = self._config['kinematics']['smooth_x']
@@ -660,8 +687,13 @@ class DecoderManager(base.BinaryRecordBase, base.MessageHandler):
         self._x = xv / self.p['kinematics_sf']
         self._y = yv / self.p['kinematics_sf']
 
-        # map position to linear coordinates
-        self._current_pos = self._pos_mapper.map_position(pos_msg)
+        # map position to linear coordinates. None means the animal
+        # couldn't be confidently placed (e.g. hex mode, lost tracking)
+        # -- freeze at the last known position rather than propagate
+        # None into code that assumes an int
+        mapped_pos = self._pos_mapper.map_position(pos_msg)
+        if mapped_pos is not None:
+            self._current_pos = mapped_pos
 
         self._raw_x = pos_msg.x
         self._raw_y = pos_msg.y
@@ -799,7 +831,7 @@ class DecoderManager(base.BinaryRecordBase, base.MessageHandler):
 
         res = (
             abs(self._current_vel) >= self.p['vel_thresh'] and
-            self._task_state == 1 and
+            (self._task_state == 1 or self.p['train_all_task_states']) and
             not self.p['frozen_model']
         )
         return res

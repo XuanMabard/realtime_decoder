@@ -10,6 +10,21 @@ from realtime_decoder import base, utils, messages, binary_record, taskstate
 """Contains objects relevant to detecting if stimulation
 should be given"""
 
+class NoOpStimDecider(base.BinaryRecordBase, base.MessageHandler):
+    """Consumes supervisor messages without arm-based stimulation."""
+
+    def __init__(self, comm, rank, config, trodes_client):
+        super().__init__(
+            rank=rank,
+            rec_ids=[],
+            rec_labels=[],
+            rec_formats=[],
+            manager_label='state'
+        )
+
+    def handle_message(self, msg, mpi_status):
+        pass
+
 class StimDeciderSendInterface(base.MPISendInterface):
 
     """The interface object a stim decider uses to communicate with
@@ -157,10 +172,17 @@ class TwoArmTrodesStimDecider(base.BinaryRecordBase, base.MessageHandler):
 
         self._task_state = 1
         self._task_state_handler = taskstate.TaskStateHandler(self._config)
-        self._num_rewards = np.zeros(
-            len(self._config['encoder']['position']['arm_coords']),
-            dtype='=i4'
+        # NOTE: this closed-loop decider is written for a two-arm maze and
+        # remains non-functional for a hex maze (type == 'hex') beyond not
+        # crashing at startup -- arm-indexed replay/reward logic elsewhere
+        # in this class (_compute_arm_probs, _compute_region_probs, etc.)
+        # has not been adapted.
+        pos_config = self._config['encoder']['position']
+        num_arms = (
+            0 if pos_config.get('type') == 'hex' else
+            len(pos_config['arm_coords'])
         )
+        self._num_rewards = np.zeros(num_arms, dtype='=i4')
         self._instr_rewarded_arms = np.zeros(
             self._config['stimulation']['replay']['instr_max_repeats'],
             dtype='=i4'

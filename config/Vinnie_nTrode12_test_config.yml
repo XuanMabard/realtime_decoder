@@ -1,0 +1,243 @@
+---
+# Hex-maze realtime decoding config for Vinnie.
+# Playback session: /media/ssd1/Vinnie/20260814_Vinnie_07_r4/20260814_Vinnie_07_r4.rec
+# Launch (N ranks = 1 supervisor + 1 ripples + 1 decoder + 7 encoders + 1 gui = 11):
+#   mpiexec -np 11 -bind-to hwthread python -u runscript.py config/Vinnie_nTrode12_test_config.yml
+# Start this BEFORE pressing Play in Trodes -- startup is triggered by the
+# Trodes 'play'/'record' network command.
+
+# MPI rank -> role assignment. Every integer 0..N-1 must appear in exactly
+# one list, and N passed to mpiexec must match the total count.
+rank:
+  supervisor: [0]
+  ripples: [3]
+  decoders: [1]
+  encoders: [
+    4,5,6,7,8,9,10,11,12,13
+  ]
+  gui: [2]
+rank_settings:
+  # ranks that write binary records to disk (all except the GUI)
+  enable_rec: [
+    0,1,3,4,5,6,7,8,9,10,11,12,13
+  ]
+trode_selection:
+  # electrode groups (nTrode ids from the .trodesconf) used for ripple/LFP detection
+  ripples: [2,5,8,12,15,18,22,25,28,31]
+  # electrode groups whose spikes feed the encoding model / decoder.
+  # NOTE: all must have the same channel count (= encoder.mark_dim).
+  # These 7 are the 12-channel groups in the 20260814 Vinnie workspace.
+  decoding: [
+    2,5,8,12,15,18,22,25,28,31
+  ]
+
+decoder_assignment:
+  # key is the decoder rank. the list consists of
+  # the decoding trodes
+  1: [
+    2,5,8,12,15,18,22,25,28,31
+  ]
+algorithm: "clusterless_decoder"
+datasource: "trodes"
+# supervisor->GUI "setup complete" ping count; increase if the READY popup never appears
+num_setup_messages: 100
+preloaded_model: false   # true = load a previously saved encoding model from saved_model_dir
+frozen_model: false      # true = never add new spikes to the model (toggleable in GUI)
+files:
+  output_dir: '/media/ssd1/decoder_output'
+  #backup_dir : 'data/decoder-output-backup' # optional
+  saved_model_dir: '/media/ssd1/decoder_output' # only used if using a pre-loaded model
+  saved_model_prefix: '20260703_110229'         # only used if preloaded_model is true
+  prefix: 'Vinnie_hex_realtime_decoding'
+  rec_postfix: 'bin_rec'
+  timing_postfix: 'timing'
+trodes:
+  # must be the workspace matching the .rec being played back
+  config_file: '/media/ssd1/Vinnie/20260814_Vinnie_07_r4/20260814_Vinnie_07_r4.trodesconf'
+  # task state is read from the LAST LINE of this file (1 = encode, 2 = decode/stim).
+  # Nothing updates it during playback -- set the last line yourself.
+  taskstate_file: '/home/andy-quach/realtime_decoder/config/taskstate.txt'
+  # only read when stimulation.instructive is true
+  instructive_file: '/home/andy-quach/realtime_decoder/config/instructive.txt'
+  # Trodes raw units -> microvolts (Intan headstages: 0.195)
+  voltage_scaling_factor: 0.195
+sampling_rate:
+  spikes: 30000
+  lfp: 1500
+  position: 30
+ripples:
+  max_ripple_samples: 450   # hard cap on ripple duration, in LFP samples
+  vel_thresh: 10            # cm/s; ripples only detected when animal is SLOWER than this
+  freeze_stats: false       # true = stop updating the envelope mean/std estimates
+  timings_bufsize: 1000000
+  filter:
+    type: 'iir'
+    order: 2
+    crit_freqs: [150, 250]  # ripple band, Hz
+    kwargs:
+      btype: 'bandpass'
+      ftype: 'butter'
+    # type: 'fir'
+    # num_taps: 21
+    # band_edges: [140, 150, 250, 260]
+    # desired: [0, 1, 1, 0]
+  smoothing_filter:
+    num_taps: 15
+    band_edges: [50, 55]
+    desired: [1, 0]
+  threshold: # units: number of standard deviations above the mean
+    standard: 3.5
+    conditioning: 3.75
+    content: 4
+    end: 0
+  # custom_mean:
+  #   1: 1
+  #   consensus: 2
+  # custom_std:
+  #   1: 2
+  #   consensus: 3
+encoder:
+  # global amplitude gate (uV): a spike's max mark value must exceed this to be used
+  spk_amp: 30 # NOTE(DS): control with trodes threshold
+  # keep only the channels within +/- this distance of the peak-amplitude
+  # channel (zeroes the rest of the mark vector). 2 -> 5-channel window.
+  use_channel_dist_from_max_amp: 2
+  # mark vector length = channel count of EVERY decoding trode (12-ch groups here)
+  mark_dim: 12
+  bufsize: 3000000        # initial capacity (spikes) of each trode's encoding model
+  timings_bufsize: 3000000
+  vel_thresh: 10        # cm/s; spikes only added to the model when animal is FASTER than this
+  num_pos_points: 150   # re-read taskstate_file every this many position samples (150/30Hz = 5s)
+  # true = keep adding spikes to the encoding model even after the task state
+  # switches to 2 (train and decode at the same time). false = original
+  # behavior, where the model stops growing the moment task state leaves 1.
+  # NOTE: the KDE only ever uses the first 'bufsize' spikes per trode, so the
+  # model effectively stops improving once bufsize spikes are collected.
+  train_all_task_states: true
+  position:
+    # 'hex' switches position binning from Trodes linearization (segments/arms)
+    # to hex-cell ids assigned by nearest centroid. num_bins is derived
+    # automatically from the CSVs at startup -- do not set it here.
+    type: "hex"
+    # hex,x,y (raw camera pixels, 1292x964 camera) -- one row per hex cell
+    hex_centroid_file: '/home/andy-quach/realtime_decoder/config/20260609_Nova_hex_coordinates.csv'
+    # hex_a,hex_b undirected adjacency edges -- defines the decoder's transition matrix
+    hex_graph_file: '/home/andy-quach/realtime_decoder/config/Hex_maze_graph.csv'
+    # px; positions farther than this from every centroid = tracking lost,
+    # position holds at last known hex. Neighboring hexes are ~73 px apart.
+    hex_threshold: 40
+    # -- linear-track mode (type: "linear" or omit 'type') would instead use: --
+    # lower: 0
+    # upper: 41
+    # num_bins: 41
+    # arm_ids: [0,1,2]
+    # arm_coords: [[0,8],[13,24],[29,40]]
+    lower: 0
+    upper: 49
+    num_bins: 49
+  mark_kernel:
+    mean: 0        # not used
+    std: 20        # uV; Gaussian kernel width for mark-space distance
+    use_filter: true   # only decode a spike if enough similar marks exist nearby
+    n_std: 1           # search box = mark +/- n_std*std per dimension
+    n_marks_min: 10    # minimum marks inside the box for the spike to be decoded
+  dead_channels: { # zero-indexed within the trode's channel list
+      18: [1,5],
+      }
+decoder:
+  decoder_to_message: 1 # 1: decoder 1, 2: decoder 2, 0: all decoders
+  bufsize: 2000         # circular buffer for spike messages from encoders
+  timings_bufsize: 50000
+  cred_int_bufsize: 10  # credible-interval history buffer length
+  num_pos_points: 150   # same taskstate re-read cadence as encoder
+  time_bin:
+    samples: 180        # decoding bin = 180/30000 = 6 ms
+    delay_samples: 180  # right edge of the bin lags the LFP clock by 6 ms
+clusterless_decoder:
+  state_labels: ['state']
+  transmat_bias: 1      # transition prob assigned to self + each adjacent hex before row-normalizing
+gui:
+  colormap: 'rocket'
+  send_interval: 0 # seconds. Automates parameter sending. Set to <= 0 to disable
+  refresh_rate: 25 # Hz
+  trace_length: 2 # seconds of history shown in the scrolling plots
+  state_colors: ['#4c72b0','#dd8452', '#55a868']
+  num_xticks: 5
+mua:
+  threshold:
+    trigger: 4  # SDs above mean multiunit rate to flag a MUA burst
+    end: 0
+  freeze_stats: false
+  moving_avg_window: 5
+  # custom_mean:
+  #   1: 700
+  # custom_std:
+  #   1: 300
+# NOTE: closed-loop stimulation logic is arm-based and NOT functional in hex
+# mode -- these settings only need to exist so processes start up. Replay/
+# ripple/head-direction triggers will not fire meaningfully on the hex maze.
+stimulation:
+  instructive: false
+  shortcut_msg_on: true
+  automatic_threshold_update : true
+  num_each_arm_per_minute: 0.7
+  num_each_arm_per_minute_max: 0.8
+  num_each_arm_per_minute_min: 0.2
+  num_pos_points: 150
+  center_well_loc: [700,660] # camera px; arm-maze concept, unused for hex
+  max_center_well_dist: 7    # cm
+  replay:
+    enabled: false           # disabled: arm-based replay detection is meaningless for hex
+    method: "posterior"
+    target_arm: 1
+    event_lockout: 0.2       # seconds between successive candidate replay events
+    sliding_window: 5        # decoder time bins averaged per replay decision
+    primary_arm_threshold: 0.25
+    secondary_arm_threshold: 0.25
+    other_arm_threshold: 0.2
+    max_arm_repeats: 8 # not currently used
+    instr_max_repeats: 3
+    min_unique_trodes: 2
+  ripples:
+    enabled: false           # disabled for hex playback testing (no stim hardware)
+    type: "standard"
+    method: "multichannel"
+    event_lockout: 0
+    num_above_thresh: 1
+    suprathreshold_period: 0.1
+  head_direction:
+    enabled: false
+    rotate_180: true
+    event_lockout: 10
+    min_duration: 2
+    well_angle_range: 6
+    within_angle_range: 6
+    well_loc: [[928.895, 255.175], [301.263, 277.608]] # must have exactly 2 entries (startup check)
+kinematics:
+  smooth_x: true
+  smooth_y: true
+  smooth_speed: false
+  smoothing_filter: [0.31, 0.29, 0.25, 0.15]
+  # px -> cm conversion for velocity. 0.265 was the SC66 rig value --
+  # MEASURE for the Vinnie camera (cm per pixel) or vel_thresh gating is wrong.
+  scale_factor: 0.18
+cred_interval:
+  val: 0.5    # credible-interval mass threshold
+  max_num: 5  # max bins allowed in the credible set for a "good" spike
+display: # console print cadence (print every N events); no effect on computation
+  stim_decider:
+    position: 150
+    decoding_bins: 2000
+  ripples:
+    lfp: 100000
+  encoder:
+    encoding_spikes: 5000
+    total_spikes: 50000
+    occupancy: 5000
+    position: 5000
+  decoder:
+    total_spikes: 50000
+    occupancy: 100
+process_monitor:
+  interval: 15 # how often (in seconds) to check processes. set to <= 0 to disable
+  timeout: 3 # in seconds, needs to be sufficiently long to receive messages from all ranks

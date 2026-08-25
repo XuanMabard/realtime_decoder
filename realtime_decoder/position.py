@@ -2,7 +2,9 @@ import numpy as np
 
 from typing import List
 
-from realtime_decoder import base, datatypes
+from trodes_tracker import centroid as trodes_tracker_centroid
+
+from realtime_decoder import base, datatypes, transitions
 
 """Contains objects relevant to handling position data"""
 
@@ -88,6 +90,115 @@ class TrodesPositionMapper(base.PositionMapper):
             bin_ind = len(bins) - 1
 
         return bins[bin_ind]
+
+
+class HexCentroidPositionMapper(base.PositionMapper):
+
+    """Maps data obtained from a Trodes camera module into a hex maze
+    cell, using nearest-centroid assignment (trodes_tracker.centroid).
+
+    map_position() returns a dense array index (0..num_hexes-1), not the
+    raw hex label used in the centroid/adjacency-graph CSVs -- this keeps
+    it consistent with how occupancy and the transition matrix
+    (transitions.hex_transition_matrix) are indexed. Use hex_to_index()/
+    index_to_hex() to translate between the two.
+
+    Returns None from map_position() when the animal is farther than
+    `threshold` pixels from every hex centroid (e.g. lost tracking).
+    Callers should leave position/occupancy unchanged rather than pass
+    None further down, since downstream bin lookups assume an int.
+    """
+
+    def __init__(self, centroid_file, threshold, hex_ids:List[int]=None):
+
+        super().__init__()
+
+        self._centroids = trodes_tracker_centroid.load_centroids(centroid_file)
+        self._threshold = threshold
+
+        # canonical ordering: an explicit hex_ids list lets the caller
+        # line this mapper up with a separately loaded adjacency graph,
+        # which may not reference the exact same set of hexes
+        if hex_ids is None:
+            hex_ids = sorted(self._centroids.keys())
+        self.hex_ids = list(hex_ids)
+        self._hex_to_index = {hex_id: i for i, hex_id in enumerate(self.hex_ids)}
+
+    def hex_to_index(self, hex_id):
+        return self._hex_to_index.get(hex_id)
+
+    def index_to_hex(self, index):
+        return self.hex_ids[index]
+
+    def map_position(self, datapoint:datatypes.CameraModulePoint):
+
+        """Maps a camera-module datapoint to a dense hex-cell index, or
+        None if the animal is farther than `threshold` from every hex
+        centroid"""
+
+        # two-LED midpoint -- matches trodes_tracker's own convention
+        # (trodes_io.extract_xy) and this package's ripple_process.py
+        # velocity computation, so all three agree on "animal position"
+        xmid = (datapoint.x + datapoint.x2) / 2
+        ymid = (datapoint.y + datapoint.y2) / 2
+
+        hex_id, dist = trodes_tracker_centroid.nearest_hex(
+            self._centroids, xmid, ymid
+        )
+        if hex_id is None or dist > self._threshold:
+            return None
+
+        return self._hex_to_index.get(hex_id)
+
+
+def resolve_hex_position_config(config):
+    """If config['encoder']['position']['type'] == 'hex', load the
+    centroid and adjacency-graph CSVs it points to and inject 'hex_ids'
+    and 'num_bins' into config['encoder']['position'] in place, so every
+    site that reads config['encoder']['position']['num_bins'] gets a
+    value consistent with the actual maze data rather than a
+    hand-maintained YAML number. hex_ids is the sorted union of both
+    files, so a hex present in only one of them is still a valid state.
+
+    No-op when position type is 'linear' (the default) -- existing
+    configs are unaffected.
+    """
+
+    pos_config = config['encoder']['position']
+    if pos_config.get('type') != 'hex':
+        return
+
+    centroids = trodes_tracker_centroid.load_centroids(
+        pos_config['hex_centroid_file']
+    )
+    adjacency = transitions.load_hex_graph(pos_config['hex_graph_file'])
+    hex_ids = sorted(set(centroids.keys()) | set(adjacency.keys()))
+
+    pos_config['hex_ids'] = hex_ids
+    pos_config['num_bins'] = len(hex_ids)
+
+
+def build_position_mapper(config):
+    """Construct the position mapper indicated by
+    config['encoder']['position']['type'] ('linear', the default, or
+    'hex'). Centralizing this avoids the mapper-construction call sites
+    (encoder rank, decoder rank, ripple rank) drifting out of sync, which
+    they previously did (each built its own TrodesPositionMapper).
+    """
+
+    pos_config = config['encoder']['position']
+
+    if pos_config.get('type') == 'hex':
+        return HexCentroidPositionMapper(
+            pos_config['hex_centroid_file'],
+            pos_config['hex_threshold'],
+            hex_ids=pos_config['hex_ids']
+        )
+
+    return TrodesPositionMapper(
+        pos_config['arm_ids'],
+        pos_config['arm_coords']
+    )
 
 
 class KinematicsEstimator(object):

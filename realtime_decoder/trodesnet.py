@@ -181,8 +181,18 @@ class TrodesClient(object):
         server_address = utils.get_network_address(
             config[config['datasource']]['config_file']
         )
-        self._acq_sub = TrodesAcquisitionSubscriber(server_address=server_address)
-        self._trodes_hardware = TrodesHardware(server_address=server_address)
+
+        if server_address is None:
+            # Trodes running on this computer
+            self._acq_sub = TrodesAcquisitionSubscriber()
+            self._trodes_hardware = TrodesHardware()
+        else:
+            self._acq_sub = TrodesAcquisitionSubscriber(
+                server_address=server_address
+            )
+            self._trodes_hardware = TrodesHardware(
+                server_address=server_address
+            )
 
     def send_statescript_shortcut_message(self, val):
         """Send a shortcut message to the ECU"""

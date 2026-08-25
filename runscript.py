@@ -104,6 +104,8 @@ def setup(config_path, numprocs):
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
 
+    position.resolve_hex_position_config(config)
+
     os.makedirs(os.path.dirname(config['files']['output_dir']), exist_ok=True)
     prefix = config['files']['prefix']
     comm.Barrier()
@@ -171,9 +173,17 @@ def setup(config_path, numprocs):
     
     if rank in config['rank']['supervisor']:
         trodes_client = trodesnet.TrodesClient(config)
-        stim_decider = stimulation.TwoArmTrodesStimDecider(
-            comm, rank, config, trodes_client
-        )
+
+        pos_type = config['encoder']['position'].get('type', 'linear')
+
+        if pos_type == 'hex':
+            stim_decider = stimulation.NoOpStimDecider(
+                comm, rank, config, trodes_client
+            )
+        else:
+            stim_decider = stimulation.TwoArmTrodesStimDecider(
+                comm, rank, config, trodes_client
+            )
         process = main_process.MainProcess(
             comm, rank, config, stim_decider, trodes_client
         )
@@ -202,10 +212,7 @@ def setup(config_path, numprocs):
         pos_interface = trodesnet.TrodesDataReceiver(
             comm, rank, config, datatypes.Datatypes.LINEAR_POSITION
         )
-        pos_mapper = position.TrodesPositionMapper(
-            config['encoder']['position']['arm_ids'],
-            config['encoder']['position']['arm_coords']
-        )
+        pos_mapper = position.build_position_mapper(config)
         process = encoder_process.EncoderProcess(
             comm, rank, config, spikes_interface, pos_interface,
             pos_mapper
@@ -214,10 +221,7 @@ def setup(config_path, numprocs):
         pos_interface = trodesnet.TrodesDataReceiver(
             comm, rank, config, datatypes.Datatypes.LINEAR_POSITION
         )
-        pos_mapper = position.TrodesPositionMapper(
-            config['encoder']['position']['arm_ids'],
-            config['encoder']['position']['arm_coords']
-        )
+        pos_mapper = position.build_position_mapper(config)
         process = decoder_process.DecoderProcess(
             comm, rank, config, pos_interface, pos_mapper
         )

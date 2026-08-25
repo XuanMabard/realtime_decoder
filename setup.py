@@ -21,6 +21,8 @@ setup(
                       'Cython',
                       'trodesnetwork',
                       'pyqtgraph',
+                      'PyQt5',
+                      'seaborn',
                       'oyaml'
                      ],
     author_email='jpc6@rice.edu',
