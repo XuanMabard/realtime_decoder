@@ -13,29 +13,29 @@ rank:
   ripples: [3]
   decoders: [1]
   encoders: [
-    4,5,6,7,8,9,10,11,12,13
+    4,5,6,7,8,9,10,11
   ]
   gui: [2]
 rank_settings:
   # ranks that write binary records to disk (all except the GUI)
   enable_rec: [
-    0,1,3,4,5,6,7,8,9,10,11,12,13
+    0,1,3,4,5,6,7,8,9,10,11
   ]
 trode_selection:
   # electrode groups (nTrode ids from the .trodesconf) used for ripple/LFP detection
-  ripples: [2,5,8,12,15,18,22,25,28,31]
+  ripples: [1,3,6,9,11,14,17,20]
   # electrode groups whose spikes feed the encoding model / decoder.
   # NOTE: all must have the same channel count (= encoder.mark_dim).
   # These 7 are the 12-channel groups in the 20260814 Vinnie workspace.
   decoding: [
-    2,5,8,12,15,18,22,25,28,31
+    1,3,6,9,11,14,17,20
   ]
 
 decoder_assignment:
   # key is the decoder rank. the list consists of
   # the decoding trodes
   1: [
-    2,5,8,12,15,18,22,25,28,31
+    1,3,6,9,11,14,17,20
   ]
 algorithm: "clusterless_decoder"
 datasource: "trodes"
@@ -44,16 +44,16 @@ num_setup_messages: 100
 preloaded_model: false   # true = load a previously saved encoding model from saved_model_dir
 frozen_model: false      # true = never add new spikes to the model (toggleable in GUI)
 files:
-  output_dir: '/media/ssd1/decoder_output/Vinnie/20260812_r3'
+  output_dir: '/media/ssd1/decoder_output/Toby/20250316_07_r4'
   #backup_dir : 'data/decoder-output-backup' # optional
-  saved_model_dir: '/media/ssd1/decoder_output/Vinnie/20260812_r3' # only used if using a pre-loaded model
-  saved_model_prefix: '20260812_110229'         # only used if preloaded_model is true
-  prefix: 'Vinnie_hex_realtime_decoding'
+  saved_model_dir: '/media/ssd1/decoder_output/Toby/20250316_07_r4' # only used if using a pre-loaded model
+  saved_model_prefix: '20250316_07_r4'         # only used if preloaded_model is true
+  prefix: 'Toby_hex_realtime_decoding'
   rec_postfix: 'bin_rec'
   timing_postfix: 'timing'
 trodes:
   # must be the workspace matching the .rec being played back
-  config_file: '/media/ssd1/Vinnie/20260812_Vinnie_05_r3/20260812_Vinnie_05_r3.trodesconf'
+  config_file: '/media/ssd1/Toby/20250316_Toby_07_r4/20250316_Toby_07_r4.trodesconf'
   # task state is read from the LAST LINE of this file (1 = encode, 2 = decode/stim).
   # Nothing updates it during playback -- set the last line yourself.
   taskstate_file: '/home/andy-quach/realtime_decoder/config/taskstate.txt'
@@ -120,12 +120,12 @@ encoder:
     # automatically from the CSVs at startup -- do not set it here.
     type: "hex"
     # hex,x,y (raw camera pixels, 1292x964 camera) -- one row per hex cell
-    hex_centroid_file: '/home/andy-quach/realtime_decoder/config/20260609_Nova_hex_coordinates.csv'
+    hex_centroid_file: '/home/andy-quach/realtime_decoder/config/20250403_Toby_hex_coordinates.csv'
     # hex_a,hex_b undirected adjacency edges -- defines the decoder's transition matrix
     hex_graph_file: '/home/andy-quach/realtime_decoder/config/Hex_maze_graph.csv'
     # px; positions farther than this from every centroid = tracking lost,
     # position holds at last known hex. Neighboring hexes are ~73 px apart.
-    hex_threshold: 40
+    hex_threshold: 200
     # -- linear-track mode (type: "linear" or omit 'type') would instead use: --
     # lower: 0
     # upper: 41
@@ -142,7 +142,7 @@ encoder:
     n_std: 1           # search box = mark +/- n_std*std per dimension
     n_marks_min: 10    # minimum marks inside the box for the spike to be decoded
   dead_channels: { # zero-indexed within the trode's channel list
-      18: [1,5],
+      3: [2,3],
       }
 decoder:
   decoder_to_message: 1 # 1: decoder 1, 2: decoder 2, 0: all decoders
