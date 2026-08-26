@@ -13,6 +13,23 @@ from realtime_decoder import logging_base, messages
 
 """Contains objects relevant to reading and writing records in binary form"""
 
+
+def convert_dataframe_to_numeric(dataframe):
+    """Convert columns to numeric when every value can be converted.
+
+    This preserves the behavior of ``pd.to_numeric(errors='ignore')``, which
+    was removed in pandas 3. Text or mixed columns are returned unchanged.
+    """
+
+    def convert_series(series):
+        try:
+            return pd.to_numeric(series, errors='raise')
+        except (TypeError, ValueError):
+            return series
+
+    return dataframe.apply(convert_series)
+
+
 class RecordIDs(IntEnum):
     """The numeric ID for each record type
     """
@@ -456,7 +473,7 @@ class BinaryRecordsFileReader(logging_base.LoggingClass):
                             table[col_name] = table[col_name].apply(self._bytes_to_string)
 
         panda_numeric_frames = {
-            key: df.apply(pd.to_numeric, errors='ignore')
+            key: convert_dataframe_to_numeric(df)
             for key, df in panda_frames.items()
         }
 

@@ -58,7 +58,7 @@ def merge_pandas(filename_items):
         pandas.append(store['rec_'+str(rec_id)])
 
     merged = pd.concat(pandas, ignore_index=True)
-    merged = merged.apply(pd.to_numeric, errors='ignore')
+    merged = binary_record.convert_dataframe_to_numeric(merged)
 
     if 'timestamp' in merged.columns:
         merged.sort_values(['timestamp'], inplace=True)
