@@ -44,16 +44,16 @@ num_setup_messages: 100
 preloaded_model: false   # true = load a previously saved encoding model from saved_model_dir
 frozen_model: false      # true = never add new spikes to the model (toggleable in GUI)
 files:
-  output_dir: '/media/ssd1/decoder_output/Toby/20250316_07_r4'
+  output_dir: '/media/ssd1/decoder_output/Toby/20250316_03_r2'
   #backup_dir : 'data/decoder-output-backup' # optional
-  saved_model_dir: '/media/ssd1/decoder_output/Toby/20250316_07_r4' # only used if using a pre-loaded model
-  saved_model_prefix: '20250316_07_r4'         # only used if preloaded_model is true
+  saved_model_dir: '/media/ssd1/decoder_output/Toby/20250316_03_r2' # only used if using a pre-loaded model
+  saved_model_prefix: '20250316_03_r2'         # only used if preloaded_model is true
   prefix: 'Toby_hex_realtime_decoding'
   rec_postfix: 'bin_rec'
   timing_postfix: 'timing'
 trodes:
   # must be the workspace matching the .rec being played back
-  config_file: '/media/ssd1/Toby/20250316_Toby_07_r4/20250316_Toby_07_r4.trodesconf'
+  config_file: '/media/ssd1/Toby/20250316_Toby_03_r2/20250316_Toby_03_r2.trodesconf'
   # task state is read from the LAST LINE of this file (1 = encode, 2 = decode/stim).
   # Nothing updates it during playback -- set the last line yourself.
   taskstate_file: '/home/andy-quach/realtime_decoder/config/taskstate.txt'
@@ -142,7 +142,9 @@ encoder:
     n_std: 1           # search box = mark +/- n_std*std per dimension
     n_marks_min: 10    # minimum marks inside the box for the spike to be decoded
   dead_channels: { # zero-indexed within the trode's channel list
-      3: [2,3],
+      1: [3],
+      3: [8,9,10],
+      8: [4],
       }
 decoder:
   decoder_to_message: 1 # 1: decoder 1, 2: decoder 2, 0: all decoders
