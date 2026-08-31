@@ -90,32 +90,30 @@ def load_hex_graph(path):
     return adjacency
 
 
-def hex_transition_matrix(hex_ids, adjacency, bias):
+def hex_uniform_transition_matrix(visited):
 
-    """Generate a transition matrix for a hex maze from its adjacency
-    graph. Unlike sungod_transition_matrix (uniform over every valid bin,
-    only excluding structurally-invalid "gap" bins), this restricts each
-    hex's transition probability to itself and its physically adjacent
-    neighbors, since the animal cannot jump to a non-adjacent hex within
-    one decoder time bin.
+    """Generate a uniform transition matrix for a hex maze: every visited
+    hex is reachable, with equal probability, from every visited hex --
+    i.e. no spatial-continuity assumption is imposed among hexes the
+    animal has already been observed in.
 
-    `hex_ids` is the canonical, ordered list of hex ids; row/column i of
-    the returned matrix corresponds to hex_ids[i]. A hex with no entry in
-    `adjacency` (e.g. not yet visited this session, but still a real,
-    physically valid maze location) gets self-transition probability 1 --
-    it's a valid isolated state rather than an error.
+    A hex the animal hasn't visited yet this session gets self-transition
+    probability 1 instead (a valid isolated state, not an error): there is
+    no data yet to justify spreading probability into or out of it, and a
+    self-loop keeps its row a valid distribution without fabricating
+    information.
+
+    `visited` is a boolean array indexed the same way as occupancy (dense
+    index, not raw hex id); row/column i of the returned matrix
+    corresponds to `visited[i]`.
     """
 
-    n = len(hex_ids)
-    index = {hex_id: i for i, hex_id in enumerate(hex_ids)}
-    transmat = np.zeros((n, n)) + bias * np.identity(n)
+    n = len(visited)
+    transmat = np.zeros((n, n))
+    transmat[np.ix_(visited, visited)] = 1
 
-    for hex_id in hex_ids:
-        i = index[hex_id]
-        for neighbor in adjacency.get(hex_id, ()):
-            j = index.get(neighbor)
-            if j is not None:
-                transmat[i, j] = bias
+    unvisited_idx = np.where(~visited)[0]
+    transmat[unvisited_idx, unvisited_idx] = 1
 
     return _normalize_row_probability(transmat)
 

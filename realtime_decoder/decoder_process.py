@@ -139,7 +139,13 @@ class ClusterlessDecoder(base.Decoder):
         self._arm_coords = (
             None if self._is_hex else np.array(pos_config['arm_coords'])
         )
-        self._init_transitions()
+
+        if self._is_hex:
+            # which hexes have been observed at least once this session --
+            # drives the uniform transition matrix (see _init_transitions).
+            # default here is "none yet"; _load_model() overwrites this if
+            # resuming from a preloaded model.
+            self._visited = np.zeros(num_bins, dtype=bool)
 
         if config['preloaded_model']:
             self._load_model()
@@ -147,6 +153,8 @@ class ClusterlessDecoder(base.Decoder):
             # for initialization, assume non-zero uniform occupancy
             self._occupancy = np.ones(num_bins)
             self._occupancy_ct = 0
+
+        self._init_transitions()
 
         self._firing_rate = {
             elec_grp_id: np.ones(num_bins)
@@ -183,6 +191,8 @@ class ClusterlessDecoder(base.Decoder):
             with np.load(files[0]) as f:
                 self._occupancy = f['occupancy']
                 self._occupancy_ct = f['occupancy_ct'][0]
+                if self._is_hex:
+                    self._visited = f['visited']
             self.class_log.info(f"Loaded occupancy from {files[0]}")
 
     def _init_transitions(self):
@@ -192,13 +202,8 @@ class ClusterlessDecoder(base.Decoder):
 
         if algorithm == 'clusterless_decoder':
             if self._is_hex:
-                pos_config = self._config['encoder']['position']
-                adjacency = transitions.load_hex_graph(
-                    pos_config['hex_graph_file']
-                )
-                self._transmat = transitions.hex_transition_matrix(
-                    pos_config['hex_ids'], adjacency,
-                    self._config['clusterless_decoder']['transmat_bias']
+                self._transmat = transitions.hex_uniform_transition_matrix(
+                    self._visited
                 )
             else:
                 self._transmat = transitions.sungod_transition_matrix(
@@ -323,7 +328,16 @@ class ClusterlessDecoder(base.Decoder):
 
             bin_idx = self._pos_bin_struct.get_bin(self._position)
             self._occupancy[bin_idx] += 1
-            if not self._is_hex:
+            if self._is_hex:
+                if not self._visited[bin_idx]:
+                    # this hex just became reachable for the first time --
+                    # rebuild the transmat so it's included in the uniform
+                    # spread. rare event (bounded by hex count), so cheap.
+                    self._visited[bin_idx] = True
+                    self._transmat = transitions.hex_uniform_transition_matrix(
+                        self._visited
+                    )
+            else:
                 # no "gap between arms" concept for a hex maze -- every
                 # hex is a physically valid location
                 utils.apply_no_anim_boundary(
@@ -344,11 +358,13 @@ class ClusterlessDecoder(base.Decoder):
             f"{self._config['files']['prefix']}_" +
             f"decoder_rank_{self._rank}.occupancy.npz"
         )
-        np.savez(
-            filename,
+        save_kwargs = dict(
             occupancy=self._occupancy,
             occupancy_ct=np.atleast_1d(self._occupancy_ct)
         )
+        if self._is_hex:
+            save_kwargs['visited'] = self._visited
+        np.savez(filename, **save_kwargs)
         self.class_log.info(f"Saved occupancy to {filename}")
 
 class DecoderManager(base.BinaryRecordBase, base.MessageHandler):
