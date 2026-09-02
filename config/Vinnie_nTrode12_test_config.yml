@@ -155,7 +155,10 @@ decoder:
     delay_samples: 180  # right edge of the bin lags the LFP clock by 6 ms
 clusterless_decoder:
   state_labels: ['state']
-  transmat_bias: 1      # transition prob assigned to self + each adjacent hex before row-normalizing
+  # 'adjacency': restrict each hex's transitions to itself + physical neighbors (hex_graph_file)
+  # 'uniform': every hex equally reachable from every hex (flat prior, ignores adjacency)
+  hex_transition_type: "adjacency"
+  transmat_bias: 1      # transition prob assigned to self + each adjacent hex before row-normalizing (adjacency only)
 gui:
   colormap: 'rocket'
   send_interval: 0 # seconds. Automates parameter sending. Set to <= 0 to disable

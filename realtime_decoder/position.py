@@ -100,7 +100,8 @@ class HexCentroidPositionMapper(base.PositionMapper):
     map_position() returns a dense array index (0..num_hexes-1), not the
     raw hex label used in the centroid/adjacency-graph CSVs -- this keeps
     it consistent with how occupancy and the transition matrix
-    (transitions.hex_uniform_transition_matrix) are indexed. Use
+    (transitions.hex_transition_matrix / hex_uniform_transition_matrix,
+    chosen by clusterless_decoder.hex_transition_type) are indexed. Use
     hex_to_index()/index_to_hex() to translate between the two.
 
     Returns None from map_position() when the animal is farther than

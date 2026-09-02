@@ -90,32 +90,61 @@ def load_hex_graph(path):
     return adjacency
 
 
-def hex_uniform_transition_matrix(visited):
+def hex_transition_matrix(hex_ids, adjacency, bias):
 
-    """Generate a uniform transition matrix for a hex maze: every visited
-    hex is reachable, with equal probability, from every visited hex --
-    i.e. no spatial-continuity assumption is imposed among hexes the
-    animal has already been observed in.
+    """Generate a transition matrix for a hex maze from its adjacency
+    graph. Unlike hex_uniform_transition_matrix (uniform over every bin),
+    this restricts each hex's transition probability to itself and its
+    physically adjacent neighbors, since the animal cannot jump to a
+    non-adjacent hex within one decoder time bin.
 
-    A hex the animal hasn't visited yet this session gets self-transition
-    probability 1 instead (a valid isolated state, not an error): there is
-    no data yet to justify spreading probability into or out of it, and a
-    self-loop keeps its row a valid distribution without fabricating
-    information.
-
-    `visited` is a boolean array indexed the same way as occupancy (dense
-    index, not raw hex id); row/column i of the returned matrix
-    corresponds to `visited[i]`.
+    `hex_ids` is the canonical, ordered list of hex ids; row/column i of
+    the returned matrix corresponds to hex_ids[i]. A hex with no entry in
+    `adjacency` (e.g. not yet visited this session, but still a real,
+    physically valid maze location) gets self-transition probability 1 --
+    it's a valid isolated state rather than an error.
     """
 
-    n = len(visited)
-    transmat = np.zeros((n, n))
-    transmat[np.ix_(visited, visited)] = 1
+    n = len(hex_ids)
+    index = {hex_id: i for i, hex_id in enumerate(hex_ids)}
+    transmat = np.zeros((n, n)) + bias * np.identity(n)
 
-    unvisited_idx = np.where(~visited)[0]
-    transmat[unvisited_idx, unvisited_idx] = 1
+    for hex_id in hex_ids:
+        i = index[hex_id]
+        for neighbor in adjacency.get(hex_id, ()):
+            j = index.get(neighbor)
+            if j is not None:
+                transmat[i, j] = bias
 
     return _normalize_row_probability(transmat)
+
+
+def hex_uniform_transition_matrix(num_bins):
+
+    """Generate a uniform transition matrix for a hex maze: every hex is
+    reachable, with equal probability, from every hex -- i.e. no
+    spatial-continuity assumption is imposed. This mirrors what
+    sungod_transition_matrix already does for the linear track, so the two
+    maze types are decoded under the same (flat) prior.
+
+    Depends only on the maze size, so it is built once at startup and
+    never rebuilt. An earlier version gated this on which hexes the animal
+    had visited so far, which made the matrix the identity until the
+    second hex was visited -- turning the update into a running product of
+    likelihoods that saturated within a few bins and, after ~200 bins,
+    underflowed to a posterior that could no longer recover.
+
+    Note this deliberately says nothing about which hexes have enough data
+    to decode. That is the encoder's job and it already handles it: a hex
+    with zero occupancy divides by zero in get_joint_prob() and is zeroed
+    by the ~isfinite guard, so observed spikes contribute no likelihood
+    there.
+
+    Row/column i corresponds to dense position-bin index i, indexed the
+    same way as occupancy (not raw hex id).
+    """
+
+    return np.full((num_bins, num_bins), 1 / num_bins)
 
 ##########################################################################
 # Clusterless classifier transitions
