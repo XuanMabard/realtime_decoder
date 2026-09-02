@@ -1,4 +1,5 @@
 import csv
+from collections import deque
 
 import numpy as np
 
@@ -90,6 +91,52 @@ def load_hex_graph(path):
     return adjacency
 
 
+def prune_hex_graph(adjacency, blocked):
+    """Return a copy of a hex adjacency graph with the given hexes
+    removed, along with every edge touching them. This derives the
+    session-specific maze from the full maze graph: barriers on this
+    maze always occupy whole hexes, so a list of blocked hex ids fully
+    describes a session's structure.
+
+    Distances computed on the pruned graph automatically detour around
+    blocked hexes. An empty `blocked` returns an equal copy of the
+    input.
+    """
+
+    blocked = set(blocked)
+    return {
+        hex_id: neighbors - blocked
+        for hex_id, neighbors in adjacency.items()
+        if hex_id not in blocked
+    }
+
+
+def hex_graph_components(adjacency):
+    """Return the connected components of a hex adjacency graph as a
+    list of sets of hex ids. Used to detect a blocked_hexes list that
+    splits the open maze into disconnected pieces (usually a typo in the
+    config, since barrier layouts keep the open maze connected).
+    """
+
+    seen = set()
+    components = []
+    for hex_id in adjacency:
+        if hex_id in seen:
+            continue
+        component = {hex_id}
+        seen.add(hex_id)
+        queue = deque([hex_id])
+        while queue:
+            cur = queue.popleft()
+            for neighbor in adjacency.get(cur, ()):
+                if neighbor not in seen:
+                    seen.add(neighbor)
+                    component.add(neighbor)
+                    queue.append(neighbor)
+        components.append(component)
+    return components
+
+
 def hex_transition_matrix(hex_ids, adjacency, bias):
 
     """Generate a transition matrix for a hex maze from its adjacency
@@ -115,6 +162,62 @@ def hex_transition_matrix(hex_ids, adjacency, bias):
             j = index.get(neighbor)
             if j is not None:
                 transmat[i, j] = bias
+
+    return _normalize_row_probability(transmat)
+
+
+def hex_random_walk_transition_matrix(hex_ids, adjacency, movement_var):
+
+    """Generate a random-walk transition matrix for a hex maze: a
+    Gaussian over graph hop distance, following the RandomWalk model in
+    LorenFrankLab/non_local_detector (which evaluates a Gaussian at
+    track-graph shortest-path distance). Sits between
+    hex_transition_matrix (hard 1-hop cutoff) and
+    hex_uniform_transition_matrix (no spatial structure): transition
+    probability decays smoothly with the number of hexes traveled.
+
+    `movement_var` is the Gaussian's variance in hops^2 per decoding
+    time bin. Hop count is used instead of physical distance because
+    neighboring hex centroids are evenly spaced, so hops are
+    proportional to travel distance along the maze. The Gaussian's
+    normalization constant is omitted -- it is identical for every
+    entry and cancels in the row normalization.
+
+    Hexes in different graph components get transition probability 0
+    between them; a hex with no entry in `adjacency` degenerates to a
+    self-loop, matching hex_transition_matrix.
+
+    `hex_ids` is the canonical, ordered list of hex ids; row/column i of
+    the returned matrix corresponds to hex_ids[i].
+    """
+
+    if movement_var <= 0:
+        raise ValueError(
+            f"movement_var must be positive, got {movement_var}"
+        )
+
+    index = {hex_id: i for i, hex_id in enumerate(hex_ids)}
+    n = len(hex_ids)
+
+    # all-pairs hop distances, BFS from each hex. unreachable pairs stay
+    # at inf, which the gaussian kernel below maps to probability 0
+    dist = np.full((n, n), np.inf)
+    for hex_id in hex_ids:
+        i = index[hex_id]
+        dist[i, i] = 0
+        queue = deque([(hex_id, 0)])
+        seen = {hex_id}
+        while queue:
+            cur, d = queue.popleft()
+            for neighbor in adjacency.get(cur, ()):
+                if neighbor not in seen:
+                    seen.add(neighbor)
+                    j = index.get(neighbor)
+                    if j is not None:
+                        dist[i, j] = d + 1
+                    queue.append((neighbor, d + 1))
+
+    transmat = np.exp(-dist**2 / (2 * movement_var))
 
     return _normalize_row_probability(transmat)
 
@@ -145,6 +248,35 @@ def hex_uniform_transition_matrix(num_bins):
     """
 
     return np.full((num_bins, num_bins), 1 / num_bins)
+
+
+def zero_blocked_hexes(transmat, blocked_idx):
+    """Remove blocked (barriered) hexes from a row-normalized transition
+    matrix: their rows and columns are zeroed, so any posterior mass
+    there is annihilated within one time bin and can never return. This
+    is deliberately different from the self-loop given to an *isolated*
+    hex -- an isolated hex is a real location the animal could occupy,
+    while a blocked hex is physically absent this session.
+
+    `blocked_idx` holds dense position-bin indices (not raw hex ids).
+    Rows of open hexes are re-normalized in case the matrix was built
+    without knowledge of the blocked set (e.g. the uniform matrix);
+    matrices built from a pruned graph already have zero mass there, so
+    for them this is a no-op. Returns the input unchanged (same object,
+    bit-identical) when blocked_idx is empty.
+    """
+
+    blocked_idx = list(blocked_idx)
+    if not blocked_idx:
+        return transmat
+
+    transmat[blocked_idx, :] = 0
+    transmat[:, blocked_idx] = 0
+    # blocked rows are all-zero, so 0/0 happens inside the normalization;
+    # _normalize_row_probability already maps the resulting nan's to 0,
+    # only the warning needs suppressing
+    with np.errstate(invalid='ignore'):
+        return _normalize_row_probability(transmat)
 
 ##########################################################################
 # Clusterless classifier transitions

@@ -99,18 +99,24 @@ class HexCentroidPositionMapper(base.PositionMapper):
 
     map_position() returns a dense array index (0..num_hexes-1), not the
     raw hex label used in the centroid/adjacency-graph CSVs -- this keeps
-    it consistent with how occupancy and the transition matrix
-    (transitions.hex_transition_matrix / hex_uniform_transition_matrix,
-    chosen by clusterless_decoder.hex_transition_type) are indexed. Use
+    it consistent with how occupancy and the transition matrix (the
+    transitions.hex_*_transition_matrix functions, selected by
+    clusterless_decoder.hex_transition_type) are indexed. Use
     hex_to_index()/index_to_hex() to translate between the two.
 
+    Hexes listed in `blocked_hexes` (occupied by barriers this session)
+    are never returned: they keep their dense index, but their centroids
+    are excluded from the nearest-centroid search, so a position nearest
+    to a barrier snaps to the nearest open hex instead.
+
     Returns None from map_position() when the animal is farther than
-    `threshold` pixels from every hex centroid (e.g. lost tracking).
+    `threshold` pixels from every open hex centroid (e.g. lost tracking).
     Callers should leave position/occupancy unchanged rather than pass
     None further down, since downstream bin lookups assume an int.
     """
 
-    def __init__(self, centroid_file, threshold, hex_ids:List[int]=None):
+    def __init__(self, centroid_file, threshold, hex_ids:List[int]=None,
+                 blocked_hexes=()):
 
         super().__init__()
 
@@ -124,6 +130,12 @@ class HexCentroidPositionMapper(base.PositionMapper):
             hex_ids = sorted(self._centroids.keys())
         self.hex_ids = list(hex_ids)
         self._hex_to_index = {hex_id: i for i, hex_id in enumerate(self.hex_ids)}
+
+        # remove barriered hexes AFTER the index maps are built: blocked
+        # hexes keep their dense index (the state space is fixed across
+        # sessions), they just cannot win the nearest-centroid search
+        for hex_id in blocked_hexes:
+            self._centroids.pop(hex_id, None)
 
     def hex_to_index(self, hex_id):
         return self._hex_to_index.get(hex_id)
@@ -161,6 +173,11 @@ def resolve_hex_position_config(config):
     hand-maintained YAML number. hex_ids is the sorted union of both
     files, so a hex present in only one of them is still a valid state.
 
+    Also validates and normalizes 'blocked_hexes' (session barriers):
+    unknown ids raise, and the cleaned list is injected back so
+    downstream consumers (transition matrix, position mapper) all see
+    the same value.
+
     No-op when position type is 'linear' (the default) -- existing
     configs are unaffected.
     """
@@ -178,6 +195,21 @@ def resolve_hex_position_config(config):
     pos_config['hex_ids'] = hex_ids
     pos_config['num_bins'] = len(hex_ids)
 
+    # validate blocked_hexes (hexes made unavailable by barriers this
+    # session) here, at config-resolution time, so a typo kills startup on
+    # every rank with a clear message instead of silently decoding the
+    # wrong maze. normalized (sorted, deduplicated, missing -> []) so
+    # downstream consumers can rely on the injected value.
+    blocked = pos_config.get('blocked_hexes', []) or []
+    unknown = sorted(set(blocked) - set(hex_ids))
+    if unknown:
+        raise ValueError(
+            f"blocked_hexes contains unknown hex ids {unknown} -- valid "
+            f"ids are defined by {pos_config['hex_centroid_file']} and "
+            f"{pos_config['hex_graph_file']}"
+        )
+    pos_config['blocked_hexes'] = sorted(set(blocked))
+
 
 def build_position_mapper(config):
     """Construct the position mapper indicated by
@@ -193,7 +225,8 @@ def build_position_mapper(config):
         return HexCentroidPositionMapper(
             pos_config['hex_centroid_file'],
             pos_config['hex_threshold'],
-            hex_ids=pos_config['hex_ids']
+            hex_ids=pos_config['hex_ids'],
+            blocked_hexes=pos_config.get('blocked_hexes', ())
         )
 
     return TrodesPositionMapper(

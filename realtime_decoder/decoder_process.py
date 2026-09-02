@@ -193,27 +193,7 @@ class ClusterlessDecoder(base.Decoder):
 
         if algorithm == 'clusterless_decoder':
             if self._is_hex:
-                hex_transition_type = (
-                    self._config['clusterless_decoder']['hex_transition_type']
-                )
-                if hex_transition_type == 'adjacency':
-                    pos_config = self._config['encoder']['position']
-                    adjacency = transitions.load_hex_graph(
-                        pos_config['hex_graph_file']
-                    )
-                    self._transmat = transitions.hex_transition_matrix(
-                        pos_config['hex_ids'], adjacency,
-                        self._config['clusterless_decoder']['transmat_bias']
-                    )
-                elif hex_transition_type == 'uniform':
-                    self._transmat = transitions.hex_uniform_transition_matrix(
-                        len(self._pos_bins)
-                    )
-                else:
-                    raise ValueError(
-                        "clusterless_decoder.hex_transition_type must be "
-                        f"'adjacency' or 'uniform', got {hex_transition_type!r}"
-                    )
+                self._transmat = self._build_hex_transmat()
             else:
                 self._transmat = transitions.sungod_transition_matrix(
                     self._pos_bins, self._arm_coords,
@@ -247,6 +227,61 @@ class ClusterlessDecoder(base.Decoder):
             raise NotImplementedError(
                 f"Cannot set up model for algorithm {config['algorithm']}"
             )
+
+    def _build_hex_transmat(self):
+        """Build the hex transition matrix selected by
+        clusterless_decoder.hex_transition_type, restricted to the
+        session's open maze: blocked_hexes (validated and normalized in
+        resolve_hex_position_config) are pruned from the graph before
+        distances are computed, and their rows/columns are zeroed so they
+        are not valid decode states. Kept as a standalone method so a
+        future mid-session barrier change only needs to call it again.
+        """
+
+        pos_config = self._config['encoder']['position']
+        hex_ids = pos_config['hex_ids']
+        blocked = pos_config.get('blocked_hexes', [])
+        blocked_idx = [hex_ids.index(hex_id) for hex_id in blocked]
+
+        hex_transition_type = (
+            self._config['clusterless_decoder']['hex_transition_type']
+        )
+
+        if hex_transition_type in ('adjacency', 'random_walk'):
+            adjacency = transitions.prune_hex_graph(
+                transitions.load_hex_graph(pos_config['hex_graph_file']),
+                blocked
+            )
+            components = transitions.hex_graph_components(adjacency)
+            if len(components) > 1:
+                self.class_log.warning(
+                    f"blocked_hexes {blocked} splits the open maze into "
+                    f"{len(components)} disconnected pieces (sizes "
+                    f"{sorted(len(c) for c in components)}). The decoder "
+                    "handles this, but check blocked_hexes for typos"
+                )
+            if hex_transition_type == 'adjacency':
+                transmat = transitions.hex_transition_matrix(
+                    hex_ids, adjacency,
+                    self._config['clusterless_decoder']['transmat_bias']
+                )
+            else:
+                transmat = transitions.hex_random_walk_transition_matrix(
+                    hex_ids, adjacency,
+                    self._config['clusterless_decoder']['rw_movement_var']
+                )
+        elif hex_transition_type == 'uniform':
+            transmat = transitions.hex_uniform_transition_matrix(
+                len(self._pos_bins)
+            )
+        else:
+            raise ValueError(
+                "clusterless_decoder.hex_transition_type must be "
+                "'adjacency', 'random_walk', or 'uniform', got "
+                f"{hex_transition_type!r}"
+            )
+
+        return transitions.zero_blocked_hexes(transmat, blocked_idx)
 
     def _init_params(self):
         """Initialize params that can be changed in the GUI"""

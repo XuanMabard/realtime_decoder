@@ -123,6 +123,10 @@ encoder:
     hex_centroid_file: '/home/andy-quach/realtime_decoder/config/20260609_Nova_hex_coordinates.csv'
     # hex_a,hex_b undirected adjacency edges -- defines the decoder's transition matrix
     hex_graph_file: '/home/andy-quach/realtime_decoder/config/Hex_maze_graph.csv'
+    # hexes made unavailable by barriers this session ([] = full maze).
+    # removed from the transition graph (distances detour around them)
+    # and from the nearest-centroid position search.
+    blocked_hexes: []
     # px; positions farther than this from every centroid = tracking lost,
     # position holds at last known hex. Neighboring hexes are ~73 px apart.
     hex_threshold: 40
@@ -156,9 +160,13 @@ decoder:
 clusterless_decoder:
   state_labels: ['state']
   # 'adjacency': restrict each hex's transitions to itself + physical neighbors (hex_graph_file)
+  # 'random_walk': gaussian falloff over hop distance on hex_graph_file; width from rw_movement_var
   # 'uniform': every hex equally reachable from every hex (flat prior, ignores adjacency)
   hex_transition_type: "adjacency"
   transmat_bias: 1      # transition prob assigned to self + each adjacent hex before row-normalizing (adjacency only)
+  # random_walk gaussian variance, in hops^2 per 6 ms decoding bin (sigma = sqrt of this, in hexes).
+  # 1.0 -> P(stay)~0.32, P(each neighbor)~0.19 at an interior hex (random_walk only)
+  rw_movement_var: 1.0
 gui:
   colormap: 'rocket'
   send_interval: 0 # seconds. Automates parameter sending. Set to <= 0 to disable
