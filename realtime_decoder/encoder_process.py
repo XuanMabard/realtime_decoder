@@ -139,7 +139,9 @@ class Encoder(base.LoggingClass):
         self.p['n_marks_min'] = self._config['encoder']['mark_kernel']['n_marks_min']
         self.p['num_occupancy_points'] = self._config['display']['encoder']['occupancy']
 
-    def add_new_mark(self, mark):
+    def add_new_mark(self, mark, position=None):
+        """Add a spike to the encoding model. `position` is where the animal
+        was when the spike fired; defaults to the current position"""
 
         '''
         # NOTE(DS): Having only the most recent spikes bias the encoding 
@@ -170,20 +172,27 @@ class Encoder(base.LoggingClass):
                 )
         '''
 
+        if position is None:
+            position = self._position
+
         if self._mark_idx == self._marks.shape[0]:
             # NOTE(DS): This make buf_size meaningless
+            # double the buffer, by at least one row: a buffer compacted to
+            # zero rows at the task state switch must still be able to grow,
+            # since a spike that fired before the switch can arrive after it
+            n_new = max(self._marks.shape[0], 1)
             self._marks = np.vstack((
                 self._marks,
-                np.zeros_like(self._marks)
+                np.zeros((n_new, self._marks.shape[1]), dtype=self._marks.dtype)
             ))
             self._positions = np.hstack((
                 self._positions,
-                np.zeros_like(self._positions)
+                np.zeros(n_new, dtype=self._positions.dtype)
             ))
             
         # this is where the mark_size increases over time 
         self._marks[self._mark_idx] = mark
-        self._positions[self._mark_idx] = self._position
+        self._positions[self._mark_idx] = position
         self._mark_idx += 1
 
 
@@ -413,6 +422,7 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
         self._pos_timestamp = -1
 
         self._init_params()
+        self._init_position_history()
 
     def handle_message(self, msg, mpi_status):
         """Process a (non neural data) received MPI message"""
@@ -479,6 +489,69 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
         self.p['num_pos_disp'] = self._config['display']['encoder']['position']
         self.p['num_pos_points'] = self._config['encoder']['num_pos_points']
         self.p['use_channel_dist_from_max_amp'] = self._config['encoder']['use_channel_dist_from_max_amp']
+        # seconds of position samples kept for pairing each spike with where
+        # the animal was when it fired (spikes have waited up to ~45 s when
+        # the KDE fell behind). older spikes are not added to the model
+        self.p['pos_history_s'] = self._config['encoder'].get(
+            'position_history_s', 120
+        )
+
+    def _init_position_history(self):
+        """Set up the history of recent position samples used to pair each
+        spike with the position, speed and task state at its own timestamp"""
+
+        n = int(np.ceil(
+            self.p['pos_history_s'] * self._config['sampling_rate']['position']
+        ))
+        # twice the size: when full, the newest half is kept, so at least
+        # pos_history_s seconds are always available
+        self._pos_hist_ts = np.zeros(2 * n, dtype=np.int64)
+        self._pos_hist_pos = np.zeros(2 * n, dtype=np.float64)
+        self._pos_hist_vel = np.zeros(2 * n, dtype=np.float64)
+        self._pos_hist_task_state = np.zeros(2 * n, dtype=np.int64)
+        self._pos_hist_n = 0
+        self._first_pos_timestamp = None
+        self._n_spikes_too_old = 0
+
+    def _record_position(self, timestamp):
+        """Append the current position, speed and task state to the
+        position history"""
+
+        if self._pos_hist_n == len(self._pos_hist_ts):
+            keep = len(self._pos_hist_ts) // 2
+            for arr in (
+                self._pos_hist_ts, self._pos_hist_pos,
+                self._pos_hist_vel, self._pos_hist_task_state
+            ):
+                arr[:keep] = arr[-keep:]
+            self._pos_hist_n = keep
+
+        if self._first_pos_timestamp is None:
+            self._first_pos_timestamp = timestamp
+
+        ind = self._pos_hist_n
+        self._pos_hist_ts[ind] = timestamp
+        self._pos_hist_pos[ind] = self._current_pos
+        self._pos_hist_vel[ind] = self._current_vel
+        self._pos_hist_task_state[ind] = self._task_state
+        self._pos_hist_n += 1
+
+    def _position_at(self, timestamp):
+        """Position, speed and task state of the latest position sample at
+        or before `timestamp`. None if the history doesn't reach back that
+        far (or no position sample has arrived yet)"""
+
+        ind = np.searchsorted(
+            self._pos_hist_ts[:self._pos_hist_n], timestamp, side='right'
+        ) - 1
+        if ind < 0:
+            return None
+
+        return (
+            self._pos_hist_pos[ind],
+            self._pos_hist_vel[ind],
+            int(self._pos_hist_task_state[ind])
+        )
 
     def _update_gui_params(self, gui_msg):
         """Update parameters that can be changed by the GUI"""
@@ -528,14 +601,45 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
         
         if max(mark_vec) > self.p['spk_amp']:
 
+            # pair the spike with where the animal was when it fired. when
+            # the KDE falls behind, spikes wait in the Trodes stream (tens of
+            # seconds at worst) while position messages keep being processed,
+            # so the current position can be far from the spike's own
+            spike_state = self._position_at(spike_timestamp)
+            if spike_state is None:
+                # no position sample at or before this spike: it fired before
+                # position tracking started, or it is older than the history.
+                # its position is unknown, so it is never trained on; the
+                # current values only go to the record and the decoder message
+                spike_pos = self._current_pos
+                spike_vel = self._current_vel
+                spike_task_state = self._task_state
+                if (self._first_pos_timestamp is not None and
+                        spike_timestamp >= self._first_pos_timestamp):
+                    self._n_spikes_too_old += 1
+                    if self._n_spikes_too_old % 1000 == 1:
+                        self.class_log.warning(
+                            f"{self._n_spikes_too_old} spike(s) so far were "
+                            f"older than the {self.p['pos_history_s']} s "
+                            "position history when processed, so they were "
+                            "not added to the encoding model"
+                        )
+            else:
+                spike_pos, spike_vel, spike_task_state = spike_state
+
             t_start_kde = time.time_ns()
             joint_prob_obj = self._encoders[elec_grp_id].get_joint_prob(
                 mark_vec
             )
             t_end_kde = time.time_ns()
 
-            # determine if encoding spike
-            encoding_spike = self._is_training_epoch()
+            # determine if encoding spike, from the speed and task state at
+            # the spike's own time. never train on a spike whose position is
+            # unknown
+            encoding_spike = (
+                spike_state is not None and
+                self._is_training_epoch(spike_vel, spike_task_state)
+            )
 
             # determine decoder
             decoder_rank = self._decoder_map[elec_grp_id]
@@ -549,7 +653,7 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
                 # send decoded spike message
                 self._spike_msg[0]['timestamp'] = spike_timestamp
                 self._spike_msg[0]['elec_grp_id'] = elec_grp_id
-                self._spike_msg[0]['current_pos'] = self._current_pos
+                self._spike_msg[0]['current_pos'] = spike_pos
                 self._spike_msg[0]['cred_int'] = cred_int
                 self._spike_msg[0]['hist'] = joint_prob_obj.hist
                 t_start_enc_send = time.time_ns()
@@ -568,11 +672,11 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
                 self.write_record(
                     binary_record.RecordIDs.ENCODER_OUTPUT,
                     spike_timestamp, elec_grp_id,
-                    self._current_pos, self._current_vel,
+                    spike_pos, spike_vel,
                     encoding_spike, cred_int,
                     decoder_rank, True,
                     self.p['vel_thresh'], self.p['frozen_model'],
-                    self._task_state,
+                    spike_task_state,
                     joint_prob_obj.nearby_spikes,
                     *mark_vec, *joint_prob_obj.hist
                 )
@@ -585,11 +689,11 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
                 self.write_record(
                     binary_record.RecordIDs.ENCODER_OUTPUT,
                     spike_timestamp, elec_grp_id,
-                    self._current_pos, self._current_vel,
+                    spike_pos, spike_vel,
                     encoding_spike, -1, # since didn't compute credible interval
                     decoder_rank, False,
                     self.p['vel_thresh'], self.p['frozen_model'],
-                    self._task_state, 
+                    spike_task_state,
                     -1,
                     *mark_vec, *np.zeros(self.p['num_bins'])
                 )
@@ -598,7 +702,7 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
             # we need to decide whether to add it to the encoding model
             # or not
             if encoding_spike:
-                self._encoders[elec_grp_id].add_new_mark(mark_vec)
+                self._encoders[elec_grp_id].add_new_mark(mark_vec, spike_pos)
                 if self._encoders[elec_grp_id]._mark_idx%1000 == 0:
                     self.class_log.info(
                         f"num spikes in {elec_grp_id} is {self._encoders[elec_grp_id]._mark_idx}"
@@ -661,6 +765,8 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
         mapped_pos = self._pos_mapper.map_position(pos_msg)
         if mapped_pos is not None:
             self._current_pos = mapped_pos
+
+        self._record_position(pos_msg.timestamp)
 
         #####################################################################################################
         # For testing, remove when finalized
@@ -770,12 +876,19 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
             amp_mark = self._get_peak_amplitude_relevant_channels(features = amp_mark)
         return amp_mark
 
-    def _is_training_epoch(self):
-        """Whether or not the encoding model is in the training phase"""
+    def _is_training_epoch(self, velocity=None, task_state=None):
+        """Whether or not the encoding model is in the training phase.
+        Uses the current speed and task state unless given (e.g. the ones
+        at a spike's own time)"""
+
+        if velocity is None:
+            velocity = self._current_vel
+        if task_state is None:
+            task_state = self._task_state
 
         res = (
-            abs(self._current_vel) >= self.p['vel_thresh'] and
-            (self._task_state == 1 or self.p['train_all_task_states']) and
+            abs(velocity) >= self.p['vel_thresh'] and
+            (task_state == 1 or self.p['train_all_task_states']) and
             not self.p['frozen_model']
         )
         return res
