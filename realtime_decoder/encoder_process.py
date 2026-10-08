@@ -207,29 +207,41 @@ class Encoder(base.LoggingClass):
         else:
             mark_idx = self._mark_idx
 
-        in_range = np.ones(mark_idx, dtype=bool)
-        #in_range = np.ones(self._marks.shape[0], dtype=bool)
+        marks = self._marks[:mark_idx]
+        nearby_spikes = mark_idx
         if self.p['use_filter']:
             std = self.p['filter_std']
             n_std = self.p['filter_n_std']
-            for ii in range(self._marks.shape[1]):
-                in_range = np.logical_and(
-                    np.logical_and(
-                        self._marks[:mark_idx, ii] > mark[ii] - n_std * std,
-                        self._marks[:mark_idx, ii] < mark[ii] + n_std * std
-                    ),
-                    in_range
-                )
+            # count stored marks within +/- n_std*std of this mark on every
+            # channel. same comparisons as checking each channel over all
+            # stored marks, but channels are checked from this mark's largest
+            # value down, and each channel only re-checks the marks that passed
+            # the channels before it: the peak channel rules out most marks at
+            # once, so later channels see a few thousand instead of all of
+            # them. the order cannot change the count, since a mark has to
+            # pass every channel
+            order = np.argsort(-np.abs(mark), kind='stable')
+            ch = order[0]
+            rows = np.flatnonzero(
+                (marks[:, ch] > mark[ch] - n_std * std) &
+                (marks[:, ch] < mark[ch] + n_std * std)
+            )
+            for ch in order[1:]:
+                col = marks[rows, ch]
+                rows = rows[
+                    (col > mark[ch] - n_std * std) &
+                    (col < mark[ch] + n_std * std)
+                ]
+            nearby_spikes = rows.size
 
             # not enough spikes within n-cube
-            if np.sum(in_range) < self.p['n_marks_min']:
+            if nearby_spikes < self.p['n_marks_min']:
                 return None
 
-        # evaluate Gaussian kernel on distance in mark space
-        squared_distance = np.sum(
-            np.square(self._marks[:mark_idx] - mark),
-            axis=1
-        )
+        # evaluate Gaussian kernel on distance in mark space. einsum squares
+        # and sums each row in one pass, without a temporary array of squares
+        diff = marks - mark
+        squared_distance = np.einsum('ij,ij->i', diff, diff)
         weights = self._k1 * np.exp(squared_distance * self._k2)
         positions = self._positions[:mark_idx]
 
@@ -239,11 +251,23 @@ class Encoder(base.LoggingClass):
         # print("")
         # print(weights)
 
-        hist, hist_edges = np.histogram(
-            a=positions,
-            bins=self._pos_bin_struct.pos_bin_edges,
-            weights=weights
-        )
+        pbs = self._pos_bin_struct
+        if pbs.pos_range[0] == 0 and pbs.pos_bin_delta == 1:
+            # bins of width 1 starting at 0 (every config so far): the stored
+            # positions are the bin indices themselves, so add each weight
+            # straight into its bin. np.histogram sorts all positions to get
+            # the same sums (equal up to rounding in the last digit)
+            hist = np.bincount(
+                positions.astype(np.intp),
+                weights=weights,
+                minlength=pbs.num_bins
+            )
+        else:
+            hist, hist_edges = np.histogram(
+                a=positions,
+                bins=pbs.pos_bin_edges,
+                weights=weights
+            )
 
         hist += 0.0000001
 
@@ -259,7 +283,7 @@ class Encoder(base.LoggingClass):
         # print("")
 
         return EncoderJointProbEstimate(
-            np.sum(in_range), weights, positions, hist
+            nearby_spikes, weights, positions, hist
         )
 
     def update_position(self, position, update_occupancy:bool):
