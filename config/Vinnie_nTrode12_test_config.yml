@@ -44,16 +44,16 @@ num_setup_messages: 100
 preloaded_model: false   # true = load a previously saved encoding model from saved_model_dir
 frozen_model: false      # true = never add new spikes to the model (toggleable in GUI)
 files:
-  output_dir: '/media/ssd1/decoder_output/Vinnie/20260812_r3'
+  output_dir: '/media/ssd1/decoder_output/Vinnie/20260812_r2_80mv_randomwalk'
   #backup_dir : 'data/decoder-output-backup' # optional
-  saved_model_dir: '/media/ssd1/decoder_output/Vinnie/20260812_r3' # only used if using a pre-loaded model
+  saved_model_dir: '/media/ssd1/decoder_output/Vinnie/20260812_r2_80mv_randomwalk' # only used if using a pre-loaded model
   saved_model_prefix: '20260812_110229'         # only used if preloaded_model is true
   prefix: 'Vinnie_hex_realtime_decoding'
   rec_postfix: 'bin_rec'
   timing_postfix: 'timing'
 trodes:
   # must be the workspace matching the .rec being played back
-  config_file: '/media/ssd1/Vinnie/20260812_Vinnie_05_r3/20260812_Vinnie_05_r3.trodesconf'
+  config_file: '/media/ssd1/Vinnie/20260812_Vinnie_03_r2/20260812_Vinnie_03_r2.trodesconf'
   # task state is read from the LAST LINE of this file (1 = encode, 2 = decode/stim).
   # Nothing updates it during playback -- set the last line yourself.
   taskstate_file: '/home/andy-quach/realtime_decoder/config/taskstate.txt'
@@ -98,7 +98,7 @@ ripples:
   #   consensus: 3
 encoder:
   # global amplitude gate (uV): a spike's max mark value must exceed this to be used
-  spk_amp: 30 # NOTE(DS): control with trodes threshold
+  spk_amp: 80 # NOTE(DS): control with trodes threshold
   # keep only the channels within +/- this distance of the peak-amplitude
   # channel (zeroes the rest of the mark vector). 2 -> 5-channel window.
   use_channel_dist_from_max_amp: 2
@@ -145,8 +145,11 @@ encoder:
     use_filter: true   # only decode a spike if enough similar marks exist nearby
     n_std: 1           # search box = mark +/- n_std*std per dimension
     n_marks_min: 10    # minimum marks inside the box for the spike to be decoded
+    # merge a training spike into the nearest stored spike of the same hex if it is
+    # within merge_threshold * std uV (0 = off). see docs/kernel_compression_plan.md
+    merge_threshold: 0.5
   dead_channels: { # zero-indexed within the trode's channel list
-      18: [1,5],
+      # 18: [1,5],
       }
 decoder:
   decoder_to_message: 1 # 1: decoder 1, 2: decoder 2, 0: all decoders
@@ -162,7 +165,7 @@ clusterless_decoder:
   # 'adjacency': restrict each hex's transitions to itself + physical neighbors (hex_graph_file)
   # 'random_walk': gaussian falloff over hop distance on hex_graph_file; width from rw_movement_var
   # 'uniform': every hex equally reachable from every hex (flat prior, ignores adjacency)
-  hex_transition_type: "adjacency"
+  hex_transition_type: "random_walk"
   transmat_bias: 1      # transition prob assigned to self + each adjacent hex before row-normalizing (adjacency only)
   # random_walk gaussian variance, in hops^2 per 6 ms decoding bin (sigma = sqrt of this, in hexes).
   # 1.0 -> P(stay)~0.32, P(each neighbor)~0.19 at an interior hex (random_walk only)
@@ -172,6 +175,9 @@ gui:
   send_interval: 0 # seconds. Automates parameter sending. Set to <= 0 to disable
   refresh_rate: 25 # Hz
   trace_length: 2 # seconds of history shown in the scrolling plots
+  # decoded-vs-actual hex panel: the argmax hex is shown (white/green) only
+  # when its probability exceeds 1/(number of open hexes) + this offset
+  hex_argmax_thresh_offset: 0.02
   state_colors: ['#4c72b0','#dd8452', '#55a868']
   num_xticks: 5
 mua:
