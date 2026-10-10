@@ -85,7 +85,15 @@ class Encoder(base.LoggingClass):
             self._marks = np.zeros((N, dim), dtype='<f8')
             self._chosen_indices = 0
             self._positions = np.zeros(N, dtype='<f4')
+            # how many spikes each stored row stands for (1 unless spikes were
+            # merged into it); multiplies the row's kernel in get_joint_prob
+            self._counts = np.zeros(N, dtype='<f8')
             self._mark_idx = 0
+            # every training spike as it came in, before merging. saved next
+            # to the (merged) model so the unmerged model is always available
+            self._raw_marks = np.zeros((N, dim), dtype='<f8')
+            self._raw_positions = np.zeros(N, dtype='<f4')
+            self._n_spikes = 0
             self._occupancy = np.zeros(self._config['encoder']['position']['num_bins'])
             self._occupancy_ct = 0
             self._temp_idx = 0 # NOTE(DS): so that mark_idx does not increase but still write down in the mark vec
@@ -116,15 +124,32 @@ class Encoder(base.LoggingClass):
                 self._positions = f['positions']
                 self._marks = f['marks']
                 print(f['mark_idx'])
-                if f['mark_idx'][0] < self._config['encoder']['bufsize']: #NOTE(DS): it seem to be a offset of 1.
-                    self._mark_idx = f['mark_idx'][0]-1 
+                if 'counts' in f.files:
+                    # saved by the merging code: the arrays hold exactly the
+                    # rows in use, and the unmerged spikes are saved too
+                    self._mark_idx = int(f['mark_idx'][0])
+                    self._counts = f['counts']
+                    self._raw_marks = f['raw_marks']
+                    self._raw_positions = f['raw_positions']
+                    self._n_spikes = int(f['n_spikes'][0])
                 else:
-                    self._mark_idx = self._config['encoder']['bufsize']-1
+                    if f['mark_idx'][0] < self._config['encoder']['bufsize']: #NOTE(DS): it seem to be a offset of 1.
+                        self._mark_idx = f['mark_idx'][0]-1
+                    else:
+                        self._mark_idx = self._config['encoder']['bufsize']-1
+                    # older files: every row is one spike, so the model is
+                    # also its own unmerged copy
+                    self._counts = np.ones(self._marks.shape[0])
+                    self._raw_marks = self._marks[:self._mark_idx].copy()
+                    self._raw_positions = self._positions[:self._mark_idx].copy()
+                    self._n_spikes = int(self._mark_idx)
 
                 self._occupancy = f['occupancy']
                 self._occupancy_ct = f['occupancy_ct'][0]
             self.class_log.info(f"Loaded encoding model from {files[0]}")
 
+        # save() writes this; it was only set for new (not loaded) models
+        self._chosen_indices = 0
         self._temp_idx = 0 
 
     def _init_params(self):
@@ -138,10 +163,29 @@ class Encoder(base.LoggingClass):
         self.p['filter_n_std'] = self._config['encoder']['mark_kernel']['n_std']
         self.p['n_marks_min'] = self._config['encoder']['mark_kernel']['n_marks_min']
         self.p['num_occupancy_points'] = self._config['display']['encoder']['occupancy']
+        # merge a training spike into the nearest stored row of the same hex
+        # if it is within merge_threshold kernel widths (std) of it. 0 = never
+        # merge: every spike gets its own row, as before
+        self.p['merge_threshold'] = self._config['encoder']['mark_kernel'].get(
+            'merge_threshold', 0
+        )
+        if (isinstance(self.p['merge_threshold'], bool) or
+                not isinstance(self.p['merge_threshold'], (int, float)) or
+                not np.isfinite(self.p['merge_threshold']) or
+                self.p['merge_threshold'] < 0):
+            raise ValueError(
+                "encoder.mark_kernel.merge_threshold must be a number >= 0, "
+                f"got {self.p['merge_threshold']!r}"
+            )
+        self.p['merge_dist2'] = (
+            self.p['merge_threshold'] * self._config['encoder']['mark_kernel']['std']
+        ) ** 2
 
     def add_new_mark(self, mark, position=None):
-        """Add a spike to the encoding model. `position` is where the animal
-        was when the spike fired; defaults to the current position"""
+        """Add a training spike to the encoding model. `position` is where
+        the animal was when the spike fired; defaults to the current position.
+        Returns True if the spike got its own row, False if it was merged
+        into an existing row"""
 
         '''
         # NOTE(DS): Having only the most recent spikes bias the encoding 
@@ -175,6 +219,39 @@ class Encoder(base.LoggingClass):
         if position is None:
             position = self._position
 
+        # the unmerged copy keeps every training spike as it came in.
+        # same growth rule as the model buffer below
+        if self._n_spikes == self._raw_marks.shape[0]:
+            n_new = max(self._raw_marks.shape[0], 1)
+            self._raw_marks = np.vstack((
+                self._raw_marks,
+                np.zeros((n_new, self._raw_marks.shape[1]), dtype=self._raw_marks.dtype)
+            ))
+            self._raw_positions = np.hstack((
+                self._raw_positions,
+                np.zeros(n_new, dtype=self._raw_positions.dtype)
+            ))
+        self._raw_marks[self._n_spikes] = mark
+        self._raw_positions[self._n_spikes] = position
+        self._n_spikes += 1
+
+        # merge into the nearest stored row recorded in the same hex, if it is
+        # within merge_threshold kernel widths: that row then stands for one
+        # more spike, and its center moves to the average of its spikes. only
+        # rows of the same hex are candidates, so every hex keeps exactly its
+        # own spike count
+        if self.p['merge_threshold'] > 0 and self._mark_idx > 0:
+            same_hex = np.flatnonzero(self._positions[:self._mark_idx] == position)
+            if same_hex.size:
+                diff = self._marks[same_hex] - mark
+                squared_distance = np.einsum('ij,ij->i', diff, diff)
+                nearest = np.argmin(squared_distance)
+                if squared_distance[nearest] <= self.p['merge_dist2']:
+                    row = same_hex[nearest]
+                    self._counts[row] += 1
+                    self._marks[row] += (mark - self._marks[row]) / self._counts[row]
+                    return False
+
         if self._mark_idx == self._marks.shape[0]:
             # NOTE(DS): This make buf_size meaningless
             # double the buffer, by at least one row: a buffer compacted to
@@ -189,11 +266,17 @@ class Encoder(base.LoggingClass):
                 self._positions,
                 np.zeros(n_new, dtype=self._positions.dtype)
             ))
+            self._counts = np.hstack((
+                self._counts,
+                np.zeros(n_new, dtype=self._counts.dtype)
+            ))
             
         # this is where the mark_size increases over time 
         self._marks[self._mark_idx] = mark
         self._positions[self._mark_idx] = position
+        self._counts[self._mark_idx] = 1
         self._mark_idx += 1
+        return True
 
 
 
@@ -217,7 +300,8 @@ class Encoder(base.LoggingClass):
             mark_idx = self._mark_idx
 
         marks = self._marks[:mark_idx]
-        nearby_spikes = mark_idx
+        counts = self._counts[:mark_idx]
+        nearby_spikes = int(counts.sum())
         if self.p['use_filter']:
             std = self.p['filter_std']
             n_std = self.p['filter_n_std']
@@ -241,7 +325,9 @@ class Encoder(base.LoggingClass):
                     (col > mark[ch] - n_std * std) &
                     (col < mark[ch] + n_std * std)
                 ]
-            nearby_spikes = rows.size
+            # spikes represented by the stored rows inside the box (int: it
+            # goes into an int32 record field)
+            nearby_spikes = int(counts[rows].sum())
 
             # not enough spikes within n-cube
             if nearby_spikes < self.p['n_marks_min']:
@@ -251,7 +337,8 @@ class Encoder(base.LoggingClass):
         # and sums each row in one pass, without a temporary array of squares
         diff = marks - mark
         squared_distance = np.einsum('ij,ij->i', diff, diff)
-        weights = self._k1 * np.exp(squared_distance * self._k2)
+        # each row's kernel counts once for every spike the row stands for
+        weights = counts * (self._k1 * np.exp(squared_distance * self._k2))
         positions = self._positions[:mark_idx]
 
         # print(positions.shape)
@@ -323,13 +410,22 @@ class Encoder(base.LoggingClass):
             f"{self._config['files']['prefix']}_" +
             f"trode_{self._trode}.encoder.npz"
         )
+        # only the rows in use (the buffers are preallocated far larger).
+        # marks/positions/counts: the model the decoder uses, merged rows
+        # included; raw_marks/raw_positions: every training spike, unmerged
+        n_rows = self._mark_idx
         np.savez(
             filename,
-            marks=self._marks,
+            marks=self._marks[:n_rows],
             marks_indices = self._chosen_indices,
             bufsize = self._config['encoder']['bufsize'],
-            positions=self._positions,
+            positions=self._positions[:n_rows],
+            counts=self._counts[:n_rows],
             mark_idx=np.atleast_1d(self._mark_idx),
+            raw_marks=self._raw_marks[:self._n_spikes],
+            raw_positions=self._raw_positions[:self._n_spikes],
+            n_spikes=np.atleast_1d(self._n_spikes),
+            merge_threshold=np.atleast_1d(self.p['merge_threshold']),
             occupancy=self._occupancy,
             occupancy_ct=np.atleast_1d(self._occupancy_ct)
         )
@@ -572,7 +668,10 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
             ('t_start_kde', '=i8'),
             ('t_end_kde', '=i8'),
             ('t_start_enc_send', '=i8'),
-            ('t_end_enc_send', '=i8')
+            ('t_end_enc_send', '=i8'),
+            # stored rows the KDE evaluated for this spike (= spikes in the
+            # model when nothing is merged)
+            ('kde_rows', '=i8')
         ])
         self._times[trode] = np.zeros(
             self.p['timings_bufsize'],
@@ -665,7 +764,11 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
                     elec_grp_id, spike_timestamp,
                     spike_msg.t_send_data, spike_msg.t_recv_data,
                     t_start_kde, t_end_kde,
-                    t_start_enc_send, t_end_enc_send
+                    t_start_enc_send, t_end_enc_send,
+                    min(
+                        self._encoders[elec_grp_id]._mark_idx,
+                        self._config['encoder']['bufsize']
+                    )
                 )
                 # record result
 
@@ -702,10 +805,14 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
             # we need to decide whether to add it to the encoding model
             # or not
             if encoding_spike:
-                self._encoders[elec_grp_id].add_new_mark(mark_vec, spike_pos)
-                if self._encoders[elec_grp_id]._mark_idx%1000 == 0:
+                encoder = self._encoders[elec_grp_id]
+                new_row = encoder.add_new_mark(mark_vec, spike_pos)
+                # only on a new row: while spikes merge, the row count can sit
+                # at a multiple of 1000 and would log on every merge
+                if new_row and encoder._mark_idx % 1000 == 0:
                     self.class_log.info(
-                        f"num spikes in {elec_grp_id} is {self._encoders[elec_grp_id]._mark_idx}"
+                        f"num spikes in {elec_grp_id} is {encoder._n_spikes} "
+                        f"({encoder._mark_idx} stored rows)"
                         )
                 self._spk_counters[elec_grp_id]['encoding'] += 1
                 if self._spk_counters[elec_grp_id]['encoding'] % self.p['num_encoding_disp'] == 0:
@@ -786,7 +893,11 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
                 # we also save encoder models at the end of the program,
                 # but we do it here as well just to be safe
                 
-                n_spikes_currently_in_buffer = np.min([encoder._mark_idx,encoder._marks.shape[0]-1])
+                # rows in use. (this was min(_mark_idx, rows - 1), which kept one
+                # row fewer than _mark_idx when the buffer was exactly full, so
+                # the next add_new_mark() crashed. a model loaded from a file
+                # saved with only its rows in use is always exactly full)
+                n_spikes_currently_in_buffer = encoder._mark_idx
                 print(f"n_spikes_current_in_buffer in encoder {encoder._trode}: {n_spikes_currently_in_buffer}")
                 n_spikes_capacity_buffer = self._config['encoder']['bufsize']
                 if n_spikes_currently_in_buffer > n_spikes_capacity_buffer:
@@ -796,18 +907,26 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
                             )
                     encoder._marks = copy.deepcopy(encoder._marks[encoder._chosen_indices])
                     encoder._positions = copy.deepcopy(encoder._positions[encoder._chosen_indices])
+                    encoder._counts = copy.deepcopy(encoder._counts[encoder._chosen_indices])
                 
                 else:
                     encoder._chosen_indices = np.arange(encoder._mark_idx)
                 
                 encoder.save()
                 # Compacting the buffers is only safe once we are done
-                # collecting: it shrinks _marks to exactly _mark_idx rows,
-                # and a trode with no spikes yet would be truncated to zero
-                # rows, which add_new_mark() can never grow again.
+                # collecting: it shrinks _marks to exactly _mark_idx rows
+                # (zero for a trode with no spikes yet; add_new_mark() grows
+                # them again for a spike that fired before the switch).
+                # every array of the model, and the unmerged copy, is shrunk
+                # together so they stay aligned
                 if not self.p['train_all_task_states']:
-                    encoder._marks = encoder._marks[:np.min([n_spikes_currently_in_buffer,n_spikes_capacity_buffer])]
-                    encoder._positions = encoder._positions[:np.min([n_spikes_currently_in_buffer,n_spikes_capacity_buffer])]
+                    n_keep = int(np.min([n_spikes_currently_in_buffer,n_spikes_capacity_buffer]))
+                    encoder._marks = encoder._marks[:n_keep]
+                    encoder._positions = encoder._positions[:n_keep]
+                    encoder._counts = encoder._counts[:n_keep]
+                    encoder._mark_idx = n_keep
+                    encoder._raw_marks = encoder._raw_marks[:encoder._n_spikes]
+                    encoder._raw_positions = encoder._raw_positions[:encoder._n_spikes]
                 self.class_log.info(
                         f"encoder {encoder._trode} shape: {encoder._marks.shape}")
 
@@ -897,7 +1016,8 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
         self, trode, timestamp,
         t_send_data, t_recv_data,
         t_start_kde, t_end_kde,
-        t_start_enc_send, t_end_enc_send
+        t_start_enc_send, t_end_enc_send,
+        kde_rows
     ):
         """Record timing information for a processed spike event"""
 
@@ -923,6 +1043,7 @@ class EncoderManager(base.BinaryRecordBase, base.MessageHandler):
         tarr[ind]['t_end_kde'] = t_end_kde
         tarr[ind]['t_start_enc_send'] = t_start_enc_send
         tarr[ind]['t_end_enc_send'] = t_end_enc_send
+        tarr[ind]['kde_rows'] = kde_rows
         self._times_ind[trode] += 1
 
     def _save_timings(self):

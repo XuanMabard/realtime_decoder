@@ -402,15 +402,27 @@ def load_timing_tables(
     )
 
 
-def _model_counts_from_files(paths: Iterable[Path]) -> dict[int, int]:
-    counts = {}
+def _model_info_from_files(paths: Iterable[Path]) -> dict[int, tuple[int, bool]]:
+    """Training spikes in each saved model, and whether the file was written by
+    the merging encoder. Those files store the spike count as ``n_spikes``
+    (``mark_idx`` counts stored rows, which can each hold several spikes);
+    older files store one spike per row, so ``mark_idx`` is the spike count."""
+
+    info = {}
     for path in paths:
         match = re.search(r"_trode_(\d+)\.encoder\.npz$", path.name)
         if not match:
             continue
         with np.load(path, allow_pickle=False) as data:
-            counts[int(match.group(1))] = int(np.asarray(data["mark_idx"]).flat[0])
-    return counts
+            if "n_spikes" in data.files:
+                info[int(match.group(1))] = (int(np.asarray(data["n_spikes"]).flat[0]), True)
+            else:
+                info[int(match.group(1))] = (int(np.asarray(data["mark_idx"]).flat[0]), False)
+    return info
+
+
+def _model_counts_from_files(paths: Iterable[Path]) -> dict[int, int]:
+    return {trode: spikes for trode, (spikes, _) in _model_info_from_files(paths).items()}
 
 
 def load_final_model_sizes(output_dir: Path | str, prefix: str) -> dict[int, int]:
@@ -436,13 +448,18 @@ def load_initial_model_sizes(config: Mapping, trodes: Iterable[int]) -> dict[int
             )
             counts[trode] = 0
         else:
-            saved = _model_counts_from_files(candidates).get(trode, 0)
-            # Match Encoder._load_model(): the runtime deliberately starts one
-            # slot below the saved mark_idx (or one below the buffer ceiling).
-            counts[trode] = max(
-                min(saved, int(config["encoder"]["bufsize"])) - 1,
-                0,
-            )
+            saved, new_format = _model_info_from_files(candidates).get(trode, (0, False))
+            if new_format:
+                # Encoder._load_model() keeps every saved spike of these files
+                counts[trode] = saved
+            else:
+                # Match Encoder._load_model() for older files: the runtime
+                # starts one slot below the saved mark_idx (or one below the
+                # buffer ceiling).
+                counts[trode] = max(
+                    min(saved, int(config["encoder"]["bufsize"])) - 1,
+                    0,
+                )
     return counts
 
 
@@ -558,6 +575,16 @@ def build_analysis_tables(
         validate="one_to_one",
         indicator="encoder_record_join",
     )
+    # Rows the KDE actually evaluated. The merging encoder records them per
+    # spike (kde_rows); merged rows hold several spikes, so this replaces the
+    # spike-count reconstruction for KDE cost plots when available.
+    if "kde_rows" in sent_spikes:
+        recorded = sent_spikes["kde_rows"].notna().to_numpy()
+        sent_spikes["effective_model_size"] = np.where(
+            recorded,
+            sent_spikes["kde_rows"].fillna(0).to_numpy(),
+            sent_spikes["effective_model_size"].to_numpy(),
+        ).astype(np.int64)
     sent_spikes["decoder_rank"] = sent_spikes["decoder_rank"].astype(int)
     sent_spikes = sent_spikes.merge(
         decoder_timing[

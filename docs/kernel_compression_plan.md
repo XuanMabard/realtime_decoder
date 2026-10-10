@@ -56,21 +56,45 @@ for design decisions on this feature — updated as we go.
    be added after the switch). Checked by driving the real `EncoderManager` offline with the
    recorded Vinnie position stream and spikes: no delay → identical to the original code; every
    spike 30 s late → identical model to no delay (original: 95–97% wrong hex). *(2026-10-07)*
+9. **Merging implemented in the encoder** (decisions 1–6). `Encoder.add_new_mark` merges a
+   training spike into the nearest row of its own hex when within `merge_threshold` × std
+   (running-mean center, count + 1), else appends; `get_joint_prob` multiplies each row's kernel
+   by its count and sums counts for the "nearby spikes" rule (cast to int for the record). New
+   config key `encoder.mark_kernel.merge_threshold` (default 0 = off; invalid values stop the
+   encoder at startup). `_mark_idx` stays "rows in use"; new `_n_spikes` counts spikes; the
+   encoder timing records gain `kde_rows` (rows the KDE evaluated). Verified offline with the real
+   `EncoderManager` on the recorded Vinnie stream: threshold 0 is identical to the previous code
+   in every record field, vote and decoder message; at 0.5 and 1.0 the merged model, send
+   decisions and votes match a separately written implementation exactly. *(2026-10-08)*
+10. **Model files keep both copies and only the rows in use.** `marks`/`positions`/`counts` are
+    the (merged) model; `raw_marks`/`raw_positions`/`n_spikes` are every training spike unmerged;
+    `merge_threshold` records the setting. Writing only the rows in use: 10 encoders saving at the
+    task switch each pause ~15 ms instead of ~170 ms (300 MB → ~18 MB per trode). Both copies in
+    one file, because the preloaded-model loader refuses to start when two files match
+    `{prefix}*trode_N.encoder.npz`. Files written by this code load with every row; older files
+    keep the old "offset of 1" behaviour and load with counts 1 and the model as its own
+    unmerged copy. *(2026-10-08)*
+11. **Two latent crashes fixed** (both reproduced first): a preloaded model whose task state never
+    left 1 crashed the end-of-session save (`_chosen_indices` was never set); the task-switch
+    shrink kept one row fewer than `_mark_idx` when the buffer was exactly full (always the case
+    for models loaded from the new files), so the next added spike crashed. *(2026-10-08)*
+12. **`merge_threshold: 0.5` in the Vinnie, Toby and Lily configs** (about 2× fewer kernels; 0.3% of
+    confident decoding bins change in the replay). *(2026-10-08)*
 
 ## Order of work
 
 1. KDE speed-up independent of merging — implemented 2026-10-07 (decision 7); needs a Trodes
    playback check.
 2. Offline replay notebook + disagreement visualizations — `compression_analysis/` (2026-10-07).
-3. Encoder change, then Trodes playback — after the notebook has been reviewed.
+3. Encoder change — implemented 2026-10-08 (decisions 9–12). Trodes playback 2026-10-09 (Toby
+   20250316 05_r3, `merge_threshold: 0.5`, run `20261009_121633`): the saved models (merged rows
+   and the unmerged copy) equal the replay module's rebuild from that run's own records, bit for
+   bit, on all 8 trodes. Still to run on it: the replay notebook's send-decision check (section 2).
 
 ## Open Questions
 
-- **Which TAU** — from the notebook.
-- **`_mark_idx` changes meaning** once spikes merge (rows ≠ spikes). It feeds the first-spike
-  check, the progress log, the bufsize cap, the saved model size, and the time_analysis
-  model-size validation. Plan: keep it as rows-in-use, add a spike counter, record the bump
-  count in the timing records.
+- **Threshold after playback** — 0.5 for now (decision 12); revisit with the replay notebook on a
+  playback run.
 
 ## Replay results (2026-10-07, Vinnie 2026-09-17 run, weight-only, same-hex)
 
@@ -95,6 +119,13 @@ From `compression_analysis/merging_replay.ipynb`. Both replays decode every sent
 - Checks: replayed models equal the saved `encoder.npz` for all 10 trodes; recomputed send
   decisions equal the logged ones exactly; a near-zero threshold (0.01) gives 0.0000% of bins
   different (largest per-spike vote change 3e-16).
+- **Merged kernels are not separate clusters** (notebook section 5, added 2026-10-08). For every
+  kernel of the final models: the area it shares with its nearest other kernel, in any hex (equal
+  widths, so 2Φ(−d/2σ) of the distance d between centers; counts ignored). Median 92% unmerged,
+  89% at TAU 0.5, 83% at 1.0, 79% at 1.5, 78% at 2.0; at least half shared for 99.6 / 99.2 / 97.4 /
+  93.9 / 89.9% of kernels. With merging on, the nearest kernel is in another hex 98–99% of the
+  time: merging only separates kernels of the same hex, and a unit firing in several hexes leaves
+  overlapping kernels in each. Merged kernels are small patches tiling each unit's marks.
 
 ## Findings
 
@@ -108,17 +139,28 @@ From `compression_analysis/merging_replay.ipynb`. Both replays decode every sent
   saved runs show it (worst trode per run: 24–49% of spikes > 1 s late, waits up to 44 s).
   **Fixed by decision 8** for new runs; runs recorded before 2026-10-07 keep the mislabeled
   models and records.
+- **`mpiexec -bind-to hwthread` puts two ranks on each physical core (2026-10-09).** On the
+  64-core decoder machine the 12 Toby ranks land on cores 0–5 (both hardware threads of each), all
+  in one 8-core cache group; trodes 11 and 14, the two busiest encoders, share a core. A preloaded
+  model makes it worse: in a session preloaded from the 05_r3 merged model, the late share
+  followed model size (trode 14, 99k kernels: 46%; trode 11, 71k: 15%; trodes 6 and 9: 4–7%;
+  small models ≤ 1%). Live KDE cost was ~35 ns per kernel (2.9 ms at 82k kernels in the 05_r3
+  playback); offline, with the real encoders and models all busy at once and one encoder per
+  cache group (`-bind-to user:0,1,2,3,8,16,24,32,40,48,56,4`), trode 14 took 1.6 ms at 99k.
+  Not yet tested live.
 - **Crash risk to avoid:** `nearby_spikes` is written into an int32 record field. A summed
   bump count is a float; `struct.pack` would raise and the encoder's main loop would exit for
   the rest of the session. Cast to int.
 
 ## Codebase Anchors
 
-- `encoder_process.py` (line numbers as of 2026-10-07): `add_new_mark` (142), `get_joint_prob`
-  (202), `save` / `_load_model`, the position history (`_init_position_history` 499,
-  `_record_position` 516, `_position_at` 539), the spike-time lookup in `_process_spike` (608),
-  the save-early reindex block in `_process_pos` (~789; its random choice is a no-op), progress
-  log using `_mark_idx` (706), `nearby_spikes` written at 680.
+- `encoder_process.py` (line numbers as of 2026-10-08): `_load_model` (102), merge settings in
+  `Encoder._init_params` (169), `add_new_mark` (184), `get_joint_prob` (285), `save` (405), the
+  position history (`_init_position_history` 595, `_record_position` 612, `_position_at` 635),
+  timing field `kde_rows` (674), the spike-time lookup in `_process_spike` (707), progress log
+  (809), the save-early block in `_process_pos` (~900; its random choice is a no-op).
+- `time_analysis/realtime_decoder_performance.py`: model sizes read `n_spikes` from new files;
+  KDE-vs-size uses `kde_rows` when the timing files have it.
 - `decoder_process.py`: the no-spike term (296–316) uses the decoder's own spike counts per hex,
   not the encoder's stored marks — merging does not touch it.
 - `position.py`: stored positions are integer bins in both hex (164) and linear (92) modes.
@@ -134,3 +176,12 @@ From `compression_analysis/merging_replay.ipynb`. Both replays decode every sent
 - **2026-10-07** — Implemented the fastest KDE rewrite in `get_joint_prob` (decision 7);
   merging not started.
 - **2026-10-07** — Implemented spike-time position pairing in the encoder (decision 8).
+- **2026-10-08** — Implemented merging, the two-copy model file and the two crash fixes
+  (decisions 9–12); updated time_analysis and the replay module (which now handles runs recorded
+  with merging, with the encoder's exact merge arithmetic) to match.
+- **2026-10-08** — Added a kernel-overlap section to the replay notebook (`kernel_overlap`):
+  merged kernels overlap their nearest neighbour heavily at every threshold, almost always one
+  in another hex.
+- **2026-10-09** — First Trodes playback with merging: saved models match bit for bit (order of
+  work, item 3). A session preloaded from that model dropped 12–18% of spikes; see the
+  `-bind-to hwthread` finding.
