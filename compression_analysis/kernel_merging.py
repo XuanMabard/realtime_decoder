@@ -21,10 +21,16 @@ otherwise it starts a new bump. A bump's center is the mean of its members, its
 width stays ``sigma``, and its count multiplies its kernel. TAU = 0 is no
 merging and reproduces today's encoder exactly.
 
-Votes for the merged models reuse the occupancy the live encoder actually used:
-the logged vote ``r`` is ``(K + 1e-7) / occupancy``, normalized, so the merged
-vote is ``(K_merged + 1e-7) * r / (K + 1e-7)``, normalized. That avoids having
-to reconstruct the encoder's occupancy at every spike.
+Votes for the other models reuse the occupancy the live encoder actually used:
+the logged vote ``r`` is ``(K_live + 1e-7) / occupancy``, normalized, where
+``K_live`` comes from the model the live encoder ran (unmerged, or merged at the
+run's own ``merge_threshold``), so another model's vote is
+``(K + 1e-7) * r / (K_live + 1e-7)``, normalized. That avoids having to
+reconstruct the encoder's occupancy at every spike. The merge arithmetic here is
+the encoder's own, so a run recorded with merging is reproduced bit for bit.
+
+``kernel_overlap`` measures how much each final model's kernels overlap each
+other (nearest other kernel, any hex, and the area the two share).
 """
 
 import os
@@ -37,10 +43,13 @@ from types import SimpleNamespace
 import numpy as np
 import pandas as pd
 import oyaml as yaml
+from scipy.spatial import cKDTree
+from scipy.special import ndtr
 
 from realtime_decoder import decoder_process, position, transitions
 
 EPS = 1e-7  # floor encoder_process.py adds to every bin before the occupancy division
+CACHE_VERSION = 2   # bump whenever cached results would change; older caches are recomputed
 
 # filled by the parent right before a pool is forked; workers only read it
 _SHARED = {}
@@ -73,6 +82,7 @@ class Run:
         self.pos_bin_struct = position.PositionBinStruct(
             pos['lower'], pos['upper'], pos['num_bins'])
         self.sigma = float(mk['std'])
+        self.live_tau = float(mk.get('merge_threshold', 0))   # what the live encoder ran with
         self.use_filter = bool(mk['use_filter'])
         self.box = mk['n_std'] * mk['std']        # same expression as get_joint_prob
         self.n_marks_min = mk['n_marks_min']
@@ -136,16 +146,33 @@ class Run:
     def check_models(self):
         """Rebuild each trode's final model from the per-spike records and compare
         it with the saved encoder.npz. Exact equality means the replay order and
-        the stored positions are right."""
+        the stored positions are right. Files from the merging encoder are checked
+        twice: their unmerged copy against the records, and their merged model
+        against this module's merge rule at the run's own threshold."""
 
         rows = []
         for trode, s in self.spikes.items():
+            em, ep = s.marks[s.enc], s.pos[s.enc]
             with np.load(f'{self.base}_trode_{trode}.encoder.npz') as z:
-                n = int(z['mark_idx'][0])
-                marks_ok = np.array_equal(s.marks[s.enc], z['marks'][:n])
-                pos_ok = np.array_equal(s.pos[s.enc].astype('<f4'), z['positions'][:n])
+                if 'raw_marks' in z.files:
+                    n = int(z['n_spikes'][0])
+                    n_rows = int(z['mark_idx'][0])
+                    marks_ok = np.array_equal(em, z['raw_marks'][:n])
+                    pos_ok = np.array_equal(ep.astype('<f4'), z['raw_positions'][:n])
+                    bump_of, bump_pos = merge_assignments(em, ep, self.live_tau, self.sigma, self.num_bins)
+                    C, W = bump_state(bump_of, em, len(bump_pos))
+                    merged_ok = (len(bump_pos) == n_rows
+                                 and np.array_equal(C, z['marks'][:n_rows])
+                                 and np.array_equal(bump_pos.astype('<f4'), z['positions'][:n_rows])
+                                 and np.array_equal(W, z['counts'][:n_rows]))
+                else:
+                    n = n_rows = int(z['mark_idx'][0])
+                    marks_ok = np.array_equal(em, z['marks'][:n])
+                    pos_ok = np.array_equal(ep.astype('<f4'), z['positions'][:n])
+                    merged_ok = True                       # older files: nothing merged
             rows.append(dict(trode=trode, spikes=len(s.ts), encoding=int(s.enc.sum()),
-                             saved_model=n, marks_match=marks_ok, positions_match=pos_ok))
+                             saved_spikes=n, saved_rows=n_rows, marks_match=marks_ok,
+                             positions_match=pos_ok, merged_model_match=merged_ok))
         return pd.DataFrame(rows).set_index('trode')
 
 
@@ -184,12 +211,15 @@ def hex_hop_distance(run):
 ####################################################################################
 
 def merge_assignments(marks, pos, tau, sigma, num_bins):
-    """Weight-only merging of one trode's encoding spikes, in arrival order.
+    """Weight-only merging of one trode's encoding spikes, in arrival order, with
+    exactly the arithmetic of Encoder.add_new_mark (so a run recorded with merging
+    is reproduced bit for bit).
 
     Each spike joins the nearest bump in its own hex if that bump's center is
-    within tau * sigma, otherwise it starts a new bump. Returns bump_of (the
-    bump index of every encoding spike) and bump_pos (the hex of every bump).
-    tau <= 0 means no merging: every spike is its own bump."""
+    within tau * sigma, otherwise it starts a new bump; a joined bump's center
+    moves by (mark - center) / count. Returns bump_of (the bump index of every
+    encoding spike) and bump_pos (the hex of every bump). tau <= 0 means no
+    merging: every spike is its own bump."""
 
     n, d = marks.shape
     if tau <= 0:
@@ -198,7 +228,6 @@ def merge_assignments(marks, pos, tau, sigma, num_bins):
     lim = (tau * sigma) ** 2
     cap = np.bincount(pos, minlength=num_bins)
     centers = [np.empty((c, d)) for c in cap]
-    sums = [np.empty((c, d)) for c in cap]
     counts = [np.empty(c) for c in cap]
     ids = [np.empty(c, np.int64) for c in cap]
     in_hex = np.zeros(num_bins, np.int64)
@@ -214,12 +243,10 @@ def merge_assignments(marks, pos, tau, sigma, num_bins):
             j = int(np.argmin(d2))
             if d2[j] <= lim:
                 counts[h][j] += 1
-                sums[h][j] += a
-                centers[h][j] = sums[h][j] / counts[h][j]
+                centers[h][j] += (a - centers[h][j]) / counts[h][j]
                 bump_of[i] = ids[h][j]
                 continue
         centers[h][c] = a
-        sums[h][c] = a
         counts[h][c] = 1
         ids[h][c] = n_bumps
         bump_of[i] = n_bumps
@@ -227,6 +254,37 @@ def merge_assignments(marks, pos, tau, sigma, num_bins):
         n_bumps += 1
         in_hex[h] = c + 1
     return bump_of, bump_pos[:n_bumps]
+
+
+def bump_state(bump_of, marks_enc, n_bumps, n_members=None):
+    """Centers and counts of every bump after its first n_members encoding
+    spikes, with exactly the arithmetic of Encoder.add_new_mark: a bump starts
+    at its first spike's mark, and its k-th spike moves it by (mark - center) / k.
+    Bumps are independent, so the k-th spike of every bump is applied at once."""
+
+    n = len(bump_of) if n_members is None else int(n_members)
+    centers = np.zeros((n_bumps, marks_enc.shape[1]))
+    counts = np.zeros(n_bumps)
+    if n == 0:
+        return centers, counts
+    b = bump_of[:n]
+    order = np.argsort(b, kind='stable')                 # each bump's spikes, in arrival order
+    sb = b[order]
+    first = np.r_[0, np.flatnonzero(np.diff(sb)) + 1]
+    rank = np.arange(n) - np.repeat(first, np.diff(np.r_[first, n]))
+    by_rank = np.argsort(rank, kind='stable')
+    spikes, ranks = order[by_rank], rank[by_rank]
+    bounds = np.searchsorted(ranks, np.arange(ranks.max() + 2))
+    for k in range(ranks.max() + 1):
+        sel = spikes[bounds[k]:bounds[k + 1]]             # the (k+1)-th spike of every bump that has one
+        bb = b[sel]
+        if k == 0:
+            centers[bb] = marks_enc[sel]
+            counts[bb] = 1.0
+        else:
+            counts[bb] += 1.0
+            centers[bb] += (marks_enc[sel] - centers[bb]) / counts[bb][:, None]
+    return centers, counts
 
 
 def _merge_job(job):
@@ -267,19 +325,10 @@ def _eval_job(job):
     k1 = 1 / (np.sqrt(2 * np.pi) * _SHARED['sigma'])
     k2 = -0.5 / (_SHARED['sigma'] ** 2)
 
-    n_b, d = len(bump_pos), marks.shape[1]
-    counts = np.zeros(n_b)
-    sums = np.zeros((n_b, d))
+    n_b = len(bump_pos)
     n_before = enc_rank[start]
-    n_active = 0
-    if n_before:
-        members = bump_of[:n_before]
-        counts[:] = np.bincount(members, minlength=n_b)
-        for ch in range(d):
-            sums[:, ch] = np.bincount(members, weights=marks_enc[:n_before, ch], minlength=n_b)
-        n_active = int(members.max()) + 1
-    centers = np.zeros((n_b, d))
-    centers[:n_active] = sums[:n_active] / counts[:n_active, None]
+    centers, counts = bump_state(bump_of, marks_enc, n_b, n_before)
+    n_active = int(bump_of[:n_before].max()) + 1 if n_before else 0
 
     K = np.zeros((stop - start, nbins))
     near = np.zeros(stop - start)
@@ -296,11 +345,13 @@ def _eval_job(job):
         t_eval[i - start] = time.perf_counter() - t0
         if enc[i]:
             g = bump_of[enc_rank[i]]
-            counts[g] += 1
-            sums[g] += m
-            centers[g] = sums[g] / counts[g]
-            if g >= n_active:
+            if g >= n_active:                                   # a new bump
+                centers[g] = m
+                counts[g] = 1.0
                 n_active = g + 1
+            else:
+                counts[g] += 1.0
+                centers[g] += (m - centers[g]) / counts[g]
     return trode, tau, start, K, near, t_eval
 
 
@@ -415,12 +466,10 @@ def time_kde(run, taus, trode=None, n_queries=300, seed=0):
     rows = []
     for tau in [0.0] + [float(t) for t in taus if t > 0]:
         bump_of, bump_pos = merge_assignments(marks_enc, pos_enc, tau, run.sigma, nbins)
-        counts = np.bincount(bump_of, minlength=len(bump_pos)).astype(float)
-        sums = np.stack([np.bincount(bump_of, weights=marks_enc[:, ch], minlength=len(bump_pos))
-                         for ch in range(d)], axis=1)
-        C = np.ascontiguousarray(sums / counts[:, None])
+        C, counts = bump_state(bump_of, marks_enc, len(bump_pos))
+        C = np.ascontiguousarray(C)
         Pf = bump_pos.astype('<f4')        # the encoder stores positions as float32
-        row = {'tau': tau, 'kernels': len(bump_pos)}
+        row = {'threshold': tau, 'kernels': len(bump_pos)}
         for name, f, P in (("today's code ms", todays_code, Pf), ('faster evaluation ms', faster, bump_pos)):
             f(C, counts, P, Q[0])          # warm-up
             t0 = time.perf_counter()
@@ -428,7 +477,66 @@ def time_kde(run, taus, trode=None, n_queries=300, seed=0):
                 f(C, counts, P, q)
             row[name] = (time.perf_counter() - t0) / len(Q) * 1e3
         rows.append(row)
-    return trode, pd.DataFrame(rows).set_index('tau')
+    return trode, pd.DataFrame(rows).set_index('threshold')
+
+
+####################################################################################
+# Kernel overlap
+####################################################################################
+
+def _overlap_job(job):
+    trode, tau = job
+    s = _SHARED['spikes'][trode]
+    marks_enc = s['marks_enc']
+    bump_of, bump_pos = merge_assignments(
+        marks_enc, s['pos'][s['enc']], tau, _SHARED['sigma'], _SHARED['num_bins'])
+    centers, counts = bump_state(bump_of, marks_enc, len(bump_pos))
+    n = len(counts)
+    dist, nearest = np.full(n, np.inf), np.full(n, -1)
+    if n > 1:
+        d, i = cKDTree(centers).query(centers, k=2)       # exact nearest neighbours
+        dist = d[:, 1]                                     # closest other kernel (0 for duplicates)
+        nearest = np.where(i[:, 0] == np.arange(n), i[:, 1], i[:, 0])
+    return trode, tau, counts, bump_pos, dist, nearest
+
+
+def kernel_overlap(run, taus, n_workers=None):
+    """Every kernel of each trode's final model, per threshold (0 = unmerged),
+    with the distance to its nearest other kernel (in any hex) and the area the
+    two share. One row per kernel.
+
+    All kernels have the same width sigma, so the area two of them share (the
+    integral of min(f, g)) depends only on the distance d between their centers:
+    2 * Phi(-d / (2 sigma)), in any number of dimensions (the two bumps cross on
+    the plane halfway between the centers). Distance is the KDE's own (Euclidean
+    over all mark channels); the spike counts are ignored. Marks are quantized,
+    so a few kernels have two neighbours at exactly the same distance; which one
+    counts as nearest then only affects nearest_same_hex."""
+
+    variants = [0.0] + [float(t) for t in taus if t > 0]
+    n_workers = n_workers or max(1, min(64, (os.cpu_count() or 2) - 4))
+    _SHARED.clear()
+    _SHARED.update(sigma=run.sigma, num_bins=run.num_bins,
+                   spikes={t: dict(marks_enc=np.ascontiguousarray(s.marks[s.enc]), pos=s.pos, enc=s.enc)
+                           for t, s in run.spikes.items()})
+    jobs = [(t, v) for v in variants for t in run.trodes]
+    with mp.get_context('fork').Pool(min(n_workers, len(jobs))) as pool:
+        out = pool.map(_overlap_job, jobs)
+    _SHARED.clear()
+
+    frames = []
+    for trode, tau, counts, bump_pos, dist, nearest in out:
+        widths = dist / run.sigma
+        frames.append(pd.DataFrame({
+            'threshold': tau,
+            'trode': trode,
+            'hex_idx': bump_pos,                     # dense index into run.hex_ids
+            'spikes': counts.astype(np.int64),       # training spikes the kernel holds
+            'nearest_widths': widths,                # distance to the nearest other kernel, in sigmas
+            'shared': 2 * ndtr(-widths / 2),         # area shared with that kernel (0..1)
+            'nearest_same_hex': (nearest >= 0) & (bump_pos[np.maximum(nearest, 0)] == bump_pos),
+        }))
+    return pd.concat(frames, ignore_index=True)
 
 
 ####################################################################################
@@ -450,12 +558,20 @@ def replay(run, taus, n_workers=None, chunk_size=4000, cache_dir=None, force=Fal
     taus = [float(t) for t in taus]
     variants = [0.0] + [t for t in taus if t > 0]
     n_workers = n_workers or max(1, min(64, (os.cpu_count() or 2) - 4))
+    live = run.live_tau
     cache = {}
     if cache_dir and not force:
         for v in variants:
             f = os.path.join(cache_dir, f'{run.prefix}.merge_tau{v:g}.npz')
             if os.path.exists(f):
-                cache[v] = f
+                with np.load(f) as z:
+                    current = ('cache_version' in z.files
+                               and int(z['cache_version'][0]) == CACHE_VERSION
+                               and float(z['live_tau'][0]) == live)
+                if current:
+                    cache[v] = f
+                else:
+                    log(f'threshold {v:g}: cached results in {f} are from an older version; recomputing')
     todo = [v for v in variants if v not in cache]
     ctx = mp.get_context('fork')
 
@@ -470,7 +586,9 @@ def replay(run, taus, n_workers=None, chunk_size=4000, cache_dir=None, force=Fal
 
     results = {}
     if todo:
-        need = sorted(set(todo) | {0.0})   # the unmerged pass is needed for the vote ratio
+        # the unmerged model is the reference for every comparison, and the live
+        # run's own model is needed for the vote ratio
+        need = sorted(set(todo) | {0.0, live})
         # 1. merge assignments (cheap, one sequential pass per trode and tau)
         t0 = time.time()
         with ctx.Pool(n_workers) as pool:
@@ -494,23 +612,25 @@ def replay(run, taus, n_workers=None, chunk_size=4000, cache_dir=None, force=Fal
                 teval[(t, v)][a:a + len(nc)] = tc
         log(f'spike replay ({len(jobs)} chunks, {n_workers} workers): {time.time() - t0:.0f} s')
 
-        # 3. votes and per-spike comparison against the unmerged model
+        # 3. votes per model, then per-spike comparison against the unmerged model
+        vote_models = sorted(set(todo) | {0.0})
         per_spike = {v: {} for v in todo}
         variant_spikes = {v: [] for v in todo}
-        n_fallback = {v: 0 for v in todo}
+        n_fallback = {v: 0 for v in vote_models}
         for t in run.trodes:
             s = run.spikes[t]
             nonempty = s.enc_rank > 0
             occ_fb = None
-            for v in todo:
-                if v == 0.0:
+            sent_of, votes_of = {}, {}
+            for v in vote_models:
+                if v == live:
                     sent, votes = s.sent, s.votes      # the live run, as logged
                 else:
                     sent = nonempty & ((near[(t, v)] >= run.n_marks_min) if run.use_filter else True)
-                    Kr, Km = K[(t, 0.0)], K[(t, v)]
+                    Kr, Km = K[(t, live)], K[(t, v)]
                     with np.errstate(divide='ignore', invalid='ignore'):
                         votes = (Km + EPS) * s.votes / (Kr + EPS)
-                    # spikes the unmerged model did not send have no logged vote:
+                    # spikes the live model did not send have no logged vote:
                     # fall back to the decoder's occupancy at that wall-clock time
                     # (the encoder starts from zeros, the decoder from ones)
                     fb = sent & ~s.sent
@@ -526,11 +646,15 @@ def replay(run, taus, n_workers=None, chunk_size=4000, cache_dir=None, force=Fal
                     tot = votes.sum(axis=1, keepdims=True) * run.pos_bin_struct.pos_bin_delta
                     with np.errstate(divide='ignore', invalid='ignore'):
                         votes = np.where(tot > 0, votes / tot, 0.0)
-                both = sent & s.sent
+                sent_of[v], votes_of[v] = sent, votes
+            ref_sent, ref_votes = sent_of[0.0], votes_of[0.0]
+            for v in todo:
+                sent, votes = sent_of[v], votes_of[v]
+                both = sent & ref_sent
                 tv = np.full(len(s.ts), np.nan, np.float32)
-                tv[both] = 0.5 * np.abs(votes[both] - s.votes[both]).sum(axis=1)
+                tv[both] = 0.5 * np.abs(votes[both] - ref_votes[both]).sum(axis=1)
                 same_top = np.zeros(len(s.ts), bool)
-                same_top[both] = votes[both].argmax(1) == s.votes[both].argmax(1)
+                same_top[both] = votes[both].argmax(1) == ref_votes[both].argmax(1)
                 ci = np.full(len(s.ts), -1, np.int16)
                 ci[sent] = _cred_int(votes[sent], run.cred_interval)
                 bump_of = assign[(t, v)][0]
@@ -540,8 +664,9 @@ def replay(run, taus, n_workers=None, chunk_size=4000, cache_dir=None, force=Fal
                     n_bumps_after=np.maximum.accumulate(bump_of) + 1 if len(bump_of) else bump_of,
                 )
                 variant_spikes[v].append((s.ts[sent], np.full(sent.sum(), t), s.pos[sent], votes[sent]))
+        # the replay of the live run's own model must send exactly the spikes it sent
         ref_gate_ok = {t: bool(np.array_equal(
-            run.spikes[t].enc_rank.astype(bool) & (near[(t, 0.0)] >= run.n_marks_min), run.spikes[t].sent))
+            run.spikes[t].enc_rank.astype(bool) & (near[(t, live)] >= run.n_marks_min), run.spikes[t].sent))
             for t in run.trodes}
         del K, near
 
@@ -584,7 +709,7 @@ def replay(run, taus, n_workers=None, chunk_size=4000, cache_dir=None, force=Fal
                     n_used[ranks[rank]['rows']] = n
                 results[v] = dict(posterior=post, n_used=n_used,
                                   per_spike=per_spike[v], n_fallback=n_fallback[v],
-                                  ref_gate_ok=ref_gate_ok)
+                                  ref_gate_ok=ref_gate_ok, live_tau=live)
         log(f'decoder replay ({len(todo)} variants): {time.time() - t0:.0f} s')
         _SHARED.pop('variants', None)
         _SHARED.pop('assign', None)
@@ -594,6 +719,8 @@ def replay(run, taus, n_workers=None, chunk_size=4000, cache_dir=None, force=Fal
             for v, r in results.items():
                 flat = dict(posterior=r['posterior'], n_used=r['n_used'],
                             n_fallback=np.atleast_1d(r['n_fallback']),
+                            cache_version=np.atleast_1d(CACHE_VERSION),
+                            live_tau=np.atleast_1d(live),
                             ref_gate_ok=np.array([[t, r['ref_gate_ok'][t]] for t in run.trodes]))
                 for t, d in r['per_spike'].items():
                     for key, val in d.items():
@@ -609,7 +736,8 @@ def replay(run, taus, n_workers=None, chunk_size=4000, cache_dir=None, force=Fal
                     per_spike[int(t)][name] = z[key]
             results[v] = dict(posterior=z['posterior'], n_used=z['n_used'],
                               per_spike=per_spike, n_fallback=int(z['n_fallback'][0]),
-                              ref_gate_ok={int(a): bool(b) for a, b in z['ref_gate_ok']})
-        log(f'tau {v:g}: loaded from cache {f}')
+                              ref_gate_ok={int(a): bool(b) for a, b in z['ref_gate_ok']},
+                              live_tau=float(z['live_tau'][0]))
+        log(f'threshold {v:g}: loaded from cache {f}')
 
     return SimpleNamespace(variants=variants, results=results)
