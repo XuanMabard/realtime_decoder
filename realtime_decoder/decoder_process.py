@@ -969,6 +969,7 @@ class DecoderManager(base.BinaryRecordBase, base.MessageHandler):
         self._posterior_msg[0]['posterior'] = posterior
         self._posterior_msg[0]['likelihood'] = likelihood
         self._posterior_msg[0]['velocity'] = self._current_vel
+        self._posterior_msg[0]['mapped_pos'] = self._current_pos
         self._posterior_msg[0]['cred_int_post'] = cred_int_post
         self._posterior_msg[0]['cred_int_lk'] = cred_int_lk
         self._posterior_msg[0]['enc_cred_intervals'] = enc_cred_intervals

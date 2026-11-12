@@ -22,6 +22,8 @@ class RippleMPISendInterface(base.StandardMPISendInterface):
 
     def __init__(self, comm, rank, config):
         super().__init__(comm, rank, config)
+        self._gui_ripple_req = None
+        self._gui_ripple_buf = None
 
     def send_lfp_timestamp(self, timestamp):
         """Send an LFP timestamp to the decoder processes"""
@@ -37,6 +39,31 @@ class RippleMPISendInterface(base.StandardMPISendInterface):
 
         self.comm.Send(
             buf=msg.tobytes(),
+            dest=dest,
+            tag=messages.MPIMessageTag.RIPPLE_DETECTION
+        )
+
+    def send_ripple_to_gui(self, dest, msg):
+        """Send a ripple z-score display message to the GUI without ever
+        blocking this rank.
+
+        The blocking send_ripple() stalls this rank whenever the GUI falls
+        behind draining its queue; since this rank is also the decoder's
+        bin clock, that stall froze the posterior in long sessions. This
+        variant uses Isend and, if the previous message has not been picked
+        up yet, drops the new one -- safe because the payload is a display
+        snapshot that is replaced by a fresh value one time bin later."""
+
+        if self._gui_ripple_req is not None:
+            if not self._gui_ripple_req.Test():
+                return  # GUI still busy with the last one; drop this update
+            self._gui_ripple_req = None
+            self._gui_ripple_buf = None
+
+        # keep a reference to the buffer until MPI confirms completion
+        self._gui_ripple_buf = msg.tobytes()
+        self._gui_ripple_req = self.comm.Isend(
+            buf=self._gui_ripple_buf,
             dest=dest,
             tag=messages.MPIMessageTag.RIPPLE_DETECTION
         )
@@ -360,13 +387,19 @@ class RippleManager(base.BinaryRecordBase, base.MessageHandler):
         '''
 
         #NOTE(DS): The problem of this is where it only considers one electrode at a time
-        self._send_ripple_message_to_GUI(
-                    timestamp = msg_timestamp,
-                    elec_grp_id = -1, #-1 meaning consensus
-                    ripple_type = "consensus",
-                    is_consensus = 1,
-                    datapoint_zscore = datapoint_zscore_consensus
-        )
+        # Throttled to once per decoder time bin (166 Hz instead of 1500 Hz).
+        # This is a display-only snapshot for the GUI (refreshed at 25 Hz);
+        # sending it on every LFP sample let a slow GUI back-pressure this
+        # rank through the blocking send, which stalled the decoder's bin
+        # clock (posterior freeze at ~min 27-33 of long sessions).
+        if self._lfp_count % self.p['lfp_samples_per_time_bin'] == 0:
+            self._send_ripple_message_to_GUI(
+                        timestamp = msg_timestamp,
+                        elec_grp_id = -1, #-1 meaning consensus
+                        ripple_type = "consensus",
+                        is_consensus = 1,
+                        datapoint_zscore = datapoint_zscore_consensus
+            )
 
         # detect start/end of ripples
         for ii, trode in enumerate(self._lockout_sample.keys()):
@@ -637,10 +670,10 @@ class RippleManager(base.BinaryRecordBase, base.MessageHandler):
             self._ripple_msg[0]['is_consensus'] = is_consensus
             self._ripple_msg[0]['datapoint_zscore'] = datapoint_zscore #NOTE(DS): DS added. This is z-score ripple value
 
-            self.send_interface.send_ripple(
+            self.send_interface.send_ripple_to_gui(
                 self._config['rank']['gui'][0],
                 self._ripple_msg
-            ) 
+            )
         
 
 

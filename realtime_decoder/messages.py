@@ -241,6 +241,10 @@ def get_dtype(msg_type:str, *, config:Dict={}):
             ('posterior', '=f8', (num_states, num_bins)),
             ('likelihood', '=f8', (num_bins, )),
             ('velocity', '=f8'),
+            # decoder's current mapped position (dense hex index in hex
+            # mode, linear position otherwise) so the GUI can compare the
+            # posterior against where the animal actually is
+            ('mapped_pos', '=f8'),
             ('cred_int_post', '=i4'),
             ('cred_int_lk', '=i4'),
             ('enc_cred_intervals', '=i4', (num_buff, )),

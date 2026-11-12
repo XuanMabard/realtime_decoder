@@ -6,6 +6,8 @@ fast it ran.
 | File | Purpose |
 |---|---|
 | `decoder_output_content.ipynb` | Builds `bins`, `posterior`, and `likelihood` DataFrames from a run's merged output |
+| `online_offline_comparison.ipynb` | Aligns a realtime run to the offline decode of the same recording and compares what they decoded |
+| `no_spike_visualization.ipynb` | Where in the maze (and when) the decoder had no spikes to decode from — encoder-side vs decoder-side counts on hex maps, per-trode coverage, no-spike streaks |
 
 ## What you get
 

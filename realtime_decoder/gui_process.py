@@ -23,7 +23,10 @@ from trodes_tracker import centroid as trodes_tracker_centroid
 from realtime_decoder import base, messages
 
 _DEFAULT_GUI_PARAMS = {
-    "colormap" : "rocket"
+    "colormap" : "rocket",
+    # decoded-vs-actual hex panel: argmax shown only if its probability
+    # exceeds 1/(number of open hexes) + this offset
+    "hex_argmax_thresh_offset" : 0.02
 }
 
 def _show_message(parent, text, *, kind=None):
@@ -133,7 +136,9 @@ class GenericGuiRecvInterface(base.MPIRecvInterface):
         )
 
     def receive(self):
-        """Test whether a message is available, and if so, process it"""
+        """Test whether a message is available, and if so, process it.
+        Returns True if a message was processed, so callers can drain
+        the queue by looping until this returns False."""
 
         rdy = self._req.Test(status=self._mpi_status)
         if rdy:
@@ -143,6 +148,7 @@ class GenericGuiRecvInterface(base.MPIRecvInterface):
                 buf=self._msg_buffer,
                 tag=self._msg_tag
             )
+        return rdy
 
 class ArmEventsRecvInterface(base.MPIRecvInterface):
     """Interface object for receiving data about the number of
@@ -164,7 +170,8 @@ class ArmEventsRecvInterface(base.MPIRecvInterface):
         )
 
     def receive(self):
-        """Test whether a message is available, and if so, process it"""
+        """Test whether a message is available, and if so, process it.
+        Returns True if a message was processed."""
 
         rdy = self._req.Test(status=self._mpi_status)
         if rdy:
@@ -175,6 +182,7 @@ class ArmEventsRecvInterface(base.MPIRecvInterface):
                 buf=self._msg_buffer,
                 tag=messages.MPIMessageTag.ARM_EVENTS
             )
+        return rdy
 
 
 ####################################################################################
@@ -1627,15 +1635,65 @@ class DecodingResultsWindow(QMainWindow):
         xy[:, 1] = -xy[:, 1]
         self._hex_xy = xy
 
+        # barrier hexes (dense-index mask in hex_ids order): hidden on
+        # the decoded-vs-actual panel and excluded from its argmax. The
+        # raw posterior panel keeps drawing every hex.
+        blocked = set(pos_config.get('blocked_hexes', []) or [])
+        self._hex_open_mask = np.array(
+            [h not in blocked for h in self._hex_ids], dtype=bool
+        )
+        num_open = int(self._hex_open_mask.sum())
+        offset = self._config['gui'].get(
+            'hex_argmax_thresh_offset',
+            _DEFAULT_GUI_PARAMS['hex_argmax_thresh_offset']
+        )
+        self._hex_argmax_thresh = 1.0 / max(num_open, 1) + offset
+
         self._plots['hexpost'] = [None] * num_plots
+        self._plots['hexdec'] = [None] * num_plots
         self._plot_items['hexpost'] = {'scatter': [None] * num_plots}
+        self._plot_items['hexdec'] = {'scatter': [None] * num_plots}
+
+        # Latest bin per rank, redrawn at the GUI refresh rate rather
+        # than once per message (the decoder emits ~170 bins/s; the
+        # screen repaints at refresh_rate). None until the first message.
+        self._data['hex_latest_post'] = [None] * num_plots
+        self._data['hex_latest_pos'] = [-1] * num_plots
+        # Hit-rate bookkeeping. Ring: 1 = argmax matched real position,
+        # 0 = confident but wrong, -1 = below threshold (not counted).
+        # Same length as the scrolling plots so it covers trace_length s.
+        N = self._num_time_bins
+        self._data['hex_hit_ring'] = [
+            np.full(N, -1, dtype=np.int8) for _ in range(num_plots)
+        ]
+        self._data['hex_hit_ring_ind'] = [0] * num_plots
+        self._data['hex_hits_total'] = [0] * num_plots
+        self._data['hex_conf_total'] = [0] * num_plots
+
+        # Real-position trace overlaid on the likelihood/posterior
+        # heatmaps: y = hex index + 0.5 (bin center) per time column,
+        # NaN where nothing has been written yet. The image maps column
+        # t to x in [t, t+1] and bin b to y in [b, b+1] with no
+        # rescaling, so these coordinates land on the heatmap cells.
+        self._data['hex_pos_trace'] = [
+            np.full(N, np.nan) for _ in range(num_plots)
+        ]
+        self._hex_trace_x = np.arange(N) + 0.5
+        self._plot_items['hex_trace'] = {
+            'lk': [None] * num_plots, 'post': [None] * num_plots
+        }
 
         for ii in range(num_plots):
 
             dec_rank = self._config['rank']['decoders'][ii]
 
-            plot = self._graphics_widget.addPlot(
-                3, ii, 1, 1,
+            # nested layout: both hex panels share this rank's single
+            # grid cell, so the second panel doesn't add a grid column
+            # that would stretch the time-series rows above
+            hex_layout = self._graphics_widget.addLayout(3, ii, 1, 1)
+
+            plot = hex_layout.addPlot(
+                0, 0, 1, 1,
                 title=f'Hex posterior (Rank {dec_rank})',
                 labels={'left': 'y (px)', 'bottom': 'x (px)'}
             )
@@ -1651,6 +1709,37 @@ class DecodingResultsWindow(QMainWindow):
             self._plots['hexpost'][ii] = plot
             self._plot_items['hexpost']['scatter'][ii] = scatter
 
+            dec_plot = hex_layout.addPlot(
+                0, 1, 1, 1,
+                title=f'Decoded vs actual hex (Rank {dec_rank})',
+                labels={'left': 'y (px)', 'bottom': 'x (px)'}
+            )
+            dec_plot.setMenuEnabled(False)
+            dec_plot.setAspectLocked(True)
+
+            dec_scatter = pg.ScatterPlotItem(
+                pos=self._hex_xy[self._hex_open_mask], size=26,
+                brush=pg.mkBrush(80, 80, 80), pen=pg.mkPen('w')
+            )
+            dec_plot.addItem(dec_scatter)
+
+            self._plots['hexdec'][ii] = dec_plot
+            self._plot_items['hexdec']['scatter'][ii] = dec_scatter
+
+            # thin red real-position line on both heatmaps. Cosmetic
+            # 1-px pen, no antialiasing so it stays a single crisp pixel;
+            # connect='finite' breaks the line at NaN, which is how the
+            # wrap seam (current time) is drawn as a gap. Default z of 0
+            # sits above the heatmap image at -100.
+            for key in ('lk', 'post'):
+                curve = pg.PlotDataItem(
+                    self._hex_trace_x, self._data['hex_pos_trace'][ii],
+                    pen=pg.mkPen('r', width=1), connect='finite',
+                    antialias=False
+                )
+                self._plots[key][ii].addItem(curve)
+                self._plot_items['hex_trace'][key][ii] = curve
+
     def _update_hex_scatter_colors(self, plot_ind, values):
         """Recolor the hex-posterior scatter plot for one decoder rank
         from a probability vector over hex cells (dense-index order,
@@ -1663,6 +1752,64 @@ class DecodingResultsWindow(QMainWindow):
         brushes = [pg.mkBrush(int(r), int(g), int(b)) for r, g, b in colors]
         self._plot_items['hexpost']['scatter'][plot_ind].setData(
             pos=self._hex_xy, brush=brushes, size=26, pen=pg.mkPen('w')
+        )
+
+    def _hex_argmax(self, values):
+        """Argmax of a probability vector over hex cells, restricted to
+        open (non-barrier) hexes. Returns (dense index, probability);
+        the probability is 0 when every open hex has zero mass, so the
+        caller's threshold test hides the argmax rather than lighting
+        up an arbitrary hex."""
+
+        vals = np.where(
+            self._hex_open_mask, np.nan_to_num(values, nan=0.0), -np.inf
+        )
+        idx = int(np.argmax(vals))
+        return idx, max(float(vals[idx]), 0.0)
+
+    def _update_hex_hit_stats(self, plot_ind, values, real_pos):
+        """Per-bin bookkeeping for the decoded-vs-actual hit rate. Runs
+        on every message (unlike the redraw) so every bin is counted.
+        Bins whose argmax is below threshold are excluded from both the
+        rolling and cumulative denominators."""
+
+        idx, prob = self._hex_argmax(values)
+        if prob >= self._hex_argmax_thresh:
+            hit = int(idx == real_pos)
+            self._data['hex_hits_total'][plot_ind] += hit
+            self._data['hex_conf_total'][plot_ind] += 1
+        else:
+            hit = -1
+
+        ring = self._data['hex_hit_ring'][plot_ind]
+        ri = self._data['hex_hit_ring_ind'][plot_ind]
+        ring[ri] = hit
+        self._data['hex_hit_ring_ind'][plot_ind] = (ri + 1) % len(ring)
+
+    def _update_hex_decoded_colors(self, plot_ind, values, real_pos):
+        """Recolor the decoded-vs-actual panel for one decoder rank:
+        every open hex dark gray, the argmax hex white (only if above
+        threshold), the animal's real hex red, and green when they are
+        the same hex. Barrier hexes are not drawn."""
+
+        n = len(self._hex_ids)
+        colors = np.tile(np.array([80, 80, 80]), (n, 1))
+
+        idx, prob = self._hex_argmax(values)
+        confident = prob >= self._hex_argmax_thresh
+        if confident:
+            colors[idx] = (255, 255, 255)
+        if 0 <= real_pos < n:
+            if confident and idx == real_pos:
+                colors[real_pos] = (0, 200, 0)
+            else:
+                colors[real_pos] = (255, 0, 0)
+
+        colors = colors[self._hex_open_mask]
+        brushes = [pg.mkBrush(int(r), int(g), int(b)) for r, g, b in colors]
+        self._plot_items['hexdec']['scatter'][plot_ind].setData(
+            pos=self._hex_xy[self._hex_open_mask], brush=brushes,
+            size=26, pen=pg.mkPen('w')
         )
 
     # TODO(DS): Change this to a consensus ripple power
@@ -1703,10 +1850,21 @@ class DecodingResultsWindow(QMainWindow):
         """Receive any new messages and potentially update plot data"""
 
         self._command_interface.receive()
-        self._posterior_interface.receive()
-        self._ripple_interface.receive()
-        self._arm_events_interface.receive()
-        self._dropped_spikes_interface.receive()
+
+        # Drain each data queue completely instead of taking one message
+        # per tick: at one message/tick a burst outpaces the timer and the
+        # backlog grows without bound, which is what back-pressured the
+        # ripple rank (the decoder's bin clock) in long sessions. The cap
+        # bounds worst-case time spent here so Qt stays responsive.
+        for interface in (
+            self._posterior_interface,
+            self._ripple_interface,
+            self._arm_events_interface,
+            self._dropped_spikes_interface,
+        ):
+            for _ in range(2000):
+                if not interface.receive():
+                    break
 
         if self._elapsed_timer.elapsed() > self._refresh_msec:
             self._elapsed_timer.start()
@@ -1735,6 +1893,24 @@ class DecodingResultsWindow(QMainWindow):
                 self._plot_items['state']['data'][ii][state_ind].setData(
                     state_data
                 )
+
+        # hex panels are redrawn here (refresh_rate) from the most
+        # recent bin rather than on every incoming message, which keeps
+        # GUI work per message small so its MPI queue drains quickly
+        if self._is_hex:
+            for ii in range(len(self._plots['hexpost'])):
+                post = self._data['hex_latest_post'][ii]
+                if post is None:
+                    continue
+                real_pos = self._data['hex_latest_pos'][ii]
+                self._update_hex_scatter_colors(ii, post)
+                self._update_hex_decoded_colors(ii, post, real_pos)
+                trace = self._data['hex_pos_trace'][ii]
+                for key in ('lk', 'post'):
+                    self._plot_items['hex_trace'][key][ii].setData(
+                        self._hex_trace_x, trace
+                    )
+            self._update_status_bar()
 
     def handle_message(self, msg, mpi_status):
         """Process a (non neural data) received MPI message"""
@@ -1803,9 +1979,18 @@ class DecodingResultsWindow(QMainWindow):
         )
 
         if self._is_hex:
-            self._update_hex_scatter_colors(
-                plot_ind, self._data['post'][plot_ind][:, ind]
-            )
+            # copy: the ring column is overwritten once the buffer wraps
+            post = self._data['post'][plot_ind][:, ind].copy()
+            real_pos = int(msg[0]['mapped_pos'])
+            self._data['hex_latest_post'][plot_ind] = post
+            self._data['hex_latest_pos'][plot_ind] = real_pos
+            self._update_hex_hit_stats(plot_ind, post, real_pos)
+
+            # ungated real-position trace; NaN in the next column keeps
+            # the line from joining newest to oldest across the wrap
+            trace = self._data['hex_pos_trace'][plot_ind]
+            trace[ind] = real_pos + 0.5
+            trace[(ind + 1) % self._num_time_bins] = np.nan
 
         ''' #NOTE(DS): original state function from Josh and Mike
         self._data['state'][plot_ind][:, ind] = np.nansum(
@@ -1874,6 +2059,26 @@ class DecodingResultsWindow(QMainWindow):
             sb_string += f"(Rank {rank}: {pct:.3f}%), "
 
         sb_string += f"Tot. Rewards: {self._sbdata['rewards_delivered']}"
+
+        if self._is_hex:
+            trace_len = self._config['gui']['trace_length']
+            for rank, ii in self._decoder_rank_ind_map.items():
+                ring = self._data['hex_hit_ring'][ii]
+                conf = ring >= 0
+                n_roll = int(conf.sum())
+                n_tot = self._data['hex_conf_total'][ii]
+                roll = (
+                    f"{100.0 * ring[conf].sum() / n_roll:.0f}%"
+                    if n_roll else "--"
+                )
+                tot = (
+                    f"{100.0 * self._data['hex_hits_total'][ii] / n_tot:.0f}%"
+                    if n_tot else "--"
+                )
+                sb_string += (
+                    f", Hex hit (Rank {rank}): {trace_len}s {roll} "
+                    f"(n={n_roll}) | total {tot} (n={n_tot})"
+                )
 
         self.statusBar().showMessage(sb_string)
 
